@@ -1,7 +1,8 @@
+var loadedData;
 var getData=function(){
 	this.returnData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
 		function(snapshot){
-			return snapshot.val().gamedata;
+			loadedData = snapshot.val().gamedata;
 		}
 	);
 };
@@ -24,7 +25,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 });
 var enableCombat=false;
 var checkStorage=function(){
-     if(firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;})!==undefined){
+     if(function(){getData();return loadedData}!==undefined){
           return true;
      }else{
           return false;
@@ -877,7 +878,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var checkData=function(){
         var appendedConfirmText="";
-        var savedData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;});
+        var savedData=function(){getData();return loadedData};
         for(var storageLength in savedData){
             if(storageLength=="playerName"||storageLength=="stats"||storageLength=="inventory"||storageLength=="currentCaps"){
                 if(storageLength=="inventory"){
@@ -942,7 +943,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var loadGame=function(){
         if(checkStorage()){
-            var loadData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;});
+            var loadData=function(){getData();return loadedData};
             area=loadData.area;
             playerX=loadData.playerX;
             playerY=loadData.playerY;
