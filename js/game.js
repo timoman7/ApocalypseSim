@@ -908,7 +908,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Agility=BaseA.value;
                 gameData.stats.Luck=BaseL.value;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-			gamedata: JSON.stringify(gameData);
+			gamedata: JSON.stringify(gameData)
 		});
             }
         }else{
@@ -929,7 +929,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.stats.Agility=BaseA.value;
             gameData.stats.Luck=BaseL.value;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-			gamedata: JSON.stringify(gameData);
+			gamedata: JSON.stringify(gameData)
 		});
         }
     };
