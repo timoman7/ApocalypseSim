@@ -1,6 +1,6 @@
 var loadedData;
 var getData=function(){
-	this.returnData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
+	firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
 		function(snapshot){
 			loadedData = snapshot.val().gamedata;
 		}
