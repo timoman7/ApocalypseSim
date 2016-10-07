@@ -127,7 +127,7 @@ function typing(){
 }
 var testLoad;
 function setup(){
-	img1 = loadImage('../images/brQeTf76.png');
+	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
 	createCanvas(windowWidth,windowHeight);//-50 on both
 	invBtn=createButton("Inventory");
