@@ -23,6 +23,7 @@ var checkStorage=function(){
           return false;
      }
 }
+setInterval(function(){if(config.getBoolean("serverText")){config.getBoolean("serverText");}},10);
 var speaking = new p5.Speech();
 speaking.setLang('en-US');
 speaking.setVoice("Google UK English Male");
