@@ -870,7 +870,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var checkData=function(){
         var appendedConfirmText="";
-        var savedData=JSON.parse(firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;}));
+        var savedData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return JSON.parse(snapshot.val().gamedata);});
         for(var storageLength in savedData){
             if(storageLength=="playerName"||storageLength=="stats"||storageLength=="inventory"||storageLength=="currentCaps"){
                 if(storageLength=="inventory"){
@@ -935,7 +935,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var loadGame=function(){
         if(checkStorage()){
-            var loadData=JSON.parse(firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;}));
+            var loadData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return JSON.parse(snapshot.val().gamedata);});
             area=loadData.area;
             playerX=loadData.playerX;
             playerY=loadData.playerY;
