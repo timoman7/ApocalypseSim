@@ -1,44 +1,21 @@
+var provider = new firebase.auth.GithubAuthProvider();
+firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
 var enableCombat=false;
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-}
-var newUser=function(username){
-    setCookie("username",username,31);
-};
-function callPHP(url, params) {
-    if(window.XMLHttpRequest) {
-        try {
-            req = new XMLHttpRequest();
-        } catch(e) {
-            req = false;
-        }
-    } else if(window.ActiveXObject){
-        try {
-            req = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch(e) {
-            try {
-                req = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch(e) {
-                req = false;
-            }
-        }
-    }
-    if(req) {
-        req.open("POST", url, true);
-        req.setRequestHeader('Content-type','application/x-php');
-        req.send(params);
-        console.log(req.responseText);
-        return true;
-    }
-    return false;
-}
-if(document.cookie.search("username") === -1){
-    var username=prompt("Enter a username.","");
-    newUser(username);
-}
 var checkStorage=function(){
      if(localStorage.length!==0){
           return true;
