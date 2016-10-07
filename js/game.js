@@ -23,7 +23,6 @@ var checkStorage=function(){
           return false;
      }
 }
-setInterval(function(){if(false){config.getBoolean("serverText");}},10);
 var speaking = new p5.Speech();
 speaking.setLang('en-US');
 speaking.setVoice("Google UK English Male");
@@ -908,7 +907,9 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Intelligence=BaseI.value;
                 gameData.stats.Agility=BaseA.value;
                 gameData.stats.Luck=BaseL.value;
-                localStorage.setItem('gameData',JSON.stringify(gameData));
+		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+			gamedata: JSON.stringify(gameData);
+		});
             }
         }else{
             var gameData={};
@@ -927,7 +928,9 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.stats.Intelligence=BaseI.value;
             gameData.stats.Agility=BaseA.value;
             gameData.stats.Luck=BaseL.value;
-            localStorage.setItem('gameData',JSON.stringify(gameData));
+		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+			gamedata: JSON.stringify(gameData);
+		});
         }
     };
     var loadGame=function(){
