@@ -1,3 +1,4 @@
+var getData=function(){this.returnData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;});}
 var provider = new firebase.auth.GithubAuthProvider();
 firebase.auth().signInWithPopup(provider).then(function(result) {
   // This gives you a GitHub Access Token. You can use it to access the GitHub API.
