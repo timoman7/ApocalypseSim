@@ -870,7 +870,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var checkData=function(){
         var appendedConfirmText="";
-        var savedData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return JSON.parse(snapshot.val().gamedata);});
+        var savedData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;});
         for(var storageLength in savedData){
             if(storageLength=="playerName"||storageLength=="stats"||storageLength=="inventory"||storageLength=="currentCaps"){
                 if(storageLength=="inventory"){
@@ -908,7 +908,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Agility=BaseA.value;
                 gameData.stats.Luck=BaseL.value;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-			gamedata: JSON.stringify(gameData)
+			gamedata: gameData
 		});
             }
         }else{
@@ -929,13 +929,13 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.stats.Agility=BaseA.value;
             gameData.stats.Luck=BaseL.value;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-			gamedata: JSON.stringify(gameData)
+			gamedata: gameData
 		});
         }
     };
     var loadGame=function(){
         if(checkStorage()){
-            var loadData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return JSON.parse(snapshot.val().gamedata);});
+            var loadData=firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;});
             area=loadData.area;
             playerX=loadData.playerX;
             playerY=loadData.playerY;
