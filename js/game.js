@@ -1,12 +1,16 @@
-var loadedData;
-var getData=function(){
-	firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
-		function(snapshot){
-			loadedData = snapshot.val().gamedata;
-		}
-	);
-};
-var provider = new firebase.auth.GithubAuthProvider();
+var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
+var provider;
+if(providerChoice==="Google"){
+provider = new firebase.auth.GoogleAuthProvider();
+}else if(providerChoice==="Github"){
+provider = new firebase.auth.GithubAuthProvider();
+}else if(providerChoice==="Email"){
+provider = new firebase.auth.EmailAuthProvider();
+}else if(providerChoice==="Twitter"){
+provider = new firebase.auth.TwitterAuthProvider();
+}else if(providerChoice==="Facebook"){
+provider = new firebase.auth.FacebookAuthProvider();
+}
 firebase.auth().signInWithPopup(provider).then(function(result) {
   // This gives you a GitHub Access Token. You can use it to access the GitHub API.
   var token = result.credential.accessToken;
@@ -23,6 +27,14 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
   var credential = error.credential;
   // ...
 });
+var loadedData;
+var getData=function(){
+	firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
+		function(snapshot){
+			loadedData = snapshot.val().gamedata;
+		}
+	);
+};
 var enableCombat=false;
 var checkStorage=function(){
 	getData();
