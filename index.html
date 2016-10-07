@@ -2,14 +2,6 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/css.css" type="text/css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script src="js/p5.js"></script>
-<script src="js/p5.dom.js"></script>
-<script src="js/p5.sound.js"></script>
-<script src="js/p5.speech.js"></script>
-<script src="js/p5.gibber.min.js" type="text/javascript"></script>
-<script src="js/highlight.pack.js"></script>
-<script src="js/sketch.js" async></script>
 <title> Welcome to the Apocalypse (Alpha 0.2.3) </title> 
 </head>
 <body text= "SpringGreen">
@@ -157,7 +149,26 @@
 <div id="blinking" style="display: none"><blink>></blink></div>
 <div id="dispText" text="SpringGreen"></div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDDYegEWICRHxHWNVSvS_ePj-bAT4mM8jo",
+    authDomain: "apocalypse-simulator.firebaseapp.com",
+    databaseURL: "https://apocalypse-simulator.firebaseio.com",
+    storageBucket: "",
+    messagingSenderId: "132043631561"
+  };
+  firebase.initializeApp(config);
+</script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/p5.js"></script>
+<script src="js/p5.dom.js"></script>
+<script src="js/p5.sound.js"></script>
+<script src="js/p5.speech.js"></script>
+<script src="js/p5.gibber.min.js" type="text/javascript"></script>
+<script src="js/highlight.pack.js"></script>
+<script src="js/sketch.js" async></script>
 <script type="text/javascript" src="js/game.js"></script>
-
 </body>
 </html>
