@@ -928,6 +928,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Intelligence=BaseI.value;
                 gameData.stats.Agility=BaseA.value;
                 gameData.stats.Luck=BaseL.value;
+                gameData.totalP=totalP;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -949,6 +950,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.stats.Intelligence=BaseI.value;
             gameData.stats.Agility=BaseA.value;
             gameData.stats.Luck=BaseL.value;
+		totalP=gameData.totalP;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
