@@ -17,7 +17,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 });
 var enableCombat=false;
 var checkStorage=function(){
-     if(localStorage.length!==0){
+     if(firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;})!==undefined){
           return true;
      }else{
           return false;
@@ -870,7 +870,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var checkData=function(){
         var appendedConfirmText="";
-        var savedData=JSON.parse(localStorage.gameData);
+        var savedData=JSON.parse(firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;}));
         for(var storageLength in savedData){
             if(storageLength=="playerName"||storageLength=="stats"||storageLength=="inventory"||storageLength=="currentCaps"){
                 if(storageLength=="inventory"){
@@ -935,7 +935,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var loadGame=function(){
         if(checkStorage()){
-            var loadData=JSON.parse(localStorage.getItem('gameData'));
+            var loadData=JSON.parse(firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(function(snapshot){return snapshot.val().gamedata;}));
             area=loadData.area;
             playerX=loadData.playerX;
             playerY=loadData.playerY;
@@ -960,7 +960,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     var removeGameData=function(){
         if(checkStorage()){
             if(confirm("Are you sure you want to delete you save data?"+checkData())){
-                localStorage.removeItem('gameData');
+                firebase.database().ref('/users/' + firebase.auth().currentUser.uid+"/gamedata").remove();
                 alert('Save data deleted.');
             }
         }else{
