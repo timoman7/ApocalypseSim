@@ -25,7 +25,8 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 });
 var enableCombat=false;
 var checkStorage=function(){
-     if(function(){getData();return loadedData}!==undefined){
+	getData();
+     if(loadedData!==undefined){
           return true;
      }else{
           return false;
@@ -943,7 +944,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var loadGame=function(){
         if(checkStorage()){
-            var loadData=function(){getData();return loadedData};
+		getData();
+            var loadData=loadedData;
             area=loadData.area;
             playerX=loadData.playerX;
             playerY=loadData.playerY;
