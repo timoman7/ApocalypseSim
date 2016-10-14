@@ -28,16 +28,16 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
   // ...
 });
 var loadedData;
-var getData=function(){
+var getData=function(dataToGet){
 	firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
 		function(snapshot){
-			loadedData = snapshot.val().gamedata;
+			loadedData = snapshot.val().dataToGet;
 		}
 	);
 };
 var enableCombat=false;
 var checkStorage=function(){
-	getData();
+	getData(gamedata);
      if(loadedData!==undefined){
           return true;
      }else{
@@ -891,7 +891,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var checkData=function(){
         var appendedConfirmText="";
-        var savedData=function(){getData();return loadedData};
+        var savedData=function(){getData(gamedata);return loadedData};
         for(var storageLength in savedData){
             if(storageLength=="playerName"||storageLength=="stats"||storageLength=="inventory"||storageLength=="currentCaps"){
                 if(storageLength=="inventory"){
@@ -958,7 +958,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     };
     var loadGame=function(){
         if(checkStorage()){
-		getData();
+		getData(gamedata);
             var loadData=loadedData;
             area=loadData.area;
             playerX=loadData.playerX;
