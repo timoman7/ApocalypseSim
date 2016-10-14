@@ -31,7 +31,7 @@ var loadedData;
 var getData=function(dataToGet){
 	firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
 		function(snapshot){
-			loadedData = snapshot.val()[dataToGet.subStr(1,-1)];
+			loadedData = snapshot.val()[dataToGet.substr(1,dataToGet.length)];
 		}
 	);
 };
