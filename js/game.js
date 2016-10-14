@@ -921,13 +921,13 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.playerName=playerName;
                 gameData.textHistory=document.getElementById('container1').innerHTML;
                 gameData.stats={};
-                gameData.stats.Strength=BaseS.value;
-                gameData.stats.Perception=BaseP.value;
-                gameData.stats.Endurance=BaseE.value;
-                gameData.stats.Charisma=BaseC.value;
-                gameData.stats.Intelligence=BaseI.value;
-                gameData.stats.Agility=BaseA.value;
-                gameData.stats.Luck=BaseL.value;
+                gameData.stats.Strength=BaseS.valueAsNumber;
+                gameData.stats.Perception=BaseP.valueAsNumber;
+                gameData.stats.Endurance=BaseE.valueAsNumber;
+                gameData.stats.Charisma=BaseC.valueAsNumber;
+                gameData.stats.Intelligence=BaseI.valueAsNumber;
+                gameData.stats.Agility=BaseA.valueAsNumber;
+                gameData.stats.Luck=BaseL.valueAsNumber;
                 gameData.totalP=totalP;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -943,14 +943,14 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.playerName=playerName;
             gameData.textHistory=document.getElementById('container1').innerHTML;
             gameData.stats={};
-            gameData.stats.Strength=BaseS.value;
-            gameData.stats.Perception=BaseP.value;
-            gameData.stats.Endurance=BaseE.value;
-            gameData.stats.Charisma=BaseC.value;
-            gameData.stats.Intelligence=BaseI.value;
-            gameData.stats.Agility=BaseA.value;
-            gameData.stats.Luck=BaseL.value;
-		totalP=gameData.totalP;
+            gameData.stats.Strength=BaseS.valueAsNumber;
+            gameData.stats.Perception=BaseP.valueAsNumber;
+            gameData.stats.Endurance=BaseE.valueAsNumber;
+            gameData.stats.Charisma=BaseC.valueAsNumber;
+            gameData.stats.Intelligence=BaseI.valueAsNumber;
+            gameData.stats.Agility=BaseA.valueAsNumber;
+            gameData.stats.Luck=BaseL.valueAsNumber;
+	    gameData.totalP=totalP;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
