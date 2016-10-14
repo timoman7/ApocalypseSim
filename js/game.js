@@ -919,7 +919,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.inventory=playerInventory;
                 gameData.currentCaps=currentCaps;
                 gameData.playerName=playerName;
-                gameData.textHistory=document.getElementById('container1').innerHTML;
+                gameData.textHistory=document.getElementById('console').innerHTML;
                 gameData.stats={};
                 gameData.stats.Strength=BaseS.valueAsNumber;
                 gameData.stats.Perception=BaseP.valueAsNumber;
@@ -941,7 +941,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.inventory=playerInventory;
             gameData.currentCaps=currentCaps;
             gameData.playerName=playerName;
-            gameData.textHistory=document.getElementById('container1').innerHTML;
+            gameData.textHistory=document.getElementById('console').innerHTML;
             gameData.stats={};
             gameData.stats.Strength=BaseS.valueAsNumber;
             gameData.stats.Perception=BaseP.valueAsNumber;
@@ -976,7 +976,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             done=1;
             document.getElementById('command_line').value=loadData.playerName;
             $("form").submit();
-            document.getElementById('container1').innerHTML=loadData.textHistory;
+            document.getElementById('console').innerHTML=loadData.textHistory;
         }else{
             alert("No save data available.");
         }
