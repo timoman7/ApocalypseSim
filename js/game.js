@@ -44,6 +44,7 @@ var checkStorage=function(){
           return false;
      }
 }
+checkStorage();
 var speaking = new p5.Speech();
 speaking.setLang('en-US');
 speaking.setVoice("Google UK English Male");
