@@ -89,7 +89,7 @@ var checkChange = function() {
     }
     if (localChange) {
         console.log(currentSpeak);
-        speaking.speak(currentSpeak);
+        //speaking.speak(currentSpeak);
     } else {
         console.log("No change.");
     }
