@@ -26,6 +26,16 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
   // The firebase.auth.AuthCredential type that was used.
   var credential = error.credential;
   // ...
+	if(errorCode==="auth/popup-closed-by-user"){
+		alert("This site requires one of the listed sites as a form of logging in.");
+		location.refresh();
+	}else if(errorCode==="auth/popup-blocked"){
+		alert("Allow popups on this site");
+		alert("Refresh the page when done");
+	}else{
+		alert("The site is having technical issues.");
+		closePage();
+	}
 });
 var loadedData;
 var getData=function(dataToGet){
