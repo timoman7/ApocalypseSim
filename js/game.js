@@ -1034,7 +1034,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             item = input.substr(j + 1, input.length);
             if (done !== 1) {
                 playerName = input;
-                startMSG.innerHTML = '>' + playerName + ' messed up this time, the overseer walked in on ' + playerName + ' sleeping with his daughter.\n' + 'That salty old bastard is kicking ' + playerName + ' out into the wasteland to be. As ' + playerName + ' approached\n' + 'the vault door. A dim beam of light from a crack in ceiling reveals a a wooden stick\n' + 'on the floor next to a note with the name ' + playerName + ' on it...';
+                startMSG.innerHTML = '>' + playerName + ' messed up this time, the overseer walked in on ' + playerName + ' sleeping with his daughter.\n' + 'That salty old ******* is kicking ' + playerName + ' out into the wasteland to be. As ' + playerName + ' approached\n' + 'the vault door. A dim beam of light from a crack in ceiling reveals a a wooden stick\n' + 'on the floor next to a note with the name ' + playerName + ' on it...';
                 document.getElementById('start').hidden = false;
                 sayMyName.innerHTML += playerName;
                 done = 1;
