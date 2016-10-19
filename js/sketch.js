@@ -95,12 +95,7 @@ loading.prototype.draw= function() {
     }
 };
 var qcList;
-var invBtn;
-var statBtn;
 var saveList;
-var saveBtn;
-var loadBtn;
-var removeBtn;
 function prntTxt(){
 	println("Test");
 }
@@ -128,6 +123,8 @@ function typing(){
     }
 }
 var testLoad;
+var qcClick=0;
+var saveClick=0;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
@@ -141,23 +138,33 @@ function setup(){
 	saveList.option("Save");
 	saveList.option("Load");
 	saveList.option("Delete Data");
-	qcList.changed(qcEvent);
-	saveList.changed(saveEvent);
+	qcList.mouseClicked(qcEvent);
+	saveList.mouseClicked(saveEvent);
 }
 function qcEvent(){
-	if(qcList.value()==="Inventory"){
-		dispInv();
-	}else if(qcList.value()==="Stats"){
-		dispStats();
+	if(qcClick===2){
+		if(qcList.value()==="Inventory"){
+			dispInv();
+		}else if(qcList.value()==="Stats"){
+			dispStats();
+		}
+		qcClick=0;
+	}else{	
+		qcClick++;
 	}
 }
 function saveEvent(){
-	if(saveList.value()==="Save"){
-		saveGame();
-	}else if(saveList.value()==="Load"){
-		loadGame();
-	}else if(saveList.value()==="Delete Data"){
-		removeGameData();
+	if(saveClick===2){
+		if(saveList.value()==="Save"){
+			saveGame();
+		}else if(saveList.value()==="Load"){
+			loadGame();
+		}else if(saveList.value()==="Delete Data"){
+			removeGameData();
+		}
+		saveClick=0;
+	}else{
+		saveClick++;
 	}
 }
 var shopWeapList=[];
