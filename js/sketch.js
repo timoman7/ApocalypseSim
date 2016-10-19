@@ -94,8 +94,10 @@ loading.prototype.draw= function() {
         }
     }
 };
+var qcList;
 var invBtn;
 var statBtn;
+var saveList;
 var saveBtn;
 var loadBtn;
 var removeBtn;
@@ -130,26 +132,33 @@ function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
 	createCanvas(windowWidth,windowHeight);//-50 on both
-	invBtn=createButton("Inventory");
-	invBtn.position(175,90);
-	invBtn.size(75,20);
-	invBtn.mousePressed(dispInv);
-	statBtn=createButton("Stats");
-	statBtn.position(255,90);
-	statBtn.size(50,20);
-	statBtn.mousePressed(dispStats);
-	saveBtn=createButton("Save");
-	saveBtn.position(310,90);
-	saveBtn.size(50,20);
-	saveBtn.mousePressed(saveGame)
-	loadBtn=createButton("Load");
-	loadBtn.position(365,90);
-	loadBtn.size(50,20);
-	loadBtn.mousePressed(loadGame);
-	removeBtn=createButton("Delete data");
-	removeBtn.position(435,90);
-	removeBtn.size(90,20);
-	removeBtn.mousePressed(removeGameData);
+	qcList=createSelect();
+	saveList=createSelect();
+	qcList.position(175,90);
+	saveList.position(310,90);
+	qcList.option("Inventory");
+	qcList.option("Stats");
+	saveList.option("Save");
+	saveList.option("Load");
+	saveList.option("Delete Data");
+	qcList.changed(qcEvent);
+	saveList.changed(saveEvent);
+}
+function qcEvent(){
+	if(qcList.value()==="Inventory"){
+		dispInv();
+	}else if(qcList.value()==="Stats"){
+		dispStats();
+	}
+}
+function saveEvent(){
+	if(saveList.value()==="Save"){
+		saveGame();
+	}else if(saveList.value()==="Load"){
+		loadGame();
+	}else if(saveList.value()==="Delete Data"){
+		removeGameData();
+	}
 }
 var shopWeapList=[];
 var watList = []; //Array to store instances of the wat element
