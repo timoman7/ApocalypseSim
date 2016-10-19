@@ -47,7 +47,7 @@ var getData=function(dataToGet){
 		);
 	}
 };
-var enableCombat=false;
+var enableCombat=true;
 var checkStorage=function(){
 	getData("gamedata");
      if(loadedData!==undefined){
@@ -538,8 +538,12 @@ function encounter() {
         enterBattle = 0;
     }
     if (enterBattle == 1) {
-        alert("You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5]);
-        console.log("You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5]);
+	var newElement=document.createElement('p');
+	    newElement.class="speakable";
+	    newElement.innerHTML=">"+"You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5];
+	    $(newElement).insertAfter("#place_holder").hide().fadeIn(1000);
+        //alert("You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5]);
+        //console.log("You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5]);
     }
 };
 //Items
@@ -782,11 +786,11 @@ function startSPECIAL() {
 }
 setInterval(function(){
     if(enterBattle==1){
-        
-        
-        
+	
+    }else{
+	
+	
     }
-    
 },10);
 
 
