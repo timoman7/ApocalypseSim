@@ -53,7 +53,7 @@ var checkStorage=function(){
      }else{
           return false;
      }
-}
+};
 checkStorage();
 var speaking = new p5.Speech();
 speaking.setLang('en-US');
