@@ -1,14 +1,14 @@
 var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
 var provider;
-if(providerChoice==="Google"){
+if(providerChoice.toLowerCase()==="google"){
 provider = new firebase.auth.GoogleAuthProvider();
-}else if(providerChoice==="Github"){
+}else if(providerChoice.toLowerCase()==="github"){
 provider = new firebase.auth.GithubAuthProvider();
-}else if(providerChoice==="Email"){
+}else if(providerChoice.toLowerCase()==="email"){
 provider = new firebase.auth.EmailAuthProvider();
-}else if(providerChoice==="Twitter"){
+}else if(providerChoice.toLowerCase()==="twitter"){
 provider = new firebase.auth.TwitterAuthProvider();
-}else if(providerChoice==="Facebook"){
+}else if(providerChoice.toLowerCase()==="facebook"){
 provider = new firebase.auth.FacebookAuthProvider();
 }
 firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -26,24 +26,26 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
   // The firebase.auth.AuthCredential type that was used.
   var credential = error.credential;
   // ...
-	if(errorCode==="auth/popup-closed-by-user"){
-		alert("This site requires one of the listed sites as a form of logging in.");
-		location.refresh();
-	}else if(errorCode==="auth/popup-blocked"){
-		alert("Allow popups on this site");
-		alert("Refresh the page when done");
-	}else{
-		alert("The site is having technical issues.");
-		closePage();
-	}
+		if(errorCode==="auth/popup-closed-by-user"){
+			alert("This site requires one of the listed sites as a form of logging in.");
+			location.refresh();
+		}else if(errorCode==="auth/popup-blocked"){
+			alert("Allow popups on this site");
+			alert("Refresh the page when done");
+		}else{
+			alert("The site is having technical issues.");
+			closePage();
+		}
 });
 var loadedData;
 var getData=function(dataToGet){
-	firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
-		function(snapshot){
-			loadedData = snapshot.val()[dataToGet.toString()];
-		}
-	);
+	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
+		firebase.database().ref('/users/' + firebase.auth().currentUser.uid).once('value').then(
+			function(snapshot){
+				loadedData = snapshot.val()[dataToGet.toString()];
+			}
+		);
+	}
 };
 var enableCombat=false;
 var checkStorage=function(){
