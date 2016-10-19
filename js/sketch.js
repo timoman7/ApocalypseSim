@@ -142,7 +142,7 @@ function setup(){
 	saveList.mouseClicked(saveEvent);
 }
 function qcEvent(){
-	if(qcClick===2){
+	if(qcClick===1){
 		if(qcList.value()==="Inventory"){
 			dispInv();
 		}else if(qcList.value()==="Stats"){
@@ -154,7 +154,7 @@ function qcEvent(){
 	}
 }
 function saveEvent(){
-	if(saveClick===2){
+	if(saveClick===1){
 		if(saveList.value()==="Save"){
 			saveGame();
 		}else if(saveList.value()==="Load"){
