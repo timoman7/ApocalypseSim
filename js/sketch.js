@@ -140,6 +140,8 @@ function setup(){
 	saveList.option("Delete Data");
 	qcList.mouseClicked(qcEvent);
 	saveList.mouseClicked(saveEvent);
+	qcList.mouseOut(qcEventOut);
+	saveList.mouseOut(saveEventOut);
 }
 function qcEvent(){
 	if(qcClick===1){
@@ -165,6 +167,16 @@ function saveEvent(){
 		saveClick=0;
 	}else{
 		saveClick++;
+	}
+}
+function saveEventOut(){
+	if(saveClick===1){
+		saveClick=0;
+	}
+}
+function qcEventOut(){
+	if(qcClick===1){
+		qcClick=0;
 	}
 }
 var shopWeapList=[];
