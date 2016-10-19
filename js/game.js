@@ -34,7 +34,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
 			alert("Refresh the page when done");
 		}else{
 			alert("The site is having technical issues.");
-			//closePage();
+			closePage();
 		}
 });
 var loadedData;
