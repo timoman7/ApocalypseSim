@@ -994,6 +994,13 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             document.getElementById('command_line').value=loadData.playerName;
             $("form").submit();
             document.getElementById('console').innerHTML=loadData.textHistory;
+            BaseS.value=loadData.stats.Strength;
+            BaseP.value=loadData.stats.Perception;
+            BaseE.value=loadData.stats.Endurance;
+            BaseC.value=loadData.stats.Charisma;
+            BaseI.value=loadData.stats.Intelligence;
+            BaseA.value=loadData.stats.Agility;
+            BaseL.value=loadData.stats.Luck;
         }else{
             alert("No save data available.");
         }
