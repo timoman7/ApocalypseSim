@@ -814,7 +814,9 @@ setInterval(function(){
 				turn=1;
 			}
 			if(CurrentHealth<0){
-				alert("YOU DIED!");
+				var lastwords=prompt("YOU DIED!\nAny final words?","");
+				var thisUser=firebase.auth().currentUser.uid;
+firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
 				closePage();
 			}
 			turn*=-1;
