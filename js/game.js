@@ -786,13 +786,29 @@ function startSPECIAL() {
 }
 setInterval(function(){
     if(enterBattle==1){
-	
+	if(turn===-1){
+		var tempBRNG=rngA(100);
+		if(tempBRNG>(30+(BaseA.valueAsNumber*2)+(floor(BaseL.valueAsNumber*1.5)))){	//You get attacked
+			var damageTaken=encounteredEnemy[5]-defenceStat;
+			if(damageTaken<0){
+				damageTaken=0;
+			}
+			CurrentHealth-=damageTaken;
+		}else{
+			
+		}
+		turn*=-1;
+	}
     }else{
 	
 	
     }
 },10);
 
+    //"You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5]
+    /** 
+     * Reserved for combat
+     **/
 
 setInterval(function() {
     $('blink').each(function() {
