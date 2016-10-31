@@ -785,28 +785,41 @@ function startSPECIAL() {
     //end notes
 }
 setInterval(function(){
-    if(enterBattle==1){
-	if(turn===-1){
-		var tempBRNG=rngA(100);
-		if(tempBRNG>(30+(BaseA.valueAsNumber*2)+(floor(BaseL.valueAsNumber*1.5)))){	//You get attacked
-			var damageTaken=encounteredEnemy[5]-defenceStat;
-			if(damageTaken<0){
-				damageTaken=0;
+	if(enterBattle==1){
+		if(turn===-1){
+			if(encounteredEnemy[1]>0){
+				var tempBRNG=rngA(100);
+				if(tempBRNG>(30+(BaseA.valueAsNumber*2)+(floor(BaseL.valueAsNumber*1.5)))){	//You get attacked
+					var damageTaken=encounteredEnemy[5]-defenceStat;
+					if(damageTaken<0){
+						damageTaken=0;
+					}
+					CurrentHealth-=damageTaken;
+					var newElement2=document.createElement('p');
+					newElement2.class="speakable";
+					newElement2.innerHTML=">"+"You were hit by the "+encounteredEnemy[0]+"with a "+encounteredEnemy[2].name+"for "+damageTaken+" damage.";
+					$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+				}else{
+					var newElement2=document.createElement('p');
+					newElement2.class="speakable";
+					newElement2.innerHTML=">"+encounteredEnemy[0]+" missed.";
+					$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+				}
+			}else{
+				var newElement2=document.createElement('p');
+				newElement2.class="speakable";
+				newElement2.innerHTML=">You killed the "+encounteredEnemy[0]+".";
+				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+				enterBattle=0;
+				turn=1;
 			}
-			CurrentHealth-=damageTaken;
-			var newElement2=document.createElement('p');
-		    	newElement2.class="speakable";
-	    		newElement2.innerHTML=">"+"You were hit by the "+encounteredEnemy[0]+"with a "+encounteredEnemy[2].name+"for "+damageTaken+" damage.";
-	    		$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+			turn*=-1;
 		}else{
 			
 		}
-		turn*=-1;
+	}else{
+		
 	}
-    }else{
-	
-	
-    }
 },10);
 
     //"You encountered a " + encounteredEnemy[0] + ". Stats: Health: " + encounteredEnemy[1] + ", Item: " + encounteredEnemy[2].name + ", Chance to hit: " + encounteredEnemy[3] + ", XP: " + encounteredEnemy[4] + ", Damage: " + encounteredEnemy[5]
@@ -1178,11 +1191,58 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if(tempRNG>(70-(BaseA.value*4))){
                                 enterBattle=0;
                                 turn=1;
+				var newElement3=document.createElement('p');
+			    	newElement3.class="speakable";
+	    			newElement3.innerHTML=">You successfully fled.";
+	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
                             }else{
+				var newElement3=document.createElement('p');
+			    	newElement3.class="speakable";
+	    			newElement3.innerHTML=">You failed to flee.";
+	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
                                 turn*=-1;
                             }
                         }
                     }
+                    if(prefix.toLowerCase() == "attack" && turn !== -1){
+                        if(item.toLowerCase() == ""){
+                            var tempRNG=rngA(100);
+                            if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
+				var newElement3=document.createElement('p');
+			    	newElement3.class="speakable";
+	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
+				    encounteredEnemy[1]-=equipedWeapon.damage;
+	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+                                turn*=-1;
+                            }else{
+				var newElement3=document.createElement('p');
+			    	newElement3.class="speakable";
+	    			newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
+	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+                                turn*=-1;
+                            }
+                        }
+                    }
+			if (prefix.toLowerCase() == "use" && turn !== -1) {
+			    if (item.toLowerCase() == "bandage" && items[7][2] > 0) {
+				items[7][2] -= 1;
+				$("#useBandage").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+				CurrentHealth = constrain(CurrentHealth+HealAmount,0,MaxedHealth);
+				turn*=-1;
+			    }
+			}
+			if (prefix.toLowerCase() == "equip" && turn !== -1) {
+			    for (var i = 0; i < playerInventory.length; i++) {
+				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] > 0) {
+				    $("#message_equipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+				    equipItem = playerInventory[i];
+					turn*=-1;
+				}
+				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] == 0) {
+				    $("#message_noEquipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+				}
+			    }
+			}
                 }
                 if (prefix.toLowerCase() == "stats") {
                     if (item.toLowerCase() == "") {
@@ -1196,24 +1256,26 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                         updatingSPEC = false;
                     }
                 }
-                if (prefix.toLowerCase() == "use") {
-                    if (item.toLowerCase() == "bandage" && items[7][2] > 0) {
-                        items[7][2] -= 1;
-                        $("#useBandage").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-                        CurrentHealth += HealAmount;
-                    }
-                }
-                if (prefix.toLowerCase() == "equip") {
-                    for (var i = 0; i < playerInventory.length; i++) {
-                        if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] > 0) {
-                            $("#message_equipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-                            equipItem = playerInventory[i];
-                        }
-                        if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] == 0) {
-                            $("#message_noEquipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-                        }
-                    }
-                }
+		if(enterBattle!==1){
+			if (prefix.toLowerCase() == "use") {
+			    if (item.toLowerCase() == "bandage" && items[7][2] > 0) {
+				items[7][2] -= 1;
+				$("#useBandage").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+				CurrentHealth += HealAmount;
+			    }
+			}
+			if (prefix.toLowerCase() == "equip") {
+			    for (var i = 0; i < playerInventory.length; i++) {
+				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] > 0) {
+				    $("#message_equipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+				    equipItem = playerInventory[i];
+				}
+				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] == 0) {
+				    $("#message_noEquipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+				}
+			    }
+			}
+		}
                 if (input !== "done" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
                     watList.push($("#message_wat").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000));
                 }
