@@ -794,6 +794,10 @@ setInterval(function(){
 				damageTaken=0;
 			}
 			CurrentHealth-=damageTaken;
+			var newElement2=document.createElement('p');
+		    	newElement2.class="speakable";
+	    		newElement2.innerHTML=">"+"You were hit by the "+encounteredEnemy[0]+"with a "+encounteredEnemy[2].name+"for "+damageTaken+" damage.";
+	    		$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 		}else{
 			
 		}
