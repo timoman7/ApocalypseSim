@@ -47,6 +47,13 @@ var getData=function(dataToGet){
 		);
 	}
 };
+
+			var globalXY={};
+			firebase.database().ref('deathMessages').once('value').then(
+				function(snapshot){
+					globalXY = snapshot.val();
+				}
+			);
 var enableCombat=true;
 var checkStorage=function(){
 	getData("gamedata");
@@ -1103,12 +1110,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 if (prefix.toLowerCase() == "look") {
                     if (item.toLowerCase() == "around") {
                         checkItem();
-			var globalXY={};
-			firebase.database().ref('deathMessages').once('value').then(
-				function(snapshot){
-					globalXY = snapshot.val();
-				}
-			);
 			for(var i in globalXY[playerY][playerX]){
 				var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
 				if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
