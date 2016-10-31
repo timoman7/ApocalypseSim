@@ -813,6 +813,10 @@ setInterval(function(){
 				enterBattle=0;
 				turn=1;
 			}
+			if(CurrentHealth<0){
+				alert("YOU DIED!");
+				closePage();
+			}
 			turn*=-1;
 		}else{
 			
