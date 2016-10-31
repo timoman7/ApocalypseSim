@@ -443,7 +443,7 @@ for(var y=0; y<area.length;y++){
         0, [],
         0,
         8,
-        5,
+        2,
     ];
     var agile = [
         "Agile ",
@@ -457,7 +457,7 @@ for(var y=0; y<area.length;y++){
         40, [],
         0,
         15,
-        10,
+        5,
     ];
 
 
