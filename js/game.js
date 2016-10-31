@@ -1002,7 +1002,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             BaseI.value=loadData.stats.Intelligence;
             BaseA.value=loadData.stats.Agility;
             BaseL.value=loadData.stats.Luck;
-		dispStats();
         }else{
             alert("No save data available.");
         }
