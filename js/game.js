@@ -977,6 +977,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
         if(checkStorage()){
 		getData("gamedata");
             var loadData=loadedData;
+		updatingSPEC=false;
             area=loadData.area;
             playerX=loadData.playerX;
             playerY=loadData.playerY;
