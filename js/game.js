@@ -1109,7 +1109,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					globalXY = snapshot.val();
 				}
 			);
-			var globalXY
 			for(var i in globalXY[playerY][playerX]){
 				var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
 				if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
