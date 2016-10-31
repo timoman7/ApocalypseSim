@@ -1103,6 +1103,16 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 if (prefix.toLowerCase() == "look") {
                     if (item.toLowerCase() == "around") {
                         checkItem();
+			for(var i in globalXY[playerY][playerX]){
+				var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
+				if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
+					if(globalXY[playerY][playerX][i].deathText!==undefined){
+						alert(globalXY[playerY][playerX][i].deathText);
+					}else{
+						alert("No one has been here.");
+					}
+				};
+			}
                     }
                 }
                 if (prefix.toLowerCase() == "take") {
@@ -1234,31 +1244,33 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                         }
                     }
 			
-                    if(prefix.toLowerCase() == "burst" && turn !== -1 && equipedWeapon[0].type.toLowerCase() == "smg"){
-                        if(item.toLowerCase() == "2" || item.toLowerCase() == "3" || item.toLowerCase() == "4" || item.toLowerCase() == "5" || item.toLowerCase() == "6"){
-				for(var smgLoop=0;smgLoop<parseInt(item.toLowerCase());smgLoop++){
-				    var tempRNG=rngA(100);
-				    if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
-					var newElement3=document.createElement('p');
-					newElement3.class="speakable";
-					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon[0].damage+" damage.";
-					    encounteredEnemy[1]-=equipedWeapon[0].damage;
-					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-				    }else{
-					var newElement3=document.createElement('p');
-					newElement3.class="speakable";
-					newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
-					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-				    }
-				}
-                                turn*=-1;
-                        }
-                    }else{
-			var newElement3=document.createElement('p');
-			newElement3.class="speakable";
-	    		newElement3.innerHTML=">Equipped weapon is not an SMG.";
-	    		$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-		    }
+                    if(prefix.toLowerCase() == "burst" && turn !== -1){
+			    if(equipedWeapon[0].type.toLowerCase() == "smg"){
+                        	if(item.toLowerCase() == "2" || item.toLowerCase() == "3" || item.toLowerCase() == "4" || item.toLowerCase() == "5" || item.toLowerCase() == "6"){
+					for(var smgLoop=0;smgLoop<parseInt(item.toLowerCase());smgLoop++){
+					    var tempRNG=rngA(100);
+					    if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon[0].damage+" damage.";
+						    encounteredEnemy[1]-=equipedWeapon[0].damage;
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					    }else{
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					    }
+					}
+                                	turn*=-1;
+                        	}
+		    	}else{
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML=">Equipped weapon is not an SMG.";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+		    	}
+		}
 			if (prefix.toLowerCase() == "use" && turn !== -1) {
 			    if (item.toLowerCase() == "bandage" && items[7][2] > 0) {
 				items[7][2] -= 1;
