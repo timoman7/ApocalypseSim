@@ -1162,7 +1162,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 							if(globalXY[playerY][playerX][i].deathText!==undefined){
 								var newElement4=document.createElement('p');
 								newElement4.class="speakable";
-								newElement4.innerHTML=">"+getPlayername(globalXY[playerY][playerX][i])+": "+globalXY[playerY][playerX][i].deathText+".";
+								newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
 								$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 							}else{
 								var newElement4=document.createElement('p');
