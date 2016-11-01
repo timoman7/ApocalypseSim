@@ -47,6 +47,17 @@ var getData=function(dataToGet){
 		);
 	}
 };
+var getPlayername=function(idOfPlayer){
+	var dataRecieved;
+	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
+		firebase.database().ref('/users/' + idOfPlayer + '/gamedata/playerName').once('value').then(
+			function(snapshot){
+				dataRecieved = snapshot.val();
+			}
+		);
+	}
+	return dataRecieved;
+};
 
 			var globalXY={};
 			firebase.database().ref('deathMessages').once('value').then(
@@ -1151,7 +1162,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					}else{
 						alert("No one has been here.");
 					}
-				};
+				}
 			}
                     }
                 }
