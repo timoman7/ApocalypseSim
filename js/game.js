@@ -1158,9 +1158,15 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
 				if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
 					if(globalXY[playerY][playerX][i].deathText!==undefined){
-						alert(globalXY[playerY][playerX][i].deathText);
+						var newElement4=document.createElement('p');
+						newElement4.class="speakable";
+						newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
+						$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 					}else{
-						alert("No one has been here.");
+						var newElement4=document.createElement('p');
+						newElement4.class="speakable";
+						newElement4.innerHTML=">No signs of other players.";
+						$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 					}
 				}
 			}
