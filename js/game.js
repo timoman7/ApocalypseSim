@@ -1161,9 +1161,9 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
 							if(globalXY[playerY][playerX][i].deathText!==undefined){
 								var deadPlayername;
-								setTimeout(function(){
+								setInterval(function(){
 									deadPlayername=getPlayername(i);
-								},0,deadPlayername===undefined,deadPlayername===null);
+								},10,deadPlayername===undefined,deadPlayername===null);
 								var newElement4=document.createElement('p');
 								newElement4.class="speakable";
 								console.log(getPlayername(i));
