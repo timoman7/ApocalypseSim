@@ -1160,9 +1160,16 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
 						if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
 							if(globalXY[playerY][playerX][i].deathText!==undefined){
+								var deadPlayername;
+								for(var l=0;getPlayername(i)===undefined;deadPlayername=getPlayername(i)){
+									
+								}
+								console.log(getPlayername(i));
 								var newElement4=document.createElement('p');
+								console.log(getPlayername(i));
 								newElement4.class="speakable";
 								console.log(getPlayername(i));
+								console.log(deadPlayername);
 								newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
 								$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 							}else{
