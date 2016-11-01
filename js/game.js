@@ -1160,29 +1160,23 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
 						if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
 							if(globalXY[playerY][playerX][i].deathText!==undefined){
-								var deadPlayername;
 								var checkDeadPlayer=function(){
-									if(deadPlayername==="undefined"){
-										return true;
-									}else if(deadPlayername==="null"){
-										return true;
-									}else if(deadPlayername===undefined){
-										return true;
-									}else if(deadPlayername===null){
+									if(getPlayername(i)!=="undefined" && getPlayername(i)!=="null" && getPlayername(i)!==undefined && getPlayername(i)!==null){
 										return true;
 									}else{
 										return false;
 									}
 								};
 								setInterval(function(){
-									deadPlayername=getPlayername(i);
+									getPlayername(i);
 								},10,checkDeadPlayer());
-								var newElement4=document.createElement('p');
-								newElement4.class="speakable";
-								console.log(getPlayername(i));
-								console.log(deadPlayername);
-								newElement4.innerHTML=">"+deadPlayername+": "+globalXY[playerY][playerX][i].deathText+".";
-								$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
+								if(checkDeadPlayer()){
+									var newElement4=document.createElement('p');
+									newElement4.class="speakable";
+									console.log(getPlayername(i));
+									newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
+									$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
+								}
 							}else{
 								var newElement4=document.createElement('p');
 								newElement4.class="speakable";
