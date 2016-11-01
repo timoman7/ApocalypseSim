@@ -340,9 +340,9 @@ var titaniumKey = false; {
         return resC;
     };
     var rSpawn = rngA(100);
-    var merchSpawn = rngA(100);
     var playerX;
     var playerY;
+    var merchSpawn = rngA(100);
     var fixArea = [];
     var area = [];
     var counter = 0;
@@ -404,6 +404,39 @@ var titaniumKey = false; {
             }
         }
     }, 10);
+var createNewArea=function(){
+	area=[];
+    var merchSpawn = rngA(100);
+    var fixArea = [];
+    var counter = 0;
+    for (var yy = 0; yy < 10; yy++) {
+        for (var xx = 0; xx < 10; xx++) {
+            counter++;
+            var roomGen = [];
+            var itemGen = [];
+            for (var ii = 0; ii < 4; ii++) {
+                var rngWeap = rngA(100);
+                var abc = giveRandomWeap();
+                weapList.push(abc);
+                if (rngWeap < 20) {
+                    itemGen.push([abc, 1]);
+                } else {
+                    itemGen.push([0, 0]);
+                }
+            }
+            if (counter == rSpawn) {
+                roomGen.push(100, itemGen);
+            } else if (counter == merchSpawn) {
+                roomGen.push(99, itemGen);
+            } else {
+                roomGen.push(rngA(4), itemGen);
+            }
+            fixArea.push(roomGen);
+        }
+        area.push(fixArea);
+        fixArea = [];
+    }
+};
     /*
 for(var y=0; y<area.length;y++){
 	for(var x=0; x<area[y].length;x++){
@@ -804,7 +837,7 @@ setInterval(function(){
 					CurrentHealth-=damageTaken;
 					var newElement2=document.createElement('p');
 					newElement2.class="speakable";
-					newElement2.innerHTML=">"+"You were hit by the "+encounteredEnemy[0]+"with a "+encounteredEnemy[2].name+"for "+damageTaken+" damage.";
+					newElement2.innerHTML=">"+"You were hit by the "+encounteredEnemy[0]+" with a "+encounteredEnemy[2].name+" for "+damageTaken+" damage.";
 					$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 				}else{
 					var newElement2=document.createElement('p');
@@ -911,8 +944,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     var newInput;
     var i = 0;
 
-    var prefixList = ["equip", "inventory", "use", "look", "go", "help", "take", "stats", "read", "done", "buy", "sell"];
-    var prefixList2 = ["note", "stick", "north", "west", "east", "south", "left", "right", "up", "down", "around", "bandage"];
+    var prefixList = ["equip", "inventory", "use", "look", "go", "help", "take", "stats", "read", "done", "buy", "sell", "attack", "burst"];
+    var prefixList2 = ["note", "stick", "north", "west", "east", "south", "left", "right", "up", "down", "around", "bandage", "2", "3", "4", "5", "6"];
     var prefixInputCheck = function() {
         this.check = true;
         for (var i = 0; i < prefixList.length; i++) {
@@ -1178,8 +1211,17 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                     encounter();
                                 }
                             }
-                        }
-                        if (playerY !== 10) {
+                        }else{
+                            if (item.toLowerCase() == "north" || item.toLowerCase() == "up") {
+				createNewArea();
+                                playerY = 9;
+                                room();
+                                if(area[playerY][playerX][0] !== 99){
+                                    encounter();
+                                }
+                            }
+			}
+                        if (playerY !== 9) {
                             if (item.toLowerCase() == "south" || item.toLowerCase() == "down") {
                                 playerY += 1;
                                 room();
@@ -1187,8 +1229,17 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                     encounter();
                                 }
                             }
-                        }
-                        if (playerX !== 10) {
+                        }else{
+                            if (item.toLowerCase() == "south" || item.toLowerCase() == "down") {
+				createNewArea();
+                                playerY = 0;
+                                room();
+                                if(area[playerY][playerX][0] !== 99){
+                                    encounter();
+                                }
+                            }
+			}
+                        if (playerX !== 9) {
                             if (item.toLowerCase() == "east" || item.toLowerCase() == "right") {
                                 playerX += 1;
                                 room();
@@ -1196,7 +1247,16 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                     encounter();
                                 }
                             }
-                        }
+                        }else{
+                            if (item.toLowerCase() == "east" || item.toLowerCase() == "right") {
+				createNewArea();
+                                playerX = 0;
+                                room();
+                                if(area[playerY][playerX][0] !== 99){
+                                    encounter();
+                                }
+                            }
+			}
                         if (playerX !== 0) {
                             if (item.toLowerCase() == "west" || item.toLowerCase() == "left") {
                                 playerX -= 1;
@@ -1205,7 +1265,16 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                     encounter();
                                 }
                             }
-                        }
+                        }else{
+                            if (item.toLowerCase() == "west" || item.toLowerCase() == "left") {
+				createNewArea();
+                                playerX = 9;
+                                room();
+                                if(area[playerY][playerX][0] !== 99){
+                                    encounter();
+                                }
+                            }
+			}
                     }
                 }else{
                     if(prefix.toLowerCase() == "flee" && turn !== -1){
@@ -1331,7 +1400,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			    }
 			}
 		}
-                if (input !== "done" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
+                if (input !== "done" && input !== "attack" && input !== "burst" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
                     watList.push($("#message_wat").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000));
                 }
                 if (prefix.toLowerCase() == "done" && updatingSPEC == false) {
