@@ -47,8 +47,8 @@ var getData=function(dataToGet){
 		);
 	}
 };
+var dataRecieved;
 var getPlayername=function(idOfPlayer){
-	var dataRecieved;
 	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
 		firebase.database().ref('/users/' + idOfPlayer + '/gamedata/playerName').once('value').then(
 			function(snapshot){
