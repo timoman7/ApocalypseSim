@@ -1163,7 +1163,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 								var deadPlayername;
 								setTimeout(function(){
 									deadPlayername=getPlayername(i);
-								},0,deadPlayername===undefined);
+								},0,deadPlayername===undefined,deadPlayername===null);
 								var newElement4=document.createElement('p');
 								newElement4.class="speakable";
 								console.log(getPlayername(i));
