@@ -1161,9 +1161,22 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
 							if(globalXY[playerY][playerX][i].deathText!==undefined){
 								var deadPlayername;
+								var checkDeadPlayer=function(){
+									if(deadPlayername==="undefined"){
+										return true;
+									}else if(deadPlayername==="null"){
+										return true;
+									}else if(deadPlayername===undefined){
+										return true;
+									}else if(deadPlayername===null){
+										return true;
+									}else{
+										return false;
+									}
+								};
 								setInterval(function(){
 									deadPlayername=getPlayername(i);
-								},10,deadPlayername===undefined,deadPlayername===null);
+								},10,checkDeadPlayer());
 								var newElement4=document.createElement('p');
 								newElement4.class="speakable";
 								console.log(getPlayername(i));
