@@ -71,7 +71,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
 		userInfo.style="position: inherit; left: 20px; top: 20px;";
 		userIcon.src=currentUser.photoURL;
-		userIcon.style="position: inherit; right: 20px; top 20px; border-radius: 50px;";
+		userIcon.style="position: inherit; right: 20px; top 20px; width: 150px; height: 150px; border-radius: 50px;";
 		userDiv.appendChild(userInfo);
 		userDiv.appendChild(userIcon);
 		document.body.appendChild(userDiv);
