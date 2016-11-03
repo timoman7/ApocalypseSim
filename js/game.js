@@ -34,16 +34,16 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userInfo.class="userInfo";
 		userIcon.class="userIcon";
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
-		userInfo.style="left: 20px; top: 20px;";
+		userInfo.style="position: inherit; left: 20px; top: 20px;";
 		userIcon.src=currentUser.photoURL;
-		userIcon.style="right: 20px; top 20px; border-radius: 50px;";
+		userIcon.style="position: inherit; right: 20px; top 20px; border-radius: 50px;";
 		userDiv.appendChild(userInfo);
 		userDiv.appendChild(userIcon);
 		document.body.appendChild(userDiv);
 		var userButton = document.createElement('img');
 		userButton.src = currentUser.photoURL;
 		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
-		userButton.onclick = "javascript:changeVis()";
+		userButton.onclick = "javascript:changeVis(document.getElementById('userInformation'))";
 		document.body.appendChild(userButton);
 	}
 }, function(error) {
