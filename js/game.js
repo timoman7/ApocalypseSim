@@ -35,7 +35,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		document.body.appendChild(userDiv);
 		var userButton = document.createElement('img');
 		userButton.src = currentUser.photoURL;
-		userButton.style = "right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: "+(userButton.width/2)+"px;";
+		userButton.style = "z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: "+(userButton.width/2)+"px;";
 		var changeVis=function(){
 			if(userDiv.style.visibility==="hidden"){
 				userDiv.style.visibility="visible";
