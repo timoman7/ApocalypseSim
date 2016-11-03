@@ -1,41 +1,61 @@
-var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
-var provider;
-if(providerChoice.toLowerCase()==="google"){
-provider = new firebase.auth.GoogleAuthProvider();
-}else if(providerChoice.toLowerCase()==="github"){
-provider = new firebase.auth.GithubAuthProvider();
-}else if(providerChoice.toLowerCase()==="email"){
-provider = new firebase.auth.EmailAuthProvider();
-}else if(providerChoice.toLowerCase()==="twitter"){
-provider = new firebase.auth.TwitterAuthProvider();
-}else if(providerChoice.toLowerCase()==="facebook"){
-provider = new firebase.auth.FacebookAuthProvider();
-}
-firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-  var token = result.credential.accessToken;
-  // The signed-in user info.
+var currentUser;
+firebase.auth().getRedirectResult().then(function(result) {
   var user = result.user;
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-		if(errorCode==="auth/popup-closed-by-user"){
-			alert("This site requires one of the listed sites as a form of logging in.");
-			location.refresh();
-		}else if(errorCode==="auth/popup-blocked"){
-			alert("Allow popups on this site");
-			alert("Refresh the page when done");
-		}else{
-			alert("The site is having technical issues.");
-			closePage();
+  var credential = result.credential;
+	if(user===null){
+		var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
+		var provider;
+		if(providerChoice.toLowerCase()==="google"){
+			provider = new firebase.auth.GoogleAuthProvider();
+		}else if(providerChoice.toLowerCase()==="github"){
+			provider = new firebase.auth.GithubAuthProvider();
+		}else if(providerChoice.toLowerCase()==="email"){
+			provider = new firebase.auth.EmailAuthProvider();
+		}else if(providerChoice.toLowerCase()==="twitter"){
+			provider = new firebase.auth.TwitterAuthProvider();
+		}else if(providerChoice.toLowerCase()==="facebook"){
+			provider = new firebase.auth.FacebookAuthProvider();
 		}
+		firebase.auth().signInWithRedirect(provider);
+	}else{
+		currentUser = firebase.auth().currentUser;
+		var userDiv = document.createElement('div');
+		userDiv.id="userInformation";
+		userDiv.style="width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: ghostwhite; right: 40px; bottom: 80px; z-index:10000; visibility: hidden;";
+		var userIcon = document.createElement('img');
+		var userInfo = document.createElement('p');
+		userInfo.class="userInfo";
+		userIcon.class="userIcon";
+		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
+		userInfo.style="left: 20px; top: 20px;";
+		userIcon.src=currentUser.photoUrl;
+		userIcon.style="right: 20px; top 20px; border-radius: "+(userIcon.width/2)+"px;";
+		userDiv.appendChild(userInfo);
+		userDiv.appendChild(userIcon);
+		document.body.appendChild(userDiv);
+		var userButton = document.createElement('img');
+		userButton.src = currentUser.photoUrl;
+		userButton.style = "right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: "+(userButton.width/2)+"px;";
+		var changeVis=function(){
+			if(userDiv.style.visibility==="hidden"){
+				userDiv.style.visibility="visible";
+			}else{
+				userDiv.style.visibility="hidden";
+			}
+		};
+		userButton.onclick = "changeVis();";
+		document.body.appendChild(userButton);
+	}
+}, function(error) {
+  // The provider's account email, can be used in case of
+  // auth/account-exists-with-different-credential to fetch the providers
+  // linked to the email:
+  var email = error.email;
+  // The provider's credential:
+  var credential = error.credential;
+  // In case of auth/account-exists-with-different-credential error,
+  // you can fetch the providers using this:
+	
 });
 var loadedData;
 var getData=function(dataToGet){
