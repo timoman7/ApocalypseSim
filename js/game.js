@@ -1,10 +1,45 @@
 var currentUser;
+var closePrompt = function(){
+	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay');
+};
+var customPrompt = function(prom){
+	if(document.getElementById('overlay')!==null){
+		var myPrompt=document.createElement('div');
+		var overlay=document.createElement('div');
+		var exitBtn=document.createElement('button');
+		exitBtn.innerHTML="X";
+		exitBtn.onclick=closePrompt();
+		var okBtn=document.createElement('button');
+		okBtn.innerHTML="Ok";
+		okBtn.onclick=closePrompt();
+		exitBtn.style="border-style:none; top: 5px; right: 5px; background-color: inherit; position: inherit";
+		okBtn.style="border-style: ridge; border-color: black; bottom: 5px; right: 50%; background-color: inherit; position: inherit";
+		prom.style.position="inherit";
+		prom.style.backgroundColor="inherit";
+		overlay.id="overlay";
+		overlay.style="rgba(0,0,0,0.1); top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; position: absolute;";
+		myPrompt.style="pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 40%; right:60%; top";
+		myPrompt.id('myPrompt');
+		myPrompt.appendChild(exitBtn);
+		myPrompt.appendChild(prom);
+		myPrompt.appendChild(okBtn);
+		overlay.appendChild(myPrompt);
+		document.body.appendChild(overlay);
+	}
+};
 var changeVis=function(a){
 	if(a.style.visibility==="hidden"){
 		a.style.visibility="visible";
 	}else{
 		a.style.visibility="hidden";
 	}
+};
+var signout=function(){
+	firebase.auth().signOut().then(function() {
+		console.log('Signed Out');
+	}, function(error) {
+		alert('Sign Out Error', error);
+	});
 };
 firebase.auth().getRedirectResult().then(function(result) {
   var user = result.user;
@@ -28,7 +63,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		currentUser = firebase.auth().currentUser;
 		var userDiv = document.createElement('div');
 		userDiv.id="userInformation";
-		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: ghostwhite; right: 40px; bottom: 80px; z-index:10000; visibility: hidden;";
+		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: ghostwhite; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
 		var userIcon = document.createElement('img');
 		var userInfo = document.createElement('p');
 		userInfo.class="userInfo";
@@ -42,8 +77,8 @@ firebase.auth().getRedirectResult().then(function(result) {
 		document.body.appendChild(userDiv);
 		var userButton = document.createElement('img');
 		userButton.src = currentUser.photoURL;
+		userButton.id = "userButton";
 		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
-		userButton.onclick = "javascript:changeVis(document.getElementById('userInformation'))";
 		document.body.appendChild(userButton);
 	}
 }, function(error) {
@@ -57,6 +92,7 @@ firebase.auth().getRedirectResult().then(function(result) {
   // you can fetch the providers using this:
 	
 });
+document.getElemenyById('userButton').onclick = "javascript:changeVis(document.getElementById('userInformation'))";
 var loadedData;
 var getData=function(dataToGet){
 	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
