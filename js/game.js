@@ -80,7 +80,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userButton.id = "userButton";
 		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
 		document.body.appendChild(userButton);
-		document.getElementById('userButton').onclick = "javascript:changeVis(document.getElementById('userInformation'))";
+		document.getElementById('userButton').onclick = changeVis(document.getElementById('userInformation'));
 	}
 }, function(error) {
   // The provider's account email, can be used in case of
