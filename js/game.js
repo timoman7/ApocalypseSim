@@ -29,13 +29,13 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
 		userInfo.style="left: 20px; top: 20px;";
 		userIcon.src=currentUser.photoURL;
-		userIcon.style="right: 20px; top 20px; border-radius: "+(userIcon.width/2)+"px;";
+		userIcon.style="right: 20px; top 20px; border-radius: 50px;";
 		userDiv.appendChild(userInfo);
 		userDiv.appendChild(userIcon);
 		document.body.appendChild(userDiv);
 		var userButton = document.createElement('img');
 		userButton.src = currentUser.photoURL;
-		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: "+(userButton.width/2)+"px;";
+		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
 		var changeVis=function(){
 			if(userDiv.style.visibility==="hidden"){
 				userDiv.style.visibility="visible";
