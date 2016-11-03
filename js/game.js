@@ -92,7 +92,11 @@ firebase.auth().getRedirectResult().then(function(result) {
   // you can fetch the providers using this:
 	
 });
-document.getElementById('userButton').onclick = "changeVis(document.getElementById('userInformation'))";
+setInterval(function(){
+	if(document.getElementById('userButton')!==null){
+		document.getElementById('userButton').onclick = "changeVis(document.getElementById('userInformation'))";
+	}	
+},10);
 var loadedData;
 var getData=function(dataToGet){
 	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
