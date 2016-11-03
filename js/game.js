@@ -1,4 +1,11 @@
 var currentUser;
+var changeVis=function(a){
+	if(a.style.visibility==="hidden"){
+		a.style.visibility="visible";
+	}else{
+		a.style.visibility="hidden";
+	}
+};
 firebase.auth().getRedirectResult().then(function(result) {
   var user = result.user;
   var credential = result.credential;
@@ -36,13 +43,6 @@ firebase.auth().getRedirectResult().then(function(result) {
 		var userButton = document.createElement('img');
 		userButton.src = currentUser.photoURL;
 		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
-		var changeVis=function(){
-			if(userDiv.style.visibility==="hidden"){
-				userDiv.style.visibility="visible";
-			}else{
-				userDiv.style.visibility="hidden";
-			}
-		};
 		userButton.onclick = "javascript:changeVis()";
 		document.body.appendChild(userButton);
 	}
