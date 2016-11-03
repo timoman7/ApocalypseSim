@@ -1,6 +1,6 @@
 var currentUser;
 var closePrompt = function(){
-	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'_);
+	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
 };
 var customPrompt = function(prom){
 	if(document.getElementById('overlay')!==null){
