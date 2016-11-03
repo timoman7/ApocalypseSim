@@ -43,7 +43,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 				userDiv.style.visibility="hidden";
 			}
 		};
-		userButton.onclick = "changeVis();";
+		userButton.onclick = "javascript:changeVis()";
 		document.body.appendChild(userButton);
 	}
 }, function(error) {
