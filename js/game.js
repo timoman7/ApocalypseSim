@@ -21,7 +21,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		currentUser = firebase.auth().currentUser;
 		var userDiv = document.createElement('div');
 		userDiv.id="userInformation";
-		userDiv.style="width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: ghostwhite; right: 40px; bottom: 80px; z-index:10000; visibility: hidden;";
+		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: ghostwhite; right: 40px; bottom: 80px; z-index:10000; visibility: hidden;";
 		var userIcon = document.createElement('img');
 		var userInfo = document.createElement('p');
 		userInfo.class="userInfo";
@@ -35,7 +35,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		document.body.appendChild(userDiv);
 		var userButton = document.createElement('img');
 		userButton.src = currentUser.photoURL;
-		userButton.style = "z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: "+(userButton.width/2)+"px;";
+		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: "+(userButton.width/2)+"px;";
 		var changeVis=function(){
 			if(userDiv.style.visibility==="hidden"){
 				userDiv.style.visibility="visible";
