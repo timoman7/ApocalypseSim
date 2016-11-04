@@ -24,7 +24,7 @@ var customPrompt = function(prom,okFunc,exitFunc){
 		prom.style.position="inherit";
 		prom.style.backgroundColor="inherit";
 		overlay.id="overlay";
-		overlay.style="z-index: 99999; rgba(0,0,0,0.1); top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; position: absolute;";
+		overlay.style="z-index: 99999; background-color: rgba(0,0,0,0.6); top: 0; right: 0; left: 0; bottom: 0; pointer-events: painted; position: absolute;";
 		myPrompt.style="z-index: 100000; pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 40%; right: 40%; top: 20%; bottom:55%";
 		myPrompt.id='myPrompt';
 		myPrompt.appendChild(exitBtn);
