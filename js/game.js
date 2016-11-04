@@ -95,7 +95,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userInfo.class="userInfo";
 		userIcon.class="userIcon";
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
-		userInfo.style="position: inherit; left: 10px; top: 10px; font-size: 12px; color: black;";
+		userInfo.style="position: absolute; left: 10px; top: 10px; font-size: 12px; color: black;";
 		userIcon.src=currentUser.photoURL;
 		userIcon.style="position: inherit; right: 10px; top 10px; width: 120px; height: 120px; border-radius: 60px;";
 		userDiv.appendChild(signOutButton);
