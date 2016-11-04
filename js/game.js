@@ -56,6 +56,13 @@ var signout=function(){
 		newDiv.style="color: black; left: 40%; right: 40%; top: 20%; bottom: 60%;";
 		newDiv.innerHTML="Signed Out.";
 		customPrompt(newDiv,"closePage();","closePage();");
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// User is signed in.
+			}else{
+				closePage();
+			}
+		});
 	}, function(error) {
 		var newDiv=document.createElement('div');
 		newDiv.style="color: black; left: 40%; right: 40%; top: 20%; bottom: 60%;";
