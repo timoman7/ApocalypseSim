@@ -37,7 +37,7 @@ var customPrompt = function(prom,okFunc,exitFunc){
 		myPrompt.appendChild(prom);
 		myPrompt.appendChild(okBtn);
 		overlay.appendChild(myPrompt);
-		document.body.appendChild(overlay);
+		document.body.insertBefore(overlay,document.body.childNodes[0]);
 		document.getElementById('exitBtn').setAttribute('onClick','closePrompt();'+exitFunc);
 		document.getElementById('okBtn').setAttribute('onClick','closePrompt();'+okFunc);
 		document.body.pointerEvents="none";
