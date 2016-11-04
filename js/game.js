@@ -6,7 +6,7 @@ var setOnClick=function(){
 	document.getElementById('userButton').setAttribute('onClick',"changeVis(document.getElementById('userInformation'));");
 };
 var customPrompt = function(prom){
-	if(document.getElementById('overlay')!==null){
+	if(document.getElementById('overlay')===null){
 		var myPrompt=document.createElement('div');
 		var overlay=document.createElement('div');
 		var exitBtn=document.createElement('button');
