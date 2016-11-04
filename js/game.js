@@ -4,9 +4,12 @@ var closePrompt = function(){
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
 };
 var setOnClick=function(){
+	document.getElementById('signOutBtn').setAttribute('onClick',"signout();");
 	document.getElementById('userButton').setAttribute('onClick',"changeVis(document.getElementById('userInformation'));");
 };
-var customPrompt = function(prom){
+var customPrompt = function(prom,okFunc,exitFunc){
+	exitFunc=exitFunc || "";
+	okFunc=okFunc || "";
 	if(document.getElementById('overlay')===null){
 		var myPrompt=document.createElement('div');
 		var overlay=document.createElement('div');
@@ -35,8 +38,8 @@ var customPrompt = function(prom){
 		myPrompt.appendChild(okBtn);
 		overlay.appendChild(myPrompt);
 		document.body.appendChild(overlay);
-		document.getElementById('exitBtn').setAttribute('onClick','closePrompt();');
-		document.getElementById('okBtn').setAttribute('onClick','closePrompt();');
+		document.getElementById('exitBtn').setAttribute('onClick','closePrompt();'+exitFunc);
+		document.getElementById('okBtn').setAttribute('onClick','closePrompt();'+okFunc);
 		document.body.pointerEvents="none";
 	}
 };
@@ -49,9 +52,15 @@ var changeVis=function(a){
 };
 var signout=function(){
 	firebase.auth().signOut().then(function() {
-		console.log('Signed Out');
+		var newDiv=document.createElement('div');
+		newDiv.style.color="black";
+		newDiv.innerHTML="Signed Out.";
+		customPrompt(newDiv,"closePage();","closePage();");
 	}, function(error) {
-		alert('Sign Out Error', error);
+		var newDiv=document.createElement('div');
+		newDiv.style.color="black";
+		newDiv.innerHTML="Sign Out Error:\n"+error;
+		customPrompt(newDiv);
 	});
 };
 firebase.auth().getRedirectResult().then(function(result) {
@@ -76,15 +85,19 @@ firebase.auth().getRedirectResult().then(function(result) {
 		currentUser = firebase.auth().currentUser;
 		var userDiv = document.createElement('div');
 		userDiv.id="userInformation";
-		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: ghostwhite; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
+		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: rgb(200,200,200); color: black; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
 		var userIcon = document.createElement('img');
 		var userInfo = document.createElement('p');
+		var signOutButton = document.createElement('button');
+		signOutButton.id="signOutBtn";
+		signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 50px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: grey;";
 		userInfo.class="userInfo";
 		userIcon.class="userIcon";
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
 		userInfo.style="position: inherit; left: 20px; top: 20px;";
 		userIcon.src=currentUser.photoURL;
 		userIcon.style="position: inherit; right: 20px; top 20px; width: 150px; height: 150px; border-radius: 50px;";
+		userDiv.appendChild(signOutButton);
 		userDiv.appendChild(userInfo);
 		userDiv.appendChild(userIcon);
 		document.body.appendChild(userDiv);
