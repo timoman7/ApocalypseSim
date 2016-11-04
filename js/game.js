@@ -17,7 +17,7 @@ var customPrompt = function(prom){
 		exitBtn.id="exitBtn";
 		okBtn.id="okBtn";
 		exitBtn.style="border-style:none; top: 5px; right: 5px; background-color: inherit; position: inherit";
-		okBtn.style="border-style: ridge; border-color: black; bottom: 5px; right: 50%; background-color: inherit; position: inherit";
+		okBtn.style="border-style: ridge; border-radius: 10px; border-color: black; bottom: 5px; right: 50%; background-color: inherit; position: inherit";
 		prom.style.position="inherit";
 		prom.style.backgroundColor="inherit";
 		overlay.id="overlay";
@@ -25,6 +25,12 @@ var customPrompt = function(prom){
 		myPrompt.style="z-index: 100000; pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 35%; right: 65%; top: 20%; bottom:55%";
 		myPrompt.id='myPrompt';
 		myPrompt.appendChild(exitBtn);
+		if(prom.style.left===""){
+			prom.style.left="5px";
+		}
+		if(prom.style.top===""){
+			prom.style.top="5px";
+		}
 		myPrompt.appendChild(prom);
 		myPrompt.appendChild(okBtn);
 		overlay.appendChild(myPrompt);
