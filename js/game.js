@@ -55,6 +55,7 @@ var signout=function(){
 		var newDiv=document.createElement('div');
 		newDiv.style="color: black; left: 40%; right: 40%; top: 20%; bottom: 60%;";
 		newDiv.innerHTML="Signed Out.";
+		changeVis(document.getElementById('userInformation'));
 		customPrompt(newDiv,"closePage();","closePage();");
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
