@@ -53,12 +53,12 @@ var changeVis=function(a){
 var signout=function(){
 	firebase.auth().signOut().then(function() {
 		var newDiv=document.createElement('div');
-		newDiv.style.color="black";
+		newDiv.style="color: black; left: 40%; right: 40%; top: 20%; bottom: 60%;";
 		newDiv.innerHTML="Signed Out.";
 		customPrompt(newDiv,"closePage();","closePage();");
 	}, function(error) {
 		var newDiv=document.createElement('div');
-		newDiv.style.color="black";
+		newDiv.style="color: black; left: 40%; right: 40%; top: 20%; bottom: 60%;";
 		newDiv.innerHTML="Sign Out Error:\n"+error;
 		customPrompt(newDiv);
 	});
