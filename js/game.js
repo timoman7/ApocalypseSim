@@ -90,7 +90,7 @@ firebase.auth().getRedirectResult().then(function(result) {
 		var userInfo = document.createElement('p');
 		var signOutButton = document.createElement('button');
 		signOutButton.id="signOutBtn";
-		signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 50px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: grey;";
+		signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 60px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: grey;";
 		signOutButton.innerHTML="Sign out";
 		userInfo.class="userInfo";
 		userIcon.class="userIcon";
