@@ -85,12 +85,13 @@ firebase.auth().getRedirectResult().then(function(result) {
 		currentUser = firebase.auth().currentUser;
 		var userDiv = document.createElement('div');
 		userDiv.id="userInformation";
-		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-color: black; background-color: rgb(200,200,200); color: black; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
+		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-radius: 15px; border-color: black; background-color: rgb(200,200,200); color: black; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
 		var userIcon = document.createElement('img');
 		var userInfo = document.createElement('p');
 		var signOutButton = document.createElement('button');
 		signOutButton.id="signOutBtn";
 		signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 50px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: grey;";
+		signOutButton.innerHTML="Sign out";
 		userInfo.class="userInfo";
 		userIcon.class="userIcon";
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
