@@ -3,7 +3,7 @@ var closePrompt = function(){
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
 };
 var setOnClick=function(){
-	document.getElementById('userButton').onclick = "changeVis(document.getElementById('userInformation'));";
+	document.getElementById('userButton').setAttribute('onClick',"changeVis(document.getElementById('userInformation'));");
 };
 var customPrompt = function(prom){
 	if(document.getElementById('overlay')!==null){
@@ -13,8 +13,8 @@ var customPrompt = function(prom){
 		exitBtn.innerHTML="X";
 		var okBtn=document.createElement('button');
 		okBtn.innerHTML="Ok";
-		exitBtn.onclick='closePrompt();';
-		okBtn.onclick='closePrompt();';
+		exitBtn.id="exitBtn";
+		okBtn.id="okBtn";
 		exitBtn.style="border-style:none; top: 5px; right: 5px; background-color: inherit; position: inherit";
 		okBtn.style="border-style: ridge; border-color: black; bottom: 5px; right: 50%; background-color: inherit; position: inherit";
 		prom.style.position="inherit";
@@ -28,7 +28,8 @@ var customPrompt = function(prom){
 		myPrompt.appendChild(okBtn);
 		overlay.appendChild(myPrompt);
 		document.body.appendChild(overlay);
-		
+		document.getElementById('exitBtn').setAttribute('onClick','closePrompt();');
+		document.getElementById('okBtn').setAttribute('onClick','closePrompt();');
 	}
 };
 var changeVis=function(a){
