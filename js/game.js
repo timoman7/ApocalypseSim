@@ -1,5 +1,6 @@
 var currentUser;
 var closePrompt = function(){
+	document.body.style.pointerEvents="auto";
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
 };
 var setOnClick=function(){
@@ -21,7 +22,7 @@ var customPrompt = function(prom){
 		prom.style.backgroundColor="inherit";
 		overlay.id="overlay";
 		overlay.style="z-index: 99999; rgba(0,0,0,0.1); top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; position: absolute;";
-		myPrompt.style="z-index: 100000; pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 35%; right:65%; top: 20%; bottom:55%";
+		myPrompt.style="z-index: 100000; pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 35%; right: 65%; top: 20%; bottom:55%";
 		myPrompt.id='myPrompt';
 		myPrompt.appendChild(exitBtn);
 		myPrompt.appendChild(prom);
@@ -30,6 +31,7 @@ var customPrompt = function(prom){
 		document.body.appendChild(overlay);
 		document.getElementById('exitBtn').setAttribute('onClick','closePrompt();');
 		document.getElementById('okBtn').setAttribute('onClick','closePrompt();');
+		document.body.pointerEvents="none";
 	}
 };
 var changeVis=function(a){
