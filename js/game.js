@@ -94,9 +94,9 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userInfo.class="userInfo";
 		userIcon.class="userIcon";
 		userInfo.innerHTML="Name: "+currentUser.displayName+"\nEmail: "+currentUser.email;
-		userInfo.style="position: inherit; left: 20px; top: 20px;";
+		userInfo.style="position: inherit; left: 10px; top: 20px;";
 		userIcon.src=currentUser.photoURL;
-		userIcon.style="position: inherit; right: 20px; top 20px; width: 150px; height: 150px; border-radius: 50px;";
+		userIcon.style="position: inherit; right: 20px; top 20px; width: 150px; height: 150px; border-radius: 75px;";
 		userDiv.appendChild(signOutButton);
 		userDiv.appendChild(userInfo);
 		userDiv.appendChild(userIcon);
