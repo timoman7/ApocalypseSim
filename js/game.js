@@ -2,29 +2,33 @@ var currentUser;
 var closePrompt = function(){
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
 };
+var setOnClick=function(){
+	document.getElementById('userButton').onclick = "changeVis(document.getElementById('userInformation'));";
+};
 var customPrompt = function(prom){
 	if(document.getElementById('overlay')!==null){
 		var myPrompt=document.createElement('div');
 		var overlay=document.createElement('div');
 		var exitBtn=document.createElement('button');
 		exitBtn.innerHTML="X";
-		exitBtn.onclick=closePrompt();
 		var okBtn=document.createElement('button');
 		okBtn.innerHTML="Ok";
-		okBtn.onclick=closePrompt();
+		exitBtn.onclick='closePrompt();';
+		okBtn.onclick='closePrompt();';
 		exitBtn.style="border-style:none; top: 5px; right: 5px; background-color: inherit; position: inherit";
 		okBtn.style="border-style: ridge; border-color: black; bottom: 5px; right: 50%; background-color: inherit; position: inherit";
 		prom.style.position="inherit";
 		prom.style.backgroundColor="inherit";
 		overlay.id="overlay";
-		overlay.style="rgba(0,0,0,0.1); top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; position: absolute;";
-		myPrompt.style="pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 40%; right:60%; top";
+		overlay.style="z-index: 99999; rgba(0,0,0,0.1); top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; position: absolute;";
+		myPrompt.style="z-index: 100000; pointer-events: auto; position: inherit; border-radius: 10px; border-style: ridge; border-color: black; background-color: ghostwhite; left: 35%; right:65%; top: 20%; bottom:55%";
 		myPrompt.id('myPrompt');
 		myPrompt.appendChild(exitBtn);
 		myPrompt.appendChild(prom);
 		myPrompt.appendChild(okBtn);
 		overlay.appendChild(myPrompt);
 		document.body.appendChild(overlay);
+		
 	}
 };
 var changeVis=function(a){
@@ -75,11 +79,14 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userDiv.appendChild(userInfo);
 		userDiv.appendChild(userIcon);
 		document.body.appendChild(userDiv);
-		var userButton = document.createElement('img');
+		var userButton = document.createElement('button');
+		var userImg = document.createElement('img')
+		userButton.appendChild(
 		userButton.src = currentUser.photoURL;
 		userButton.id = "userButton";
-		userButton.style = "position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
+		userButton.style = "border-style: none; position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
 		document.body.appendChild(userButton);
+		setOnClick();
 	}
 }, function(error) {
   // The provider's account email, can be used in case of
@@ -92,11 +99,6 @@ firebase.auth().getRedirectResult().then(function(result) {
   // you can fetch the providers using this:
 	
 });
-setInterval(function(){
-	if(document.getElementById('userButton')!==null){
-		document.getElementById('userButton').onclick = "changeVis(document.getElementById('userInformation'))";
-	}	
-},10);
 var loadedData;
 var getData=function(dataToGet){
 	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
