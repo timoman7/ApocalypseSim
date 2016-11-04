@@ -81,8 +81,9 @@ firebase.auth().getRedirectResult().then(function(result) {
 		document.body.appendChild(userDiv);
 		var userButton = document.createElement('button');
 		var userImg = document.createElement('img')
-		userButton.appendChild(
-		userButton.src = currentUser.photoURL;
+		userImg.src = currentUser.photoURL;
+		userImg.style = "border-style: none; position: absolute; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;";
+		userButton.appendChild(userImg);
 		userButton.id = "userButton";
 		userButton.style = "border-style: none; position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
 		document.body.appendChild(userButton);
