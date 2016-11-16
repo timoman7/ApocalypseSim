@@ -34,7 +34,7 @@
 		};
 		setInterval(function(){
 			if(timeToClose){
-				window.close();
+				thisPage.document.write("<script>self.close();<\/script>");
 			}
 		},10);
 	</script>
