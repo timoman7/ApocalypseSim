@@ -1135,6 +1135,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Agility=BaseA.valueAsNumber;
                 gameData.stats.Luck=BaseL.valueAsNumber;
                 gameData.totalP=totalP;
+                gameData.CurrentHealth=CurrentHealth;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -1157,6 +1158,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.stats.Agility=BaseA.valueAsNumber;
             gameData.stats.Luck=BaseL.valueAsNumber;
 	    gameData.totalP=totalP;
+            gameData.CurrentHealth=CurrentHealth;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -1180,6 +1182,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             BaseI.value=loadData.stats.Intelligence;
             BaseA.value=loadData.stats.Agility;
             BaseL.value=loadData.stats.Luck;
+            CurrentHealth=loadData.CurrentHealth;
             done=1;
             document.getElementById('command_line').value=loadData.playerName;
             $("form").submit();
