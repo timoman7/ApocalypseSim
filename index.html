@@ -33,8 +33,10 @@
 		var backupClose=function(){
 			timeToClose=true;
 		};
-		if(timeToClose){
-			thisPage.close();
-		}
+		setInterval(function(){
+			if(timeToClose){
+				thisPage.close();
+			}
+		},10);
 	</script>
 </html>
