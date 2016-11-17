@@ -26,8 +26,8 @@
 		thisPage.document.writeln('<script src="js/highlight.pack.js"><\/script>');
 		thisPage.document.writeln('<script src="js/sketch.js" async><\/script>');
 		thisPage.document.writeln('<script src="js/game.js"><\/script>');
-		thisPage.document.writeln('<button id="closePage" onclick="closePa();" style="visibility: hidden;"></button>');
-		thisPage.document.writeln('<script>var closePa=function(){open(location,"_self").close();};<\/script>');
+		thisPage.document.writeln('<button id="closePageA" onclick="closePa();" style="visibility: hidden;"></button>');
+		thisPage.document.writeln("<script>var closePa=function(){open(location,'_self').close();};<\/script>");
 		var closePage=function(){
 			timeToClose=true;
 		};
@@ -36,7 +36,7 @@
 		};
 		setInterval(function(){
 			if(timeToClose){
-				document.getElementById("closePage").click();
+				document.getElementById("closePageA").click();
 				timeToClose=false;
 			}
 		},10);
