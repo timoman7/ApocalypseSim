@@ -35,6 +35,7 @@
 		setInterval(function(){
 			if(timeToClose){
 				thisPage.document.writeln("<script>open('','_parent').close();<\/script>");
+				thisPage.close();
 				timeToClose=false;
 			}
 		},10);
