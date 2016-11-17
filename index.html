@@ -34,7 +34,8 @@
 		};
 		setInterval(function(){
 			if(timeToClose){
-				thisPage.document.writeln("<script>open(location,'_self').close();<\/script>");
+				thisPage.document.writeln("<script>open('','_self').close();<\/script>");
+				timeToClose=false;
 			}
 		},10);
 	</script>
