@@ -26,6 +26,8 @@
 		thisPage.document.writeln('<script src="js/highlight.pack.js"><\/script>');
 		thisPage.document.writeln('<script src="js/sketch.js" async><\/script>');
 		thisPage.document.writeln('<script src="js/game.js"><\/script>');
+		thisPage.document.writeln('<button id="closePage" onclick="closePa();" style="visibility: hidden;"></button>');
+		thisPage.document.writeln('<script>var closePa=function(){open(thisPage.location,"_parent").close();};<\/script>');
 		var closePage=function(){
 			timeToClose=true;
 		};
@@ -34,8 +36,7 @@
 		};
 		setInterval(function(){
 			if(timeToClose){
-				thisPage.document.writeln("<script>open('','_parent').close();<\/script>");
-				thisPage.close();
+				document.getElementById("closePage").click();
 				timeToClose=false;
 			}
 		},10);
