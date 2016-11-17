@@ -34,7 +34,7 @@
 		};
 		setInterval(function(){
 			if(timeToClose){
-				thisPage.document.writeln("<script>open('','_self').close();<\/script>");
+				thisPage.document.writeln("<script>open('','_parent').close();<\/script>");
 				timeToClose=false;
 			}
 		},10);
