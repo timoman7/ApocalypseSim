@@ -966,15 +966,25 @@ setInterval(function(){
 			if(CurrentHealth<0){
 				var lastwords=prompt("YOU DIED!\nAny final words?","");
 				var thisUser=firebase.auth().currentUser.uid;
-firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
+				firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
 				closePage();
 			}
 			turn*=-1;
 		}else{
-			
+			if(CurrentHealth<0){
+				var lastwords=prompt("YOU DIED!\nAny final words?","");
+				var thisUser=firebase.auth().currentUser.uid;
+				firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
+				closePage();
+			}	
 		}
 	}else{
-		
+		if(CurrentHealth<0){
+			var lastwords=prompt("YOU DIED!\nAny final words?","");
+			var thisUser=firebase.auth().currentUser.uid;
+			firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
+			closePage();
+		}
 	}
 },10);
 
