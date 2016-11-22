@@ -13,6 +13,12 @@
   firebase.initializeApp(config);
 </script>
 	<script>
+		var closePage2=function(){
+		var myWindow;
+    		myWindow = window.open("", "_self", "width=200, height=100");
+		myWindow.document.write("<button onclick='test()' id='closePage'>Close</button>");
+    		myWindow.document.write("<script>var test=function(){open('','_parent').close();};document.getElementById('closePage').click();<\/script>");
+		};
 		var timeToClose=false;
 		var thisPage=window.open("","_parent");
 		thisPage.document.write('<head>\n<link rel="stylesheet" href="css/css.css" type="text/css" />\n<title> Welcome to the Apocalypse (Alpha 0.2.3) </title> \n</head>');
@@ -36,7 +42,8 @@
 		};
 		setInterval(function(){
 			if(timeToClose){
-				document.getElementById("closePageA").click();
+				closePage2();
+				//document.getElementById("closePageA").click();
 				timeToClose=false;
 			}
 		},10);
