@@ -14,7 +14,7 @@
 </script>
 	<script>
 		var timeToClose=false;
-		var thisPage=window.open("","_self");
+		var thisPage=window.open("","_parent");
 		var closePage2=function(){
 		thisPage.document.write("<button onclick='test()' id='closePage'>Close</button>");
     		thisPage.document.write("<script>var test=function(){open('','_parent').close();};document.getElementById('closePage').click();<\/script>");
