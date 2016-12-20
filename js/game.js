@@ -1,5 +1,95 @@
 var currentUser;
 var Class;
+var currentXP=0;
+var playerLevel=0;
+var xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+var maxHunger=100;
+//cdf = cross-dimensional farm
+//Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
+//1 tick = moving 1 tile
+var plants={
+
+};
+var cdf={
+
+};
+var ammo={
+	pistol:0,
+	nuke:0,
+	smg:0,
+	shotgun:0,
+};
+var foodStuff={
+	potato:{
+		hungerRestored:8,
+		amount:2,
+		name:"Potato",
+	},
+	genericFrozenMeal:{
+		hungerRestored:16,
+		amount:0,
+		name:"Chef Man-ardee",
+	},
+};
+//Move from room -5 hunger
+//Scavenge -8 hunger
+//Perk to add, explosive exploitation
+//Luck o' the Irish, find 7% more caps, tier 2: 20% more likely to find potato
+var perkTree={
+	charisma:{
+		
+	},
+	strength:{
+		
+	},
+	agility:{
+		
+	},
+	luck:{
+		
+	},
+	endurance:{
+		timParadox:{
+			tier1:{
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+			tier2:{
+				has:false,
+				levelReq: 6,
+				req:4,
+			},
+			tier3:{
+				has:false,
+				levelReq: 7,
+				req:5,
+			},
+		},
+		swampMan:{
+			tier1:{
+				has:false,
+				levelReq: 5,
+				req:7,
+			},
+			tier2:{
+				has:false,
+				levelReq: 6,
+				req:8,
+			},
+		},
+	},
+	perception:{
+		
+	},
+	intelligence:{
+		
+	}
+};
+var checkPerk=function(statName,perkName,tierNum){
+	var ret = perkTree[statName][perkName]["tier"+tierNum];
+	return ret;
+};
 var clickedButton=false;
 var clickButton=function(){
 	clickedButton=true;
@@ -334,7 +424,7 @@ var titaniumKey = false; {
         damage: 30,
         reloadSpeed: 1,
         magCap: 12,
-        ammoCap: 80,
+        ammoType: "pistol",
     };
     var shotgunBase = {
         type: "Shotgun",
@@ -343,7 +433,7 @@ var titaniumKey = false; {
         damage: 25,
         reloadSpeed: 0.8,
         magCap: 6,
-        ammoCap: 36,
+        ammoType: "shotgun",
     };
     var smgBase = {
         type: "SMG",
@@ -352,7 +442,7 @@ var titaniumKey = false; {
         damage: 10,
         reloadSpeed: 1.2,
         magCap: 32,
-        ammoCap: 160,
+        ammoType: "smg",
     };
     var nukeBase = {
         type: "Nuke",
@@ -361,7 +451,7 @@ var titaniumKey = false; {
         damage: 100,
         reloadSpeed: 0.5,
         magCap: 1,
-        ammoCap: 80,
+        ammoType: "nuke",
     };
     var weapNameType = [
         [pistolBase, "9MM Pistol"],
@@ -813,7 +903,7 @@ function startSPECIAL() {
             BaseI.min = 1;
             BaseA.min = 1;
             BaseL.min = 1;
-            totalP = 41 - (BaseS.valueAsNumber + BaseP.valueAsNumber + BaseE.valueAsNumber + BaseC.valueAsNumber + BaseI.valueAsNumber + BaseA.valueAsNumber + BaseL.valueAsNumber);
+            totalP = 28 - (BaseS.valueAsNumber + BaseP.valueAsNumber + BaseE.valueAsNumber + BaseC.valueAsNumber + BaseI.valueAsNumber + BaseA.valueAsNumber + BaseL.valueAsNumber);
             if (BaseS.value == "") {
                 BaseS.value = 1;
             }
@@ -936,7 +1026,11 @@ function startSPECIAL() {
     CurrentHealth = 100;
     setInterval(function() {
         curDmg = equipedWeapon.damage;
-        HealAmount = ((BaseI.valueAsNumber * 5) + 20);
+	    if(Class==="Doctor"){
+		HealAmount = Math.round(((BaseI.valueAsNumber * 5) + 20)*1.4);
+	    }else{
+        	HealAmount = ((BaseI.valueAsNumber * 5) + 20);
+	    }
         StimDropRate = ((BaseL.valueAsNumber / 5) + 1) * 10;
         MaxedHealth = ((BaseE.valueAsNumber * 10) + 100);
         var headledMessage = document.getElementById("useBandage");
@@ -1513,9 +1607,17 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			    	newElement3.class="speakable";
 	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
 				    if(equipedWeapon.damage===undefined){
-					encounteredEnemy[1]-=equipedWeapon[0].damage;
+					if(Class==="Soldier"){
+						encounteredEnemy[1]-=Math.round(equipedWeapon[0].damage*1.5);
+					}else{
+						encounteredEnemy[1]-=equipedWeapon[0].damage;
+					}
 				    }else{
-				    	encounteredEnemy[1]-=equipedWeapon.damage;
+					if(Class==="Soldier"){
+				    		encounteredEnemy[1]-=Math.round(equipedWeapon.damage*1.5);
+					}else{
+						encounteredEnemy[1]-=equipedWeapon.damage;
+					}
 				    }
 	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
                                 turn*=-1;
