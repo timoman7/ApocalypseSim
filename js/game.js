@@ -1202,6 +1202,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Luck=BaseL.valueAsNumber;
                 gameData.totalP=totalP;
                 gameData.CurrentHealth=CurrentHealth;
+		gameData.Class=Class;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -1225,6 +1226,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.stats.Luck=BaseL.valueAsNumber;
 	    gameData.totalP=totalP;
             gameData.CurrentHealth=CurrentHealth;
+		gameData.Class=Class;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -1249,6 +1251,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             BaseA.value=loadData.stats.Agility;
             BaseL.value=loadData.stats.Luck;
             CurrentHealth=loadData.CurrentHealth;
+		Class=loadData.Class;
             done=1;
             document.getElementById('command_line').value=loadData.playerName;
             $("form").submit();
@@ -1260,6 +1263,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             BaseI.value=loadData.stats.Intelligence;
             BaseA.value=loadData.stats.Agility;
             BaseL.value=loadData.stats.Luck;
+		Class=loadData.Class;
         }else{
             alert("No save data available.");
         }
