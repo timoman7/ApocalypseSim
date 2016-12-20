@@ -1,4 +1,5 @@
 var currentUser;
+var clickedButton=false;
 var closePrompt = function(){
 	document.body.style.pointerEvents="auto";
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
@@ -195,6 +196,9 @@ for (var i = 0; i < document.getElementById('console').childElementCount; i++) {
         }
     }
 }
+var chooseBackground=document.createElement('select');
+var availableClasses=[];
+var doctor
 var divLength;
 if (currentSpeak === "") {
     divLength = document.getElementById('console').childElementCount - 1;
@@ -885,7 +889,7 @@ function startSPECIAL() {
                 BaseA.valueAsNumber = 1;
                 BaseL.valueAsNumber = 1;
             }
-            if (totalP === 0) {
+            if (totalP === 0 && clickedButton) {
                 updatingSPEC = false;
             }
         } else {
