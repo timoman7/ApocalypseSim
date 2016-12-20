@@ -1,5 +1,9 @@
 var currentUser;
+var Class;
 var clickedButton=false;
+var clickButton=function(){
+	clickedButton=true;
+};
 var closePrompt = function(){
 	document.body.style.pointerEvents="auto";
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
@@ -197,8 +201,31 @@ for (var i = 0; i < document.getElementById('console').childElementCount; i++) {
     }
 }
 var chooseBackground=document.createElement('select');
-var availableClasses=[];
-var doctor
+chooseBackground.id="backgroundSelection";
+var doctor=document.createElement('option');
+var soldier=document.createElement('option');
+var vendor=document.createElement('option');
+var mayor=document.createElement('option');
+doctor.value="Doctor";
+doctor.innerHTML="Doctor";
+doctor.title="Before the bombs dropped, you were a doctor at a local hospital.\nHealing items are more efficient.";
+soldier.value="Soldier";
+soldier.innerHTML="Soldier";
+soldier.title="You are a soldier that survived when the bombs dropped.\nAssault rifles do additional damage.";
+vendor.value="Vendor";
+vendor.innerHTML="Vendor";
+vendor.title="You use to be the owner of a local business.\nItems cost less and sell for more.";
+mayor.value="Mayor";
+mayor.innerHTML="Mayor";
+mayor.title="When the bombs dropped you were calming down the local residents.\nYou have a higher charisma and are more persuasive.";
+var availableClasses=[doctor,soldier,vendor,mayor];
+for(var i=0;i<availableClasses.length;i++){
+	chooseBackground.appendChild(availableClasses[i]);
+}
+document.getElementById('assignPoints').appendChild(chooseBackground);
+var statButton=document.createElement('button');
+statButton.setAttribute('onclick','clickButton();');
+document.getElementById('assignPoints').appendChild(statButton);
 var divLength;
 if (currentSpeak === "") {
     divLength = document.getElementById('console').childElementCount - 1;
@@ -890,6 +917,7 @@ function startSPECIAL() {
                 BaseL.valueAsNumber = 1;
             }
             if (totalP === 0 && clickedButton) {
+		Class=document.getElementById('backgroundSelection').value;
                 updatingSPEC = false;
             }
         } else {
