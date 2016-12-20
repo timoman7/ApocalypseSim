@@ -224,7 +224,10 @@ for(var i=0;i<availableClasses.length;i++){
 }
 document.getElementById('assignPoints').appendChild(chooseBackground);
 var statButton=document.createElement('button');
+var bre=document.createElement('br');
+document.getElementById('assignPoints').appendChild(bre);
 statButton.setAttribute('onclick','clickButton();');
+statButton.innerHTML="Select Class";
 document.getElementById('assignPoints').appendChild(statButton);
 var divLength;
 if (currentSpeak === "") {
