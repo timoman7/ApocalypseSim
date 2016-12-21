@@ -344,6 +344,8 @@ for(var pyy=0;pyy<10;pyy++){
 			seedableSelect.id('plantableSelect');
 			seedableSelect.position(920,420);
 			function refreshFood(){
+				seedableSelect.elt.innerHTML="";
+				plantSelect.elt.innerHTML="";
 				for(var plant in plantableFood){
 					plantSelect.option(plantableFood[plant].name,plant);
 				}
