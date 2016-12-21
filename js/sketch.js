@@ -315,7 +315,7 @@ for(var pyy=0;pyy<10;pyy++){
 		}
 	}else{
 		farmGuiOpen=false;
-		farmmode.hide();
+		farmMode.hide();
 	}
 	//println(keyCode);
 	//println(charList[i]+": "+keysDown[charList[i]]);
