@@ -140,6 +140,7 @@ function setup(){
 	farmMode.position(750,420);
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
+	farmMode.changed(farmModeEvent);
 	harvestSelect.position(820,420);
 	plantSelect.position(820,420);
 	qcList.position(175,90);
