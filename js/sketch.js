@@ -256,6 +256,8 @@ for(var pyy=0;pyy<10;pyy++){
             fill(0,255,0);
         }else if(area[pyy][pxx][0]===99){
             fill(255,0,0);
+        }else if(area[pyy][pxx][0]===98){
+            fill(255,255,0);
         }else{
             fill(0,0,255);
         }
