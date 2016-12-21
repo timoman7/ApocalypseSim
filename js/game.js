@@ -55,6 +55,7 @@ var foodStuff={
 			three:10,
 		},
 		timeToGrow:5,
+		ticks:0,
 	},
 	cabbage:{
 		dictName:"cabbage",
@@ -75,6 +76,7 @@ var foodStuff={
 			three:10,
 		},
 		timeToGrow:6,
+		ticks:0,
 	},
 	genericFrozenMeal:{
 		dictName:"genericFrozenMeal",
