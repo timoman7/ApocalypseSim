@@ -320,6 +320,7 @@ for(var pyy=0;pyy<10;pyy++){
 	}else{
 		farmGuiOpen=false;
 		plantSelect.hide();
+		harvestSelect.hide();
 		farmMode.hide();
 	}
 	//println(keyCode);
