@@ -319,6 +319,7 @@ for(var pyy=0;pyy<10;pyy++){
 		}
 	}else{
 		farmGuiOpen=false;
+		plantSelect.hide();
 		farmMode.hide();
 	}
 	//println(keyCode);
