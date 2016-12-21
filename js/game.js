@@ -1243,6 +1243,8 @@ function updateText() {
         if (area[playerY][playerX][0] == 99) {
             canTrade = true;
             $("#message_room99").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+        } else if (area[playerY][playerX][0] == 98) {
+            $("#message_room98").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
         } else if (area[playerY][playerX][0] == 5) {
             $("#message_vaultReturn").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
         } else {
