@@ -356,7 +356,7 @@ for(var pyy=0;pyy<10;pyy++){
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
-				cropList[p].position(700+(p*10),120);
+				cropList[p].position(700+(p*30),120);
 				if(cropList[p].elt.innerHTML=="undefined"){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
