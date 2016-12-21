@@ -422,7 +422,7 @@ var titaniumKey = false; {
         damage: 10,
         reloadSpeed: 1,
         magCap: 12,
-        ammoCap: 80,
+        ammoType: "none",
     };
     var pistolBase = {
         type: "Pistol",
@@ -1316,6 +1316,11 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 gameData.stats.Intelligence=BaseI.valueAsNumber;
                 gameData.stats.Agility=BaseA.valueAsNumber;
                 gameData.stats.Luck=BaseL.valueAsNumber;
+		    gameData.foodStuff=foodStuff;
+		    gameData.cdf=cdf;
+		    gameData.perkTree=perkTree;
+		    gameData.plants=plants;
+		    gameData.ammo=ammo;
                 gameData.totalP=totalP;
                 gameData.CurrentHealth=CurrentHealth;
 		gameData.Class=Class;
