@@ -343,13 +343,21 @@ for(var pyy=0;pyy<10;pyy++){
 			var seedableSelect=createSelect();
 			seedableSelect.id('plantableSelect');
 			seedableSelect.position(920,420);
-			plantSelect.elt.innerHTML="";
-			for(var plant in plantableFood){
-				plantSelect.option(plantableFood[plant].name,plant);
+			function refreshFood(){
+				for(var plant in plantableFood){
+					plantSelect.option(plantableFood[plant].name,plant);
+				}
+				for(var plant in seedableFood){
+					seedableSelect.option(seedableFood[plant].name,plant);
+				}
 			}
-			for(var plant in seedableFood){
-				seedableSelect.option(seedableFood[plant].name,plant);
-			}
+				if(document.getElementById('refreshFood')){
+					document.getElementById('refreshFood').parentElement.removeChild(document.getElementById('refreshFood'));
+				}
+				var refreshFoodButton=createButton();
+				refreshFoodButton.id("refreshFood");
+				refreshFoodButton.position(920,380);
+				refreshFoodButton.mouseClicked(refreshFood);
 			if(craftState=="block"){
 				seedableSelect.show();
 			}else{
@@ -408,6 +416,7 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 				var harvestButton=createButton();
 				harvestButton.id("harvestButton");
+				harvestButton.position(820,380);
 				harvestButton.mouseClicked(harvestCrops);
 			}else{
 				if(document.getElementById('harvestButton')){
