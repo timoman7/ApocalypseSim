@@ -10,8 +10,8 @@ var maxHunger=100;
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
 var cdf={
-	planted:{
-	
+	plants:{
+		
 	},
 	upgrades:{
 		tier1:{
@@ -37,11 +37,13 @@ var ammo={
 };
 var foodStuff={
 	potato:{
+		dictName:"potato",
 		hungerRestored:8,
 		amount:2,
 		name:"Potato",
 		plantable:true,
 		seeds:1,
+		color:'beige',
 		chanceToDrop:{
 			one:80,
 			two:30,
@@ -55,9 +57,11 @@ var foodStuff={
 		timeToGrow:5,
 	},
 	cabbage:{
+		dictName:"cabbage",
 		hungerRestored:10,
 		amount:1,
 		name:"Cabbage",
+		color:'Chartreuse',
 		plantable:true,
 		seeds:1,
 		chanceToDrop:{
@@ -73,6 +77,7 @@ var foodStuff={
 		timeToGrow:6,
 	},
 	genericFrozenMeal:{
+		dictName:"genericFrozenMeal",
 		hungerRestored:16,
 		amount:0,
 		name:"Chef Man-ardee",
@@ -86,9 +91,9 @@ var foodStuff={
 };
 var tick=function(n){
 	hunger-=n;
-	for(var i in cdf.planted){
-		if(cdf.planted.length>0){
-			cdf.planted[i].ticks++;
+	for(var i in cdf.plants){
+		if(cdf.plants.length>0){
+			cdf.plants[i].ticks++;
 		}
 	}
 };
