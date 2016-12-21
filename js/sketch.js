@@ -356,7 +356,10 @@ for(var pyy=0;pyy<10;pyy++){
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
-				cropList[p].position(700,120+(p*10));
+				cropList[p].position(700+(p*10),120);
+				if(cropList[p].elt.innerHTML=="undefined"){
+					cropList[p].elt.innerHTML=p+" [-]";
+				}
 				if(plantState=="block"){
 					if(cdf.plants[p].planted){
 						cropList[p].style('background-color',cdf.plants[p].color);
@@ -377,7 +380,7 @@ for(var pyy=0;pyy<10;pyy++){
 							}
 							cdf.plants[p].planted=true;
 						}
-						cropList[p].mouseClicked();
+						cropList[p].mouseClicked(plantSeed);
 					}
 				}else if(farmMode.selected()=="Harvest"){
 					if(cdf.plants[p].planted){
