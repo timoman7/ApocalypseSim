@@ -1,17 +1,33 @@
 var currentUser;
+var farmGuiOpen=false;
 var Class;
 var currentXP=0;
 var playerLevel=0;
 var xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+var hunger = 100;
 var maxHunger=100;
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
-var plants={
-
-};
 var cdf={
-
+	planted:{
+	
+	},
+	upgrades:{
+		tier1:{
+			has:false,
+			caps:70,
+		},
+		tier2:{
+			has:false,
+			caps:120,
+		},
+		tier3:{
+			has:false,
+			caps:190,
+		},
+	},
+	plantLimit:3,
 };
 var ammo={
 	pistol:0,
@@ -24,15 +40,60 @@ var foodStuff={
 		hungerRestored:8,
 		amount:2,
 		name:"Potato",
+		plantable:true,
+		seeds:1,
+		chanceToDrop:{
+			one:80,
+			two:30,
+			three:10,
+		},
+		chanceToFind:{
+			one:50,
+			two:30,
+			three:10,
+		},
+		timeToGrow:5,
+	},
+	cabbage:{
+		hungerRestored:10,
+		amount:1,
+		name:"Cabbage",
+		plantable:true,
+		seeds:1,
+		chanceToDrop:{
+			one:70,
+			two:30,
+			three:10,
+		},
+		chanceToFind:{
+			one:40,
+			two:30,
+			three:10,
+		},
+		timeToGrow:6,
 	},
 	genericFrozenMeal:{
 		hungerRestored:16,
 		amount:0,
 		name:"Chef Man-ardee",
+		plantable:false,
+		chanceToFind:{
+			one:30,
+			two:20,
+			three:10,
+		},
 	},
 };
+var tick=function(n){
+	hunger-=n;
+	for(var i in cdf.planted){
+		if(cdf.planted.length>0){
+			cdf.planted[i].ticks++;
+		}
+	}
+};
 //Move from room -5 hunger
-//Scavenge -8 hunger
+//Scavenge -8 hunger and 2 ticks
 //Perk to add, explosive exploitation
 //Luck o' the Irish, find 7% more caps, tier 2: 20% more likely to find potato
 var perkTree={
@@ -1084,7 +1145,7 @@ function startSPECIAL() {
             htmLA[i].innerHTML = "Luck:.................." + BaseL.value;
             htmDA[i].innerHTML = "Defence:..............." + defenceStat.toString();
             htmCurrentHealth[i].innerHTML = "Current Health:........" + CurrentHealth + "/" + MaxedHealth;
-            htmCaps[i].innerHTML = "Caps..................." + currentCaps;
+            htmCaps[i].innerHTML = "Shekels................" + currentCaps;
             htmTP.innerHTML = totalP;
         }
     };
@@ -1236,8 +1297,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
     var newInput;
     var i = 0;
 
-    var prefixList = ["equip", "inventory", "use", "look", "go", "help", "take", "stats", "read", "done", "buy", "sell", "attack", "burst"];
-    var prefixList2 = ["note", "stick", "north", "west", "east", "south", "left", "right", "up", "down", "around", "bandage", "2", "3", "4", "5", "6"];
+    var prefixList = ["equip", "inventory", "use", "look", "go", "help", "take", "stats", "read", "done", "buy", "sell", "attack", "burst", "farm"];
+    var prefixList2 = ["note", "stick", "north", "west", "east", "south", "left", "right", "up", "down", "around", "bandage", "2", "3", "4", "5", "6", "help", "open"];
     var prefixInputCheck = function() {
         this.check = true;
         for (var i = 0; i < prefixList.length; i++) {
@@ -1284,7 +1345,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             if(storageLength=="playerName"||storageLength=="stats"||storageLength=="inventory"||storageLength=="currentCaps"){
                 if(storageLength=="inventory"){
                     for(var invLength = 0; invLength < savedData.inventory.length; invLength++){
-                        appendedConfirmText+="\n"+savedData[storageLength][invLength][1]+" "+savedData[storageLength][invLength][0].name+": "+savedData[storageLength][invLength][0].value+" caps";
+                        appendedConfirmText+="\n"+savedData[storageLength][invLength][1]+" "+savedData[storageLength][invLength][0].name+": "+savedData[storageLength][invLength][0].value+" shekels";
                     }
                 }else if(storageLength=="stats"){
                     for(var statLength in savedData[storageLength]){
@@ -1319,7 +1380,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		    gameData.foodStuff=foodStuff;
 		    gameData.cdf=cdf;
 		    gameData.perkTree=perkTree;
-		    gameData.plants=plants;
 		    gameData.ammo=ammo;
                 gameData.totalP=totalP;
                 gameData.CurrentHealth=CurrentHealth;
@@ -1337,6 +1397,10 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             gameData.currentCaps=currentCaps;
             gameData.playerName=playerName;
             gameData.textHistory=document.getElementById('console').innerHTML;
+		    gameData.foodStuff=foodStuff;
+		    gameData.cdf=cdf;
+		    gameData.perkTree=perkTree;
+		    gameData.ammo=ammo;
             gameData.stats={};
             gameData.stats.Strength=BaseS.valueAsNumber;
             gameData.stats.Perception=BaseP.valueAsNumber;
@@ -1372,6 +1436,10 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
             BaseA.value=loadData.stats.Agility;
             BaseL.value=loadData.stats.Luck;
             CurrentHealth=loadData.CurrentHealth;
+		    foodStuff=loadData.foodStuff;
+		    cdf=loadData.cdf;
+		    perkTree=loadData.perkTree;
+		    ammo=loadData.ammo;
 		Class=loadData.Class;
             done=1;
             document.getElementById('command_line').value=loadData.playerName;
@@ -1534,7 +1602,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if (item.toLowerCase() == "north" || item.toLowerCase() == "up") {
                                 playerY -= 1;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1543,7 +1612,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				createNewArea();
                                 playerY = 9;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1552,7 +1622,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if (item.toLowerCase() == "south" || item.toLowerCase() == "down") {
                                 playerY += 1;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1561,7 +1632,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				createNewArea();
                                 playerY = 0;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1570,7 +1642,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if (item.toLowerCase() == "east" || item.toLowerCase() == "right") {
                                 playerX += 1;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1579,7 +1652,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				createNewArea();
                                 playerX = 0;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1588,7 +1662,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if (item.toLowerCase() == "west" || item.toLowerCase() == "left") {
                                 playerX -= 1;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1597,7 +1672,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				createNewArea();
                                 playerX = 9;
                                 room();
-                                if(area[playerY][playerX][0] !== 99){
+				tick(5);
+                                if(area[playerY][playerX][0] !== 99 && area[playerY][playerX][0] !== 98){
                                     encounter();
                                 }
                             }
@@ -1715,6 +1791,58 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                         updatingSPEC = false;
                     }
                 }
+		var checkFood=function(itemName){
+			var foundFood=false;
+			var foodName="";
+			for(var foods in foodStuff){
+				if(itemName==foodStuff[foods].name){
+					foundFood=true;
+					foodName=foods;
+				}else if(!foundFood){
+					foundFood=false;
+				}
+			}
+			if(foundFood){
+				return {found:true,foodName:foodName,};
+			}else{
+				return {found:false};
+			}
+		};
+		if(prefix.toLowerCase()=="eat"){
+			if(checkFood(item).found){
+				if(foodStuff[checkFood(item).foodName].amount>0){
+					hunger+=foodStuff[checkFood(item).foodName].hungerRestored;
+					foodStuff[checkFood(item).foodName].amount-=1;
+				}else{
+					
+					//Does not have any of that food
+				}
+				//recover 
+			}
+		}
+		if(prefix.toLowerCase() == "scavenge"){
+			if(item.toLowerCase() == ""){
+				for(var foodType in foodStuff){
+					for(var foundQuantity in foodStuff[foodType].chanceToFind){
+						var chanceToFind=foodStuff[foodType].chanceToFind[foundQuantity];
+						var rngFound=rngA(100);
+						if(rngFound<chanceToFind){
+							foodStuff[foodType].amount++;
+						}
+					}
+				}
+				tick(8);
+			}
+		}
+		if(area[playerY][playerX][0]==98){
+			if(prefix.toLowerCase() == "farm"){
+				if(item.toLowerCase() == "help"){
+					
+				}else if(item.toLowerCase() == "open"){
+					farmGuiOpen=true;
+				}
+			}
+		}
 		if(enterBattle!==1){
 			if (prefix.toLowerCase() == "use") {
 			    if (item.toLowerCase() == "bandage" && items[7][2] > 0) {
