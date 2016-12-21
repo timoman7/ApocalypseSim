@@ -388,6 +388,8 @@ for(var pyy=0;pyy<10;pyy++){
 							for(var plant in plantableFood){
 								if(plantSelect.value==plantableFood[plant].name){
 									cdf.plants[p]=plantableFood[plant];
+									cdf.plants[p].planted=true;
+									cdf.plants[p].ticks=0;
 									foodStuff[plant].seeds--;
 								}
 							}
