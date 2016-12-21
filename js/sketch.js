@@ -351,6 +351,7 @@ for(var pyy=0;pyy<10;pyy++){
 					seedableSelect.option(seedableFood[plant].name,plant);
 				}
 			}
+			if(frameCount%100===0{
 				if(document.getElementById('refreshFood')){
 					document.getElementById('refreshFood').parentElement.removeChild(document.getElementById('refreshFood'));
 				}
@@ -358,6 +359,7 @@ for(var pyy=0;pyy<10;pyy++){
 				refreshFoodButton.id("refreshFood");
 				refreshFoodButton.position(920,380);
 				refreshFoodButton.mouseClicked(refreshFood);
+			}
 			if(craftState=="block"){
 				seedableSelect.show();
 			}else{
