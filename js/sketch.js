@@ -374,7 +374,7 @@ for(var pyy=0;pyy<10;pyy++){
 						function plantSeed(){
 							for(var plant in plantableFood){
 								if(plantSelect.value==plantableFood[plant].name){
-									cdf.plants[p]=plantableFood[plant]
+									cdf.plants[p]=plantableFood[plant];
 									foodStuff[plant].seeds--;
 								}
 							}
