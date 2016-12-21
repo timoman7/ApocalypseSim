@@ -141,7 +141,7 @@ function setup(){
 	saveList=createSelect();
 	for(var i=0;i<9;i++){
 		var tempBtn=createButton();
-		cdf.plants[i]={planted:false};
+		cdf.plants[i]={planted:false,ticks:0};
 		harvestList.push({readyH:false,selectedH:false});
 		tempBtn.id("crop"+i);
 		tempBtn.hide();
