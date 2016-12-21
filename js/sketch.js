@@ -140,6 +140,9 @@ function setup(){
 	farmMode.position(750,420);
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
+	farmMode.id('farmMode');
+	harvestSelect.id('harvestSelect');
+	plantSelect.id('plantSelect');
 	farmMode.changed(farmModeEvent);
 	harvestSelect.position(820,420);
 	plantSelect.position(820,420);
@@ -298,6 +301,7 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 			}
 			var plantableSelect=createSelect();
+			plantableSelect.id('plantableSelect');
 			plantableSelect.position(920,420);
 			for(var plant in plantableFood){
 				plantableSelect.option(plantableFood[plant].name,plant);
