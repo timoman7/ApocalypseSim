@@ -351,7 +351,7 @@ for(var pyy=0;pyy<10;pyy++){
 					seedableSelect.option(seedableFood[plant].name,plant);
 				}
 			}
-			if(frameCount%100===0{
+			if(frameCount%100==0){
 				if(document.getElementById('refreshFood')){
 					document.getElementById('refreshFood').parentElement.removeChild(document.getElementById('refreshFood'));
 				}
