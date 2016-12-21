@@ -95,7 +95,9 @@ var tick=function(n){
 	hunger-=n;
 	for(var i in cdf.plants){
 		if(cdf.plants.length>0){
-			cdf.plants[i].ticks++;
+			if(cdf.plants[i].planted){
+				cdf.plants[i].ticks++;
+			}
 		}
 	}
 };
