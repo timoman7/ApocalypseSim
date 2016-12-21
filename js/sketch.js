@@ -125,12 +125,23 @@ function typing(){
 var testLoad;
 var qcClick=0;
 var saveClick=0;
+var farmMode;
+var harvestSelect;
+var plantSelect;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
 	createCanvas(windowWidth,windowHeight);//-50 on both
+	farmMode=createSelect();
+	harvestSelect=createSelect();
+	plantSelect=createSelect();
 	qcList=createSelect();
 	saveList=createSelect();
+	farmMode.position(750,420);
+	farmMode.option("Plant");
+	farmMode.option("Harvest");
+	harvestSelect.position(820,420);
+	plantSelect.position(820,420);
 	qcList.position(175,90);
 	saveList.position(310,90);
 	qcList.option("Inventory");
@@ -142,6 +153,16 @@ function setup(){
 	saveList.mouseClicked(saveEvent);
 	qcList.mouseOut(qcEventOut);
 	saveList.mouseOut(saveEventOut);
+}
+function farmModeEvent(event){
+	var op=event.target.selectedOptions[0].value;
+	if(op=="Harvest"){
+		harvestSelect.show();
+		plantSelect.hide();
+	}else if(op=="Plant"){
+		harvestSelect.hide();
+		plantSelect.show();
+	}
 }
 function qcEvent(){
 	if(qcClick===1){
@@ -264,6 +285,36 @@ for(var pyy=0;pyy<10;pyy++){
         rect(windowWidth/2+windowWidth/4+(pxx*10),-200+windowHeight/2+windowHeight/4+(pyy*10),10,10);
     }
 }
+	if(area[playerY][playerX][0]==98){
+		if(farmGuiOpen){
+			farmMode.show();
+			var harvestState=harvestSelect.style('display');
+			var plantState=plantSelect.style('display');
+			var plantableFood={};
+			for(var plant in foodStuff){
+				if(foodStuff[plant].plantable && foodStuff[plant].seeds>0){
+					plantableFood[plant]=foodStuff[plant];
+				}
+			}
+			var plantableSelect=createSelect();
+			plantableSelect.position(920,420);
+			for(var plant in plantableFood){
+				plantableSelect.option(plantableFood[plant].name,plant);
+			}
+			if(plantState=="block"){
+				plantableSelect.show();
+			}else{
+				plantableSelect.hide();
+			}
+			for(var p=0;p<cdf.plantLimit;p++){
+				
+			}
+		}else{
+			farmMode.hide();
+		}
+	}else{
+		farmGuiOpen=false;
+	}
 	//println(keyCode);
 	//println(charList[i]+": "+keysDown[charList[i]]);
 }
