@@ -319,6 +319,13 @@ document.getElementById('assignPoints').appendChild(bre);
 statButton.setAttribute('onclick','clickButton();');
 statButton.innerHTML="Select Class";
 document.getElementById('assignPoints').appendChild(statButton);
+if(!document.getElementById('message_room98')){
+	var cdfMessage=document.createElement('p');
+	cdfMessage.innerHTML=">Welcome to the Cross-Dimensional Farm\n>Here, you can grow crops to be harvested for food.\n>For farm commands, type 'farm help'";
+	cdfMessage.class='speakable';
+	cdfMessage.id='message_room98';
+	document.getElementById('message_room99').parentElement.appendChild(cdfMessage);
+}
 var divLength;
 if (currentSpeak === "") {
     divLength = document.getElementById('console').childElementCount - 1;
@@ -484,8 +491,7 @@ var titaniumKey = false; {
         this.damage = this.baseWeap.damage;
         this.type = this.baseWeap.type;
         this.magCap = this.baseWeap.magCap;
-        this.ammoCap = this.baseWeap.ammoCap;
-        this.magCap = this.baseWeap.magCap;
+        this.ammoType = this.baseWeap.ammoType;
         if (this.effect !== "Normal") {
             this.name = this.effect + " " + this.name;
             switch (this.effect) {
@@ -573,10 +579,16 @@ var titaniumKey = false; {
         var resC = Math.round((resA / 2) + (resB / 2));
         return resC;
     };
-    var rSpawn = rngA(100);
     var playerX;
     var playerY;
+    var rSpawn = rngA(100);
     var merchSpawn = rngA(100);
+    var cdfSpawn = rngA(100);
+	while(cdfSpawn==merchSpawn||cdfSpawn==rSpawn||rSpawn==merchSpawn){
+		rSpawn = rngA(100);
+		merchSpawn = rngA(100);
+		cdfSpawn = rngA(100);
+	}
     var fixArea = [];
     var area = [];
     var counter = 0;
@@ -623,6 +635,8 @@ var titaniumKey = false; {
                 roomGen.push(100, itemGen);
             } else if (counter == merchSpawn) {
                 roomGen.push(99, itemGen);
+            } else if (counter == cdfSpawn) {
+                roomGen.push(98, itemGen);
             } else {
                 roomGen.push(rngA(4), itemGen);
             }
@@ -641,6 +655,11 @@ var titaniumKey = false; {
 var createNewArea=function(){
 	area=[];
     var merchSpawn = rngA(100);
+    var cdfSpawn = rngA(100);
+	while(cdfSpawn==merchSpawn){
+		merchSpawn = rngA(100);
+		cdfSpawn = rngA(100);
+	}
     var fixArea = [];
     var counter = 0;
     for (var yy = 0; yy < 10; yy++) {
@@ -682,10 +701,10 @@ var createNewArea=function(){
                 //ab4.hidden=true;
                 document.getElementsByClassName('items')[0].appendChild(ab4);
             }
-            if (counter == rSpawn) {
-                roomGen.push(100, itemGen);
-            } else if (counter == merchSpawn) {
+            if (counter == merchSpawn) {
                 roomGen.push(99, itemGen);
+            } else if (counter == cdfSpawn) {
+                roomGen.push(98, itemGen);
             } else {
                 roomGen.push(rngA(4), itemGen);
             }
