@@ -85,18 +85,18 @@ var testLoad;
 var qcClick=0;
 var saveClick=0;
 var farmMode;
-var craftSelect;
 var plantSelect;
 var cropList=[];
 var harvestList=[];
 var plantableFood={};
+var seedableFood={};
 var seedableSelect;
+var craftSeedButton;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
 	createCanvas(windowWidth,windowHeight);//-50 on both
 	farmMode=createSelect();
-	craftSelect=createSelect();
 	plantSelect=createSelect();
 	qcList=createSelect();
 	saveList=createSelect();
@@ -116,11 +116,15 @@ function setup(){
 	seedableSelect.id('plantableSelect');
 	seedableSelect.position(920,420);
 	seedableSelect.hide();
+	craftSeedButton=createButton();
+	craftSeedButton.id("craftSeedButton");
+	craftSeedButton.elt.innerHTML="Craft into seed";
+	craftSeedButton.position(820,420);
+	craftSeedButton.mouseClicked(craftSeed);
+	craftSeedButton.hide();
 	farmMode.id('farmMode');
-	craftSelect.id('craftSelect');
 	plantSelect.id('plantSelect');
 	farmMode.changed(farmModeEvent);
-	craftSelect.position(820,420);
 	plantSelect.position(820,420);
 	qcList.position(175,90);
 	saveList.position(310,90);
@@ -134,7 +138,16 @@ function setup(){
 	qcList.mouseOut(qcEventOut);
 	saveList.mouseOut(saveEventOut);
 }
-
+function craftSeed(){
+	for(var plant in seedableFood){
+		if(seedableSelect.selected().toLowerCase()==seedableFood[plant].name.toLowerCase()){
+			if(foodStuff[plant].amount>0){
+				foodStuff[plant].amount--;
+				foodStuff[plant].seeds++;
+			}
+		}
+	}
+}
 function plantSeed(event){
 	var plantLocation=event.target.id.split("crop")[1];
 	for(var plant in plantableFood){
@@ -144,7 +157,6 @@ function plantSeed(event){
 				cdf.plants[plantLocation].planted=true;
 				cdf.plants[plantLocation].ticks=0;
 				foodStuff[plant].seeds--;
-				console.log(cdf.plants[plantLocation],foodStuff[plant].seeds);
 			}
 		}
 	}
@@ -161,14 +173,10 @@ function selectCrop(event){
 function farmModeEvent(event){
 	var op=event.target.selectedOptions[0].value;
 	if(op=="Harvest"){
-		craftSelect.hide();
 		plantSelect.hide();
 	}else if(op=="Plant"){
-
-		craftSelect.hide();
 		plantSelect.show();
 	}else if(op=="Craft"){
-		craftSelect.show();
 		plantSelect.hide();
 	}
 }
@@ -314,9 +322,8 @@ for(var pyy=0;pyy<10;pyy++){
 		if(farmGuiOpen){
 			farmMode.show();
 			var plantState=plantSelect.style('display');
-			var craftState=craftSelect.style('display');
 			plantableFood={};
-			var seedableFood={};
+			seedableFood={};
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].seeds>0){
 					plantableFood[plant]=foodStuff[plant];
@@ -347,10 +354,12 @@ for(var pyy=0;pyy<10;pyy++){
 				refreshFoodButton.position(920,380);
 				refreshFoodButton.mouseClicked(refreshFood);
 			}
-			if(craftState=="block"){
+			if(farmMode.selected()=="Craft"){
 				seedableSelect.show();
+				craftSeedButton.show();
 			}else{
 				seedableSelect.hide();
+				craftSeedButton.hide();
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
@@ -422,7 +431,6 @@ for(var pyy=0;pyy<10;pyy++){
 	}else{
 		farmGuiOpen=false;
 		plantSelect.hide();
-		craftSelect.hide();
 		farmMode.hide();
 		seedableSelect.hide();
 	}
