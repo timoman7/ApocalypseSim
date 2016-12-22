@@ -118,16 +118,17 @@ function refreshPlantInfo(){
 		pc++;
 	}
 }
-function setup(){
-	img1 = loadImage('./images/brQeTf76.png');
-	background(0,0,0);
-	createCanvas(windowWidth,windowHeight);//-50 on both
-	farmMode=createSelect();
-	plantSelect=createSelect();
-	qcList=createSelect();
-	saveList=createSelect();
-	//(cdf.upgrades.tier1.effect+cdf.upgrades.tier2.effect+cdf.upgrades.tier3.effect) will get max potential limit
-	for(var i=0;i<9;i++){
+function setMaxCrops(n){
+	cropList=[];
+	harvestList=[];
+	cropInfoP=[];
+	for(var i=0;i<n;i++){
+		if(document.getElementById('cropInfo'+i)){
+			document.getElementById('cropInfo'+i).parentElement.removeChild(document.getElementById('cropInfo'+i));
+		}
+		if(document.getElementById('crop'+i)){
+			document.getElementById('crop'+i).parentElement.removeChild(document.getElementById('crop'+i));
+		}
 		var tempBtn=createButton();
 		var tempP=createP();
 		tempP.id("cropInfo"+i);
@@ -139,6 +140,17 @@ function setup(){
 		tempBtn.hide();
 		cropList.push(tempBtn);
 	}
+}
+function setup(){
+	img1 = loadImage('./images/brQeTf76.png');
+	background(0,0,0);
+	createCanvas(windowWidth,windowHeight);//-50 on both
+	farmMode=createSelect();
+	plantSelect=createSelect();
+	qcList=createSelect();
+	saveList=createSelect();
+	//(cdf.upgrades.tier1.effect+cdf.upgrades.tier2.effect+cdf.upgrades.tier3.effect) will get max potential limit
+	setMaxCrops(cdf.plantLimit);
 	refreshPlantInfo();
 	farmMode.position(750,420);
 	farmMode.option("Craft");
@@ -420,9 +432,13 @@ for(var pyy=0;pyy<10;pyy++){
 					plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
 				}
 			}
+			var yFix=0;
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
-				cropList[p].position(700+(p*50),120);
+				if(p%5==0&&p!==0){
+					yFix++;
+				}
+				cropList[p].position(700+((p%5)*50),120+(yFix*25));
 				if(cropList[p].elt.innerHTML=="undefined"){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
@@ -485,6 +501,7 @@ for(var pyy=0;pyy<10;pyy++){
 		}
 		refreshFoodButton.hide();
 		craftSeedButton.hide();
+		harvestButton.hide();
 		farmGuiOpen=false;
 		plantSelect.hide();
 		farmMode.hide();
