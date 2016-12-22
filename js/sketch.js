@@ -363,12 +363,14 @@ for(var pyy=0;pyy<10;pyy++){
 					seedableFood[plant]=foodStuff[plant];
 				}
 			}
-			if(document.getElementById('plantableSelect')){
-				document.getElementById('plantableSelect').parentElement.removeChild(document.getElementById('plantableSelect'));
+			if(frameCount%100==0){
+				if(document.getElementById('plantableSelect')){
+					document.getElementById('plantableSelect').parentElement.removeChild(document.getElementById('plantableSelect'));
+				}
+				var seedableSelect=createSelect();
+				seedableSelect.id('plantableSelect');
+				seedableSelect.position(920,420);
 			}
-			var seedableSelect=createSelect();
-			seedableSelect.id('plantableSelect');
-			seedableSelect.position(920,420);
 			function refreshFood(){
 				seedableSelect.elt.innerHTML="";
 				plantSelect.elt.innerHTML="";
@@ -413,6 +415,7 @@ for(var pyy=0;pyy<10;pyy++){
 						}
 						cropList[p].elt.innerHTML=p+" "+grown;
 					}else{
+						cropList[p].style('background-color','buttonface');
 						cropList[p].mouseClicked(plantSeed);
 					}
 				}else if(farmMode.selected()=="Harvest"){
@@ -436,6 +439,7 @@ for(var pyy=0;pyy<10;pyy++){
 							cropList[p].mouseClicked(selectCrop);
 						}
 					}else{
+						cropList[p].style('background-color','buttonface');
 						cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					}
 				}
