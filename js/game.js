@@ -1910,7 +1910,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 							rewardString+=(" and "+foundItems[reward].amount+" "+foundItems[reward].name);
 						break;
 						default:
-							rewardString=foundItems[reward].amount+" "+foundItems[reward].name+", ";
+							rewardString+=foundItems[reward].amount+" "+foundItems[reward].name+", ";
 						break;
 					}
 				}
