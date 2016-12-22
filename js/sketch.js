@@ -186,6 +186,14 @@ function plantSeed(event){
 	}
 	//cdf.plants[plantLocation].planted=true;
 }
+function selectCrop(event){
+	var plantLocation=event.target.id.split("crop")[1];
+	if(harvestList[plantLocation].selectedH){
+		harvestList[plantLocation].selectedH=false;
+	}else{
+		harvestList[plantLocation].selectedH=true;
+	}
+}
 function farmModeEvent(event){
 	var op=event.target.selectedOptions[0].value;
 	if(op=="Harvest"){
@@ -425,10 +433,10 @@ for(var pyy=0;pyy<10;pyy++){
 						cropList[p].elt.innerHTML=p+" "+grown;
 						if(harvestable){
 							harvestList[p].readyH=true;
-							cropList[p].mouseClicked(function(){if(harvestList[p].selectedH){harvestList[p].selectedH=false;}else{harvestList[p].selectedH=true;}});
+							cropList[p].mouseClicked(selectCrop);
 						}
 					}else{
-						cropList[p].mouseClicked(function(){});
+						cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					}
 				}
 			}
