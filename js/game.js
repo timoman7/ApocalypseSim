@@ -95,7 +95,7 @@ var tick=function(n){
 	hunger-=n;
 	for(var i in cdf.plants){
 		if(cdf.plants.length>0){
-			if(cdf.plants[i].planted){
+			if(cdf.plants[i].planted && cdf.plants[i].ticks < cdf.plants[i].timeToGrow){
 				cdf.plants[i].ticks++;
 			}
 		}
