@@ -153,6 +153,9 @@ function setup(){
 	farmMode.option("Craft");
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
+	seedableSelect=createSelect();
+	seedableSelect.id('plantableSelect');
+	seedableSelect.position(920,420);
 	farmMode.id('farmMode');
 	craftSelect.id('craftSelect');
 	plantSelect.id('plantSelect');
@@ -363,15 +366,6 @@ for(var pyy=0;pyy<10;pyy++){
 				if(foodStuff[plant].plantable && foodStuff[plant].amount>0){
 					seedableFood[plant]=foodStuff[plant];
 				}
-			}
-			
-			if(frameCount%100==0){
-				if(document.getElementById('plantableSelect')){
-					document.getElementById('plantableSelect').parentElement.removeChild(document.getElementById('plantableSelect'));
-				}
-				seedableSelect=createSelect();
-				seedableSelect.id('plantableSelect');
-				seedableSelect.position(920,420);
 			}
 			function refreshFood(){
 				seedableSelect.elt.innerHTML="";
