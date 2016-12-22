@@ -13,20 +13,7 @@ var cdf={
 	plants:{
 		
 	},
-	upgrades:{
-		tier1:{
-			has:false,
-			caps:70,
-		},
-		tier2:{
-			has:false,
-			caps:120,
-		},
-		tier3:{
-			has:false,
-			caps:190,
-		},
-	},
+	tier:0,
 	plantLimit:3,
 };
 var ammo={
