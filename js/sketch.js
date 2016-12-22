@@ -392,7 +392,7 @@ for(var pyy=0;pyy<10;pyy++){
 				craftSeedButton.hide();
 			}
 			for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
-				cropInfoP[cropIndex].position(650,500+(cropIndex*40));
+				cropInfoP[cropIndex].position(650,500+(cropIndex*20));
 				cropInfoP[cropIndex].show();
 				if(cropIndex>=cdf.plantLimit){
 					cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
@@ -407,7 +407,7 @@ for(var pyy=0;pyy<10;pyy++){
 			for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
 				var pInfoP=plantInfoP[pIndex];
 				var pInfo=foodStuff[cdf.plants[pIndex].dictName];
-				plantInfoP[pIndex].position(850,100+(pIndex*40));
+				plantInfoP[pIndex].position(1050,100+(pIndex*20));
 				plantInfoP[pIndex].show();
 				plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
 			}
@@ -417,24 +417,22 @@ for(var pyy=0;pyy<10;pyy++){
 				if(cropList[p].elt.innerHTML=="undefined"){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
+				var grown="[X]";
+				var harvestable=false;
+				if(cdf.plants[p].ticks>cdf.plants[p].timeToGrow){
+					grown="[O]";
+					harvestable=true;
+				}
+				cropList[p].elt.innerHTML=p+" "+grown;
 				if(plantState=="block"){
-					cropList[p].mouseClicked(function(){});
 					cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					if(cdf.plants[p].planted){
 						cropList[p].style('background-color',cdf.plants[p].color);
-						var grown="[X]";
-						var harvestable=false;
-						if(cdf.plants[p].ticks>cdf.plants[p].timeToGrow){
-							grown="[O]";
-							harvestable=true;
-						}
-						cropList[p].elt.innerHTML=p+" "+grown;
 					}else{
 						cropList[p].style('background-color','buttonface');
 						cropList[p].mouseClicked(plantSeed);
 					}
 				}else if(farmMode.selected()=="Harvest"){
-					cropList[p].mouseClicked(function(){});
 					cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					if(cdf.plants[p].planted){
 						if(harvestList[p].selectedH){
@@ -442,13 +440,6 @@ for(var pyy=0;pyy<10;pyy++){
 						}else{
 							cropList[p].style('background-color',cdf.plants[p].color);
 						}
-						var grown="[X]";
-						var harvestable=false;
-						if(cdf.plants[p].ticks>cdf.plants[p].timeToGrow){
-							grown="[O]";
-							harvestable=true;
-						}
-						cropList[p].elt.innerHTML=p+" "+grown;
 						if(harvestable){
 							harvestList[p].readyH=true;
 							cropList[p].mouseClicked(selectCrop);
