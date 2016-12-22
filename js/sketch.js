@@ -1,3 +1,4 @@
+//loading a game does not update the cdf.plantLimit immediately
 var imgWidth=0;
 var imgHeight=0;
 var shiftKey = "";
