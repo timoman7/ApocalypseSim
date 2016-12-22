@@ -95,6 +95,8 @@ var seedableFood={};
 var seedableSelect;
 var craftSeedButton;
 var foodPlants={};
+var refreshFoodButton;
+var harvestButton;
 function refreshPlantInfo(){
 	plantInfoP=[];
 	var pc=0;
@@ -142,6 +144,17 @@ function setup(){
 	farmMode.option("Craft");
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
+	refreshFoodButton=createButton();
+	refreshFoodButton.id("refreshFood");
+	refreshFoodButton.elt.innerHTML="Refresh food list";
+	refreshFoodButton.position(920,380);
+	refreshFoodButton.mouseClicked(refreshFood);
+	harvestButton=createButton();
+	harvestButton.id("harvestButton");
+	harvestButton.elt.innerHTML="Harvest selected";
+	harvestButton.position(820,380);
+	harvestButton.mouseClicked(harvestCrops);
+	refreshFoodButton.hide();
 	seedableSelect=createSelect();
 	seedableSelect.id('plantableSelect');
 	seedableSelect.position(920,420);
@@ -377,16 +390,7 @@ for(var pyy=0;pyy<10;pyy++){
 					seedableFood[plant]=foodStuff[plant];
 				}
 			}
-			if(frameCount%100==0){
-				if(document.getElementById('refreshFood')){
-					document.getElementById('refreshFood').parentElement.removeChild(document.getElementById('refreshFood'));
-				}
-				var refreshFoodButton=createButton();
-				refreshFoodButton.id("refreshFood");
-				refreshFoodButton.elt.innerHTML="Refresh food list";
-				refreshFoodButton.position(920,380);
-				refreshFoodButton.mouseClicked(refreshFood);
-			}
+			refreshFoodButton.show();
 			if(farmMode.selected()=="Craft"){
 				seedableSelect.show();
 				craftSeedButton.show();
@@ -461,20 +465,9 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 			}
 			if(farmMode.selected()=="Harvest"){
-				if(frameCount%100==0){
-					if(document.getElementById('harvestButton')){
-						document.getElementById('harvestButton').parentElement.removeChild(document.getElementById('harvestButton'));
-					}
-					var harvestButton=createButton();
-					harvestButton.id("harvestButton");
-					harvestButton.elt.innerHTML="Harvest selected";
-					harvestButton.position(820,380);
-					harvestButton.mouseClicked(harvestCrops);
-				}
+				harvestButton.show();
 			}else{
-				if(document.getElementById('harvestButton')){
-					document.getElementById('harvestButton').parentElement.removeChild(document.getElementById('harvestButton'));
-				}
+				harvestButton.hide();
 			}
 		}else{
 			farmMode.hide();
@@ -486,7 +479,11 @@ for(var pyy=0;pyy<10;pyy++){
 		}
 		for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
 			cropInfoP[cropIndex].hide();
+		}		
+		for(var p=0;p<cdf.plantLimit;p++){
+			cropList[p].hide();
 		}
+		refreshFoodButton.hide();
 		farmGuiOpen=false;
 		plantSelect.hide();
 		farmMode.hide();
