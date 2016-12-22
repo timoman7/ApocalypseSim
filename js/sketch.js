@@ -495,9 +495,11 @@ for(var pyy=0;pyy<10;pyy++){
 		}
 		for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
 			cropInfoP[cropIndex].hide();
-		}		
+		}
 		for(var p=0;p<cdf.plantLimit;p++){
-			cropList[p].hide();
+			if(cropList[p]){
+				cropList[p].hide();
+			}
 		}
 		refreshFoodButton.hide();
 		craftSeedButton.hide();
