@@ -391,15 +391,19 @@ for(var pyy=0;pyy<10;pyy++){
 				if(cropIndex>=cdf.plantLimit){
 					cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
 				}else{
-					cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: "+cdf.plants[cropIndex].name+" | Growth Progress: "+cdf.plants[cropIndex].ticks+" / "+cdf.plants[cropIndex].timeToGrow);
+					if(cdf.plants[cropIndex].planted){
+						cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: "+cdf.plants[cropIndex].name+" | Growth Progress: "+cdf.plants[cropIndex].ticks+" / "+cdf.plants[cropIndex].timeToGrow);
+					}else{
+						cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: None");
+					}
 				}
 			}
 			for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
 				var pInfoP=plantInfoP[pIndex];
 				var pInfo=foodStuff[cdf.plants[pIndex].dictName];
-				pInfoP[pIndex].position(850,100+(pIndex*40));
-				pInfoP[pIndex].show();
-				pInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
+				plantInfoP[pIndex][pIndex].position(850,100+(pIndex*40));
+				plantInfoP[pIndex][pIndex].show();
+				plantInfoP[pIndex][pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
