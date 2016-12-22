@@ -130,6 +130,7 @@ var craftSelect;
 var plantSelect;
 var cropList=[];
 var harvestList=[];
+var plantableFood={};
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
@@ -325,7 +326,7 @@ for(var pyy=0;pyy<10;pyy++){
 			farmMode.show();
 			var plantState=plantSelect.style('display');
 			var craftState=craftSelect.style('display');
-			var plantableFood={};
+			plantableFood={};
 			var seedableFood={};
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].seeds>0){
@@ -384,16 +385,19 @@ for(var pyy=0;pyy<10;pyy++){
 						}
 						cropList[p].elt.innerHTML=p+" "+grown;
 					}else{
-						function plantSeed(){
+						function plantSeed(event){
+							var plantLocation=event.target.id.split("crop")[1];
 							for(var plant in plantableFood){
 								if(plantSelect.value==plantableFood[plant].name){
-									cdf.plants[p]=plantableFood[plant];
-									cdf.plants[p].planted=true;
-									cdf.plants[p].ticks=0;
-									foodStuff[plant].seeds--;
+									if(foodStuff[plant].seeds>0){
+										cdf.plants[plantLocation]=plantableFood[plant];
+										cdf.plants[plantLocation].planted=true;
+										cdf.plants[plantLocation].ticks=0;
+										foodStuff[plant].seeds--;
+									}
 								}
 							}
-							cdf.plants[p].planted=true;
+							//cdf.plants[plantLocation].planted=true;
 						}
 						cropList[p].mouseClicked(plantSeed);
 					}
