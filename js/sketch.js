@@ -168,6 +168,17 @@ function setup(){
 	qcList.mouseOut(qcEventOut);
 	saveList.mouseOut(saveEventOut);
 }
+function refreshFood(){
+	refreshPlantInfo();
+	seedableSelect.elt.innerHTML="";
+	plantSelect.elt.innerHTML="";
+	for(var plant in plantableFood){
+		plantSelect.option(plantableFood[plant].name,plant);
+	}
+	for(var plant in seedableFood){
+		seedableSelect.option(seedableFood[plant].name,plant);
+	}
+}
 function craftSeed(){
 	for(var plant in seedableFood){
 		if(seedableSelect.selected().toLowerCase()==seedableFood[plant].name.toLowerCase()){
@@ -190,6 +201,7 @@ function plantSeed(event){
 			}
 		}
 	}
+	refreshFood();
 	//cdf.plants[plantLocation].planted=true;
 }
 function selectCrop(event){
@@ -364,17 +376,6 @@ for(var pyy=0;pyy<10;pyy++){
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].amount>0){
 					seedableFood[plant]=foodStuff[plant];
-				}
-			}
-			function refreshFood(){
-				refreshPlantInfo();
-				seedableSelect.elt.innerHTML="";
-				plantSelect.elt.innerHTML="";
-				for(var plant in plantableFood){
-					plantSelect.option(plantableFood[plant].name,plant);
-				}
-				for(var plant in seedableFood){
-					seedableSelect.option(seedableFood[plant].name,plant);
 				}
 			}
 			if(frameCount%100==0){
