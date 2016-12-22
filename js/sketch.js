@@ -410,7 +410,7 @@ for(var pyy=0;pyy<10;pyy++){
 				var pInfo=foodStuff[cdf.plants[pIndex].dictName];
 				plantInfoP[pIndex].position(1050,100+(pIndex*20));
 				plantInfoP[pIndex].show();
-				if(pInfo.name!==undefined){
+				if(plantInfoP[pIndex]!==undefined){
 					plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
 				}
 			}
