@@ -170,12 +170,29 @@ function setup(){
 	qcList.mouseOut(qcEventOut);
 	saveList.mouseOut(saveEventOut);
 }
+
+function plantSeed(event){
+	var plantLocation=event.target.id.split("crop")[1];
+	for(var plant in plantableFood){
+		if(plantSelect.value()==plantableFood[plant].name.toLowerCase()){
+			if(foodStuff[plant].seeds>0){
+				cdf.plants[plantLocation]=plantableFood[plant];
+				cdf.plants[plantLocation].planted=true;
+				cdf.plants[plantLocation].ticks=0;
+				foodStuff[plant].seeds--;
+				console.log(cdf.plants[plantLocation],foodStuff[plant].seeds);
+			}
+		}
+	}
+	//cdf.plants[plantLocation].planted=true;
+}
 function farmModeEvent(event){
 	var op=event.target.selectedOptions[0].value;
 	if(op=="Harvest"){
 		craftSelect.hide();
 		plantSelect.hide();
 	}else if(op=="Plant"){
+
 		craftSelect.hide();
 		plantSelect.show();
 	}else if(op=="Craft"){
@@ -386,21 +403,6 @@ for(var pyy=0;pyy<10;pyy++){
 						}
 						cropList[p].elt.innerHTML=p+" "+grown;
 					}else{
-						function plantSeed(event){
-							var plantLocation=event.target.id.split("crop")[1];
-							for(var plant in plantableFood){
-								if(plantSelect.value()==plantableFood[plant].name.toLowerCase()){
-									if(foodStuff[plant].seeds>0){
-										cdf.plants[plantLocation]=plantableFood[plant];
-										cdf.plants[plantLocation].planted=true;
-										cdf.plants[plantLocation].ticks=0;
-										foodStuff[plant].seeds--;
-										console.log(cdf.plants,);
-									}
-								}
-							}
-							//cdf.plants[plantLocation].planted=true;
-						}
 						cropList[p].mouseClicked(plantSeed);
 					}
 				}else if(farmMode.selected()=="Harvest"){
