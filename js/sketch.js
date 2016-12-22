@@ -377,6 +377,7 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 				var refreshFoodButton=createButton();
 				refreshFoodButton.id("refreshFood");
+				refreshFoodButton.elt.innerHTML="Refresh food list";
 				refreshFoodButton.position(920,380);
 				refreshFoodButton.mouseClicked(refreshFood);
 			}
@@ -387,7 +388,7 @@ for(var pyy=0;pyy<10;pyy++){
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
-				cropList[p].position(700+(p*30),120);
+				cropList[p].position(700+(p*40),120);
 				if(cropList[p].elt.innerHTML=="undefined"){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
@@ -424,7 +425,7 @@ for(var pyy=0;pyy<10;pyy++){
 						cropList[p].elt.innerHTML=p+" "+grown;
 						if(harvestable){
 							harvestList[p].readyH=true;
-							cropList[p].mouseClicked(function(){harvestList[p].selectedH=!harvestList[p].selectedH;});
+							cropList[p].mouseClicked(function(){if(harvestList[p].selectedH){harvestList[p].selectedH=false;}else{harvestList[p].selectedH=true;}});
 						}
 					}else{
 						cropList[p].mouseClicked(function(){});
@@ -432,13 +433,16 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 			}
 			if(farmMode.selected()=="Harvest"){
-				if(document.getElementById('harvestButton')){
-					document.getElementById('harvestButton').parentElement.removeChild(document.getElementById('harvestButton'));
+				if(frameCount%100==0){
+					if(document.getElementById('harvestButton')){
+						document.getElementById('harvestButton').parentElement.removeChild(document.getElementById('harvestButton'));
+					}
+					var harvestButton=createButton();
+					harvestButton.id("harvestButton");
+					harvestButton.elt.innerHTML="Harvest selected";
+					harvestButton.position(820,380);
+					harvestButton.mouseClicked(harvestCrops);
 				}
-				var harvestButton=createButton();
-				harvestButton.id("harvestButton");
-				harvestButton.position(820,380);
-				harvestButton.mouseClicked(harvestCrops);
 			}else{
 				if(document.getElementById('harvestButton')){
 					document.getElementById('harvestButton').parentElement.removeChild(document.getElementById('harvestButton'));
