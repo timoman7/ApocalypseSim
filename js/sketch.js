@@ -104,6 +104,9 @@ function refreshPlantInfo(){
 		}
 	}
 	for(var i in foodPlants){
+		if(document.getElementById('plantInfo'+pc)){
+			document.getElementById('plantInfo'+pc).parentElement.removeChild(document.getElementById('plantInfo'+pc));
+		}
 		var tempP=createP();
 		tempP.id("plantInfo"+pc);
 		tempP.hide();
@@ -349,6 +352,7 @@ for(var pyy=0;pyy<10;pyy++){
 			var plantState=plantSelect.style('display');
 			plantableFood={};
 			seedableFood={};
+			
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].seeds>0){
 					plantableFood[plant]=foodStuff[plant];
