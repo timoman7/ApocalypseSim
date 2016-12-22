@@ -149,9 +149,9 @@ function setup(){
 		cropList.push(tempBtn);
 	}
 	farmMode.position(750,420);
+	farmMode.option("Craft");
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
-	farmMode.option("Craft");
 	farmMode.id('farmMode');
 	craftSelect.id('craftSelect');
 	plantSelect.id('plantSelect');
@@ -174,8 +174,8 @@ function setup(){
 function plantSeed(event){
 	var plantLocation=event.target.id.split("crop")[1];
 	for(var plant in plantableFood){
-		if(plantSelect.value()==plantableFood[plant].name.toLowerCase()){
-			if(foodStuff[plant].seeds>0){
+		if(plantSelect.value().toLowerCase()==plantableFood[plant].name.toLowerCase()){
+			if(foodStuff[plant].seeds>0 && !cdf.plants[plantLocation].planted){
 				cdf.plants[plantLocation]=plantableFood[plant];
 				cdf.plants[plantLocation].planted=true;
 				cdf.plants[plantLocation].ticks=0;
@@ -247,7 +247,7 @@ function harvestCrops(){
 				}
 			}
 			foodStuff[cropName].seeds++;
-			cdf.plants[cropCount]={planted:false};
+			cdf.plants[cropCount]={planted:false,ticks:0};
 			harvestList[i]={selectedH:false,readyH:false};
 		}
 		cropCount++;
@@ -392,6 +392,7 @@ for(var pyy=0;pyy<10;pyy++){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
 				if(plantState=="block"){
+					cropList[p].mouseClicked(function(){});
 					cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					if(cdf.plants[p].planted){
 						cropList[p].style('background-color',cdf.plants[p].color);
@@ -406,6 +407,7 @@ for(var pyy=0;pyy<10;pyy++){
 						cropList[p].mouseClicked(plantSeed);
 					}
 				}else if(farmMode.selected()=="Harvest"){
+					cropList[p].mouseClicked(function(){});
 					cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					if(cdf.plants[p].planted){
 						if(harvestList[p].selectedH){
