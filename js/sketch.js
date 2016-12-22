@@ -424,6 +424,7 @@ for(var pyy=0;pyy<10;pyy++){
 		plantSelect.hide();
 		craftSelect.hide();
 		farmMode.hide();
+		seedableSelect.hide();
 	}
 	//println(keyCode);
 	//println(charList[i]+": "+keysDown[charList[i]]);
