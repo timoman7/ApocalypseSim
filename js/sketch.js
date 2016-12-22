@@ -131,6 +131,7 @@ var plantSelect;
 var cropList=[];
 var harvestList=[];
 var plantableFood={};
+var seedableSelect;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
@@ -363,11 +364,12 @@ for(var pyy=0;pyy<10;pyy++){
 					seedableFood[plant]=foodStuff[plant];
 				}
 			}
+			
 			if(frameCount%100==0){
 				if(document.getElementById('plantableSelect')){
 					document.getElementById('plantableSelect').parentElement.removeChild(document.getElementById('plantableSelect'));
 				}
-				var seedableSelect=createSelect();
+				seedableSelect=createSelect();
 				seedableSelect.id('plantableSelect');
 				seedableSelect.position(920,420);
 			}
