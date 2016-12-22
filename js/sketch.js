@@ -417,6 +417,9 @@ for(var pyy=0;pyy<10;pyy++){
 				if(cropList[p].elt.innerHTML=="undefined"){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
+				if(cdf.plants[p].color!==undefined){
+					cropList[p].style('background-color',cdf.plants[p].color);
+				}
 				var grown="[X]";
 				var harvestable=false;
 				if(cdf.plants[p].ticks>cdf.plants[p].timeToGrow){
