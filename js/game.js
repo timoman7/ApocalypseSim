@@ -1836,14 +1836,65 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		}
 		if(prefix.toLowerCase() == "scavenge"){
 			if(item.toLowerCase() == ""){
+				var foundItems={};
+				var totalRewards=0;
 				for(var foodType in foodStuff){
+					var foodQuant=0;
 					for(var foundQuantity in foodStuff[foodType].chanceToFind){
 						var chanceToFind=foodStuff[foodType].chanceToFind[foundQuantity];
 						var rngFound=rngA(100);
 						if(rngFound<chanceToFind){
 							foodStuff[foodType].amount++;
+							foodQuant++;
 						}
 					}
+					if(foodQuant>0){
+						totalRewards++;
+					}
+					foundItems[foodType]={name:foodStuff[foodType].name,amount:foodQuant}
+				}
+				var rewardString="";
+				var foundAnything=true;
+				for(var reward in foundItems){
+					switch(totalRewards){
+						case 0:
+							foundAnything=false;
+						break;
+						case 1:
+							rewardString=foundItems[reward].amount+" "+foundItems[reward].name+".";
+						break;
+						case 2:
+							rewardString+=(" and "+foundItems[reward].amount+" "+foundItems[reward].name);
+						break;
+						default:
+							rewardString=foundItems[reward].amount+" "+foundItems[reward].name+", ";
+						break;
+					}
+				}
+				if(foundAnything){
+					if(totalRewards==2){
+						rewardString=rewardString.replace(" and ","");
+						var newElement4=document.createElement('p');
+						newElement4.class="speakable";
+						newElement4.innerHTML=">You found "+rewardString+".";
+						$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
+					}else if(totalRewards==1){
+						var newElement4=document.createElement('p');
+						newElement4.class="speakable";
+						newElement4.innerHTML=">You found "+rewardString;
+						$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
+					}else{
+						rewardString=rewardString.substr(0,rewardString.length-2)+".";
+						var newElement4=document.createElement('p');
+						newElement4.class="speakable";
+						newElement4.innerHTML=">You found "+rewardString;
+						$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
+					}
+				}else{
+					var newElement4=document.createElement('p');
+					newElement4.class="speakable";
+					newElement4.innerHTML=">You couldn't find anything.";
+					$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 				}
 				tick(8);
 			}
