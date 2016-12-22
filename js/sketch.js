@@ -429,7 +429,7 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 				var grown="[X]";
 				var harvestable=false;
-				if(cdf.plants[p].ticks>cdf.plants[p].timeToGrow){
+				if(cdf.plants[p].ticks>=cdf.plants[p].timeToGrow){
 					grown="[O]";
 					harvestable=true;
 				}
