@@ -98,9 +98,11 @@ var foodPlants={};
 function refreshPlantInfo(){
 	plantInfoP=[];
 	var pc=0;
+	var pcc=0;
 	for(var i in foodStuff){
 		if(foodStuff[i].plantable){
-			foodPlants[i]=foodStuff[i];
+			foodPlants[pcc]=foodStuff[i];
+			pcc++;
 		}
 	}
 	for(var i in foodPlants){
@@ -407,7 +409,7 @@ for(var pyy=0;pyy<10;pyy++){
 			}
 			for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
 				var pInfoP=plantInfoP[pIndex];
-				var pInfo=foodStuff[cdf.plants[pIndex].dictName];
+				var pInfo=foodStuff[foodPlants[pIndex].dictName];
 				plantInfoP[pIndex].position(1050,100+(pIndex*20));
 				plantInfoP[pIndex].show();
 				if(pInfo!==undefined){
