@@ -97,6 +97,7 @@ var craftSeedButton;
 var foodPlants={};
 function refreshPlantInfo(){
 	plantInfoP=[];
+	var pc=0;
 	for(var i in foodStuff){
 		if(foodStuff[i].plantable){
 			foodPlants[i]=foodStuff[i];
@@ -104,9 +105,10 @@ function refreshPlantInfo(){
 	}
 	for(var i=0;i<foodPlants.length;i++){
 		var tempP=createP();
-		tempP.id("plantInfo"+i);
+		tempP.id("plantInfo"+pc);
 		tempP.hide();
 		plantInfoP.push(tempP);
+		pc++;
 	}
 }
 function setup(){
