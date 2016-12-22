@@ -401,9 +401,9 @@ for(var pyy=0;pyy<10;pyy++){
 			for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
 				var pInfoP=plantInfoP[pIndex];
 				var pInfo=foodStuff[cdf.plants[pIndex].dictName];
-				plantInfoP[pIndex][pIndex].position(850,100+(pIndex*40));
-				plantInfoP[pIndex][pIndex].show();
-				plantInfoP[pIndex][pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
+				pInfoP.position(850,100+(pIndex*40));
+				pInfoP.show();
+				pInfoP.html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
