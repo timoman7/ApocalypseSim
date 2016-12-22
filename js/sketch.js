@@ -53,47 +53,6 @@ for(var ccc=0; ccc<charList.length-1; ccc++){
     keysDown["."+charList[ccc]]=false;
     keyDown["."+charList[ccc]]=false;
 }
-var loading=function(x,y,saze,amount,lines){
-    this.x=x;
-    this.y=y;
-    this.amount=amount||10;
-    this.c=[];
-    this.b=[];
-    this.d=[];
-    this.e=[];
-    this.saze=saze;
-    this.t=0;
-    this.lines=lines||true;
-};
-loading.prototype.draw= function() {
-    this.c=[];
-    this.b=[];
-    this.d=[];
-    this.e=[];
-    this.t++;
-    for(var zz=0;zz<this.amount;zz++){
-        this.c.push((this.saze-(sin(this.t+(zz*4))*5))*sin(this.t*zz)*5);
-        this.b.push((this.saze-(cos(this.t+(zz*4))*5))*cos(this.t*zz)*5);
-    }
-    for(var zz=-1;zz<this.amount-1;zz++){
-        this.d.push((this.saze-(sin(this.t+(zz*4))*5))*sin(this.t*zz)*5);
-        this.e.push((this.saze-(cos(this.t+(zz*4))*5))*cos(this.t*zz)*5);
-    }
-    for(var zz=0;zz<this.c.length;zz++){
-        if(!this.lines){
-            noStroke();
-            fill(255, 0, 0);
-            ellipse(this.x+this.c[zz],this.y+this.b[zz],5,5);
-            ellipse(this.x+this.c[zz],this.y+this.e[zz],5,5);
-            ellipse(this.x+this.d[zz],this.y+this.b[zz],5,5);
-            ellipse(this.x+this.d[zz],this.y+this.e[zz],5,5);
-        }else{
-            stroke(0,190,10);
-            line(this.x+this.c[zz],this.y+this.b[zz],this.x+this.d[zz],this.y+this.e[zz]);
-            line(this.x+this.c[zz],this.y+this.e[zz],this.x+this.d[zz],this.y+this.b[zz]);
-        }
-    }
-};
 var qcList;
 var saveList;
 function prntTxt(){
@@ -156,6 +115,7 @@ function setup(){
 	seedableSelect=createSelect();
 	seedableSelect.id('plantableSelect');
 	seedableSelect.position(920,420);
+	seedableSelect.hide();
 	farmMode.id('farmMode');
 	craftSelect.id('craftSelect');
 	plantSelect.id('plantSelect');
