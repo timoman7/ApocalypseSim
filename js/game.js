@@ -1892,8 +1892,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					}
 					if(foodQuant>0){
 						totalRewards++;
+						foundItems[foodType]={name:foodStuff[foodType].name,amount:foodQuant}
 					}
-					foundItems[foodType]={name:foodStuff[foodType].name,amount:foodQuant}
 				}
 				var rewardString="";
 				var foundAnything=true;
