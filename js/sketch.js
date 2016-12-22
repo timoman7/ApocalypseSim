@@ -484,6 +484,7 @@ for(var pyy=0;pyy<10;pyy++){
 			cropList[p].hide();
 		}
 		refreshFoodButton.hide();
+		craftSeedButton.hide();
 		farmGuiOpen=false;
 		plantSelect.hide();
 		farmMode.hide();
