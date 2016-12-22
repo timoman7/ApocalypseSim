@@ -188,7 +188,6 @@ function craftSeed(){
 			}
 		}
 	}
-	refreshFood();
 }
 function plantSeed(event){
 	var plantLocation=event.target.id.split("crop")[1];
@@ -202,7 +201,6 @@ function plantSeed(event){
 			}
 		}
 	}
-	refreshFood();
 	//cdf.plants[plantLocation].planted=true;
 }
 function selectCrop(event){
