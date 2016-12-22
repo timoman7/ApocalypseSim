@@ -358,6 +358,7 @@ for(var pyy=0;pyy<10;pyy++){
 				}
 			}
 			function refreshFood(){
+				refreshPlantInfo();
 				seedableSelect.elt.innerHTML="";
 				plantSelect.elt.innerHTML="";
 				for(var plant in plantableFood){
