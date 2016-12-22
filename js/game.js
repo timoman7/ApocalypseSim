@@ -1914,6 +1914,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						break;
 					}
 				}
+				console.log(foundAnything,rewardString);
 				if(foundAnything){
 					if(totalRewards==2){
 						rewardString=rewardString.replace(" and ","");
