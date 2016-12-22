@@ -103,7 +103,7 @@ function refreshPlantInfo(){
 			foodPlants[i]=foodStuff[i];
 		}
 	}
-	for(var i=0;i<foodPlants.length;i++){
+	for(var i in foodPlants){
 		var tempP=createP();
 		tempP.id("plantInfo"+pc);
 		tempP.hide();
