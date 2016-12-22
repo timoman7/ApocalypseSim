@@ -375,6 +375,7 @@ for(var pyy=0;pyy<10;pyy++){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
 				if(plantState=="block"){
+					cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					if(cdf.plants[p].planted){
 						cropList[p].style('background-color',cdf.plants[p].color);
 						var grown="[X]";
@@ -388,12 +389,13 @@ for(var pyy=0;pyy<10;pyy++){
 						function plantSeed(event){
 							var plantLocation=event.target.id.split("crop")[1];
 							for(var plant in plantableFood){
-								if(plantSelect.value==plantableFood[plant].name){
+								if(plantSelect.value()==plantableFood[plant].name.toLowerCase()){
 									if(foodStuff[plant].seeds>0){
 										cdf.plants[plantLocation]=plantableFood[plant];
 										cdf.plants[plantLocation].planted=true;
 										cdf.plants[plantLocation].ticks=0;
 										foodStuff[plant].seeds--;
+										console.log(cdf.plants,);
 									}
 								}
 							}
@@ -402,8 +404,13 @@ for(var pyy=0;pyy<10;pyy++){
 						cropList[p].mouseClicked(plantSeed);
 					}
 				}else if(farmMode.selected()=="Harvest"){
+					cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 					if(cdf.plants[p].planted){
-						cropList[p].style('background-color',cdf.plants[p].color);
+						if(harvestList[p].selectedH){
+							cropList[p].style('background-color','purple');
+						}else{
+							cropList[p].style('background-color',cdf.plants[p].color);
+						}
 						var grown="[X]";
 						var harvestable=false;
 						if(cdf.plants[p].ticks>cdf.plants[p].timeToGrow){
@@ -413,7 +420,7 @@ for(var pyy=0;pyy<10;pyy++){
 						cropList[p].elt.innerHTML=p+" "+grown;
 						if(harvestable){
 							harvestList[p].readyH=true;
-							cropList[p].mouseClicked(function(){harvestList[p].selectedH=true;});
+							cropList[p].mouseClicked(function(){harvestList[p].selectedH=!harvestList[p].selectedH;});
 						}
 					}else{
 						cropList[p].mouseClicked(function(){});
