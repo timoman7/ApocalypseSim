@@ -1487,6 +1487,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		harvestList=loadData.harvestList;
 		equipedWeapon=loadData.equipedWeapon;
 		Class=loadData.Class;
+		setMaxCrops(cdf.plantLimit);
             done=1;
             document.getElementById('command_line').value=loadData.playerName;
             $("form").submit();
