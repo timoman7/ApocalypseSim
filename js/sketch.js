@@ -256,7 +256,8 @@ function harvestCrops(){
 			}
 			foodStuff[cropName].seeds++;
 			cdf.plants[cropCount]={planted:false,ticks:0};
-			harvestList[i]={selectedH:false,readyH:false};
+			harvestList[i].selectedH=false;
+			harvestList[i].readyH=false;
 		}
 		cropCount++;
 	}
@@ -409,7 +410,9 @@ for(var pyy=0;pyy<10;pyy++){
 				var pInfo=foodStuff[cdf.plants[pIndex].dictName];
 				plantInfoP[pIndex].position(1050,100+(pIndex*20));
 				plantInfoP[pIndex].show();
-				plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
+				if(pInfo.name!==undefined){
+					plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
+				}
 			}
 			for(var p=0;p<cdf.plantLimit;p++){
 				cropList[p].show();
