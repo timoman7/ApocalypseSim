@@ -1897,6 +1897,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 				var rewardString="";
 				var foundAnything=true;
+				console.log(totalRewards,foundItems);
 				for(var reward in foundItems){
 					switch(totalRewards){
 						case 0:
