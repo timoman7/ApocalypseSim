@@ -391,7 +391,7 @@ statButton.innerHTML="Select Class";
 document.getElementById('assignPoints').appendChild(statButton);
 if(!document.getElementById('message_room98')){
 	var cdfMessage=document.createElement('p');
-	cdfMessage.innerHTML=">Welcome to the Cross-Dimensional Farm\n>Here, you can grow crops to be harvested for food.\n>For farm commands, type 'farm help'";
+	cdfMessage.innerHTML=">Welcome to the Cross-Dimensional Farm<br>>Here, you can grow crops to be harvested for food.<br>>For farm commands, type 'farm help'";
 	cdfMessage.class='speakable';
 	cdfMessage.id='message_room98';
 	document.getElementById('message_room99').parentElement.appendChild(cdfMessage);
