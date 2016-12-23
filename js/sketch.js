@@ -125,6 +125,7 @@ function setMaxCrops(n){
 	cropList=[];
 	harvestList=[];
 	cropInfoP=[];
+	cdf.plantLimit=n;
 	for(var i=0;i<n;i++){
 		if(document.getElementById('cropInfo'+i)){
 			document.getElementById('cropInfo'+i).parentElement.removeChild(document.getElementById('cropInfo'+i));
