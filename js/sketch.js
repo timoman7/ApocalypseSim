@@ -1,4 +1,5 @@
 //loading a game does not update the cdf.plantLimit immediately
+//
 var imgWidth=0;
 var imgHeight=0;
 var shiftKey = "";
@@ -98,6 +99,7 @@ var craftSeedButton;
 var foodPlants={};
 var refreshFoodButton;
 var harvestButton;
+var upgradeCdfButton;
 function refreshPlantInfo(){
 	plantInfoP=[];
 	var pc=0;
@@ -157,6 +159,12 @@ function setup(){
 	farmMode.option("Craft");
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
+	upgradeCdfButton=createButton();
+	upgradeCdfButton.id("upgradeCdf");
+	upgradeCdfButton.html("Upgrade farm for "+((cdf.tier+1)*10)+" Shekels.");
+	upgradeCdfButton.mouseClicked(upgradeFarm);
+	upgradeCdfButton.position(700,95);
+	upgradeCdfButton.hide();
 	refreshFoodButton=createButton();
 	refreshFoodButton.id("refreshFood");
 	refreshFoodButton.elt.innerHTML="Refresh food list";
@@ -194,6 +202,32 @@ function setup(){
 	qcList.mouseOut(qcEventOut);
 	saveList.mouseOut(saveEventOut);
 }
+function upgradeFarm(event){
+	var requiredCaps=(cdf.tier+1)*10;
+	if(currentCaps>requiredCaps){
+		currentCaps-=requiredCaps;
+		cdf.tier++;
+		setMaxCrops(cdf.plantLimit+1);
+		this.html("Upgrade farm for "+requiredCaps+" Shekels.");
+	}
+}
+function checkFood(itemName){
+	var foundFood=false;
+	var foodName="";
+	for(var foods in foodStuff){
+		if(itemName.toLowerCase()==foodStuff[foods].name.toLowerCase()){
+			foundFood=true;
+			foodName=foods;
+		}else if(!foundFood){
+			foundFood=false;
+		}
+	}
+	if(foundFood){
+		return {found:true,foodName:foodName,};
+	}else{
+		return {found:false};
+	}
+};
 function refreshFood(){
 	refreshPlantInfo();
 	seedableSelect.elt.innerHTML="";
@@ -333,27 +367,49 @@ function draw(){
 	            sellingDisp=itemListDisp;
 	        }
 	    }
-	    if(prefix.toLowerCase() === "sell" && sellCheck!==true){
-	       for(var i=1;i<playerInventory.length;i++){
-	           if(item.toLowerCase() === playerInventory[i][0].name.toLowerCase() && playerInventory[i][1]>0){
-	               currentCaps+=playerInventory[i][0].value;
-	               playerInventory[i][1]-=1;
-	               sellCheck=true;
-	           }
-	        }
+	    if(prefix.toLowerCase() === "sell" && !sellCheck){
+		if(checkFood(item).found){
+			for(var i=0;i<foodStuff.length;i++){
+			//Sell Food
+				if(foodStuff[checkFood(item).foodName].amount>0){
+	               			currentCaps+=foodStuff[checkFood(item).foodName].sellPrice;
+	               			foodStuff[checkFood(item).foodName].amount--;
+		               		sellCheck=true;
+		           	}
+			}
+		}else{
+	       		for(var i=1;i<playerInventory.length;i++){
+	           		if(item.toLowerCase() === playerInventory[i][0].name.toLowerCase() && playerInventory[i][1]>0){
+	               			currentCaps+=playerInventory[i][0].value;
+	               			playerInventory[i][1]-=1;
+		               		sellCheck=true;
+		           	}
+	        	}
+		}
 	    }
-	    if(prefix.toLowerCase() === "buy" && sellCheck!==true){
-	       for(var i=0;i<shopWeapList.length;i++){
-	           if(item.toLowerCase() === shopWeapList[i].name.toLowerCase() && currentCaps>shopWeapList[i].value){
-	               currentCaps-=shopWeapList[i].value;
-	               if(shopWeapList[i].name==function(){for(var k=0;k<playerInventory.length;k++){if(playerInventory[k][1]>0){return playerInventory[k][0].name;}}}){
-	                    playerInventory[i][1]++;
-	               }else{
-	                    playerInventory.push([shopWeapList[i],1]);
-	               }
-	               sellCheck=true;
-	           }
-	        }
+	    if(prefix.toLowerCase() === "buy" && !sellCheck){
+		if(checkFood(item).found){
+			for(var i=0;i<foodStuff.length;i++){
+			//Sell Food
+				if(currentCaps>=foodStuff[checkFood(item).foodName].buyPrice){
+	               			currentCaps-=foodStuff[checkFood(item).foodName].buyPrice;
+	               			foodStuff[checkFood(item).foodName].amount++;
+		               		sellCheck=true;
+		           	}
+			}
+		}else{
+	       		for(var i=0;i<shopWeapList.length;i++){
+	           		if(item.toLowerCase() === shopWeapList[i].name.toLowerCase() && currentCaps>shopWeapList[i].value){
+	               			currentCaps-=shopWeapList[i].value;
+	               			if(shopWeapList[i].name==function(){for(var k=0;k<playerInventory.length;k++){if(playerInventory[k][1]>0){return playerInventory[k][0].name;}}}){
+	                    			playerInventory[i][1]++;
+	               			}else{
+	                    			playerInventory.push([shopWeapList[i],1]);
+	               			}
+	               			sellCheck=true;
+	           		}
+	        	}
+	    	}
 	    }
 	}
 	if(sellingDisp!==''&&canTrade === true){
@@ -389,6 +445,7 @@ for(var pyy=0;pyy<10;pyy++){
 	if(area[playerY][playerX][0]==98){
 		if(farmGuiOpen){
 			farmMode.show();
+			upgradeCdfButton.show();
 			var plantState=plantSelect.style('display');
 			plantableFood={};
 			seedableFood={};
@@ -430,7 +487,7 @@ for(var pyy=0;pyy<10;pyy++){
 				plantInfoP[pIndex].position(1050,100+(pIndex*20));
 				plantInfoP[pIndex].show();
 				if(pInfo!==undefined){
-					plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored);
+					plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored+" | Sell/Buy Price: "+pInfo.sellPrice+"/"+pInfo.buyPrice+" Shekels");
 				}
 			}
 			var yFix=0;
@@ -440,7 +497,7 @@ for(var pyy=0;pyy<10;pyy++){
 					yFix++;
 				}
 				cropList[p].position(700+((p%5)*50),120+(yFix*25));
-				if(cropList[p].elt.innerHTML=="undefined"){
+				if(cropList[p].elt.innerHTML=="undefined" || !cdf.plants[p].planted){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
 				if(cdf.plants[p].color!==undefined){
@@ -503,6 +560,7 @@ for(var pyy=0;pyy<10;pyy++){
 			}
 		}
 		refreshFoodButton.hide();
+		upgradeCdfButton.hide();
 		craftSeedButton.hide();
 		harvestButton.hide();
 		farmGuiOpen=false;
