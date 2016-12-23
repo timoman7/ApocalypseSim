@@ -474,7 +474,7 @@ for(var pyy=0;pyy<10;pyy++){
 				if(cropIndex%10==0&&cropIndex!==0){
 					xFix++;
 				}
-				cropInfoP[cropIndex].position(650,500+(cropIndex*20));
+				cropInfoP[cropIndex].position(650+(xFix*500),500+(cropIndex*20));
 				cropInfoP[cropIndex].show();
 				if(cropIndex>=cdf.plantLimit){
 					cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
