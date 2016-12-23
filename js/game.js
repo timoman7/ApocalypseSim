@@ -45,7 +45,9 @@ var foodStuff={
 		},
 		timeToGrow:5,
 		ticks:0,
+		
 		sellPrice:10,
+		buyPrice:20,
 	},
 	tomato:{
 		dictName:"tomato",
@@ -67,6 +69,8 @@ var foodStuff={
 		},
 		timeToGrow:3,
 		ticks:0,
+		sellPrice:5,
+		buyPrice:10,
 	},
 	corn:{
 		dictName:"corn",
@@ -88,6 +92,8 @@ var foodStuff={
 		},
 		timeToGrow:3,
 		ticks:0,
+		sellPrice:8,
+		buyPrice:15,
 	},
 	cabbage:{
 		dictName:"cabbage",
@@ -109,6 +115,8 @@ var foodStuff={
 		},
 		timeToGrow:6,
 		ticks:0,
+		sellPrice:13,
+		buyPrice:20,
 	},
 	genericFrozenMeal:{
 		dictName:"genericFrozenMeal",
@@ -121,6 +129,8 @@ var foodStuff={
 			two:20,
 			three:10,
 		},
+		sellPrice:20,
+		buyPrice:30,
 	},
 };
 var tick=function(n){
@@ -433,7 +443,7 @@ statButton.innerHTML="Select Class";
 document.getElementById('assignPoints').appendChild(statButton);
 if(!document.getElementById('message_room98')){
 	var cdfMessage=document.createElement('p');
-	cdfMessage.innerHTML=">Welcome to the Cross-Dimensional Farm<br>>Here, you can grow crops to be harvested for food.<br>>For farm commands, type 'farm help'";
+	cdfMessage.innerHTML=">Welcome to the Cross-Dimensional Farm<br>>Here, you can grow crops.<br>>To open the farm, type 'farm open'.";
 	cdfMessage.class='speakable';
 	cdfMessage.id='message_room98';
 	document.getElementById('message_room99').parentElement.appendChild(cdfMessage);
@@ -455,9 +465,9 @@ var checkChange = function() {
     if (document.getElementById('console').childElementCount > divLength) {
         divLength = document.getElementById('console').childElementCount;
         if (currentSpeak === "") {
-            currentSpeak = document.getElementsByClassName('speakable')[2].innerHTML.replace(/<br>/g, "").replace(/<\/br>/g, "").replace(/[><\]\[]/g, "").replace(/&gt;/g, "");
+            //currentSpeak = document.getElementsByClassName('speakable')[2].innerHTML.replace(/<br>/g, "").replace(/<\/br>/g, "").replace(/[><\]\[]/g, "").replace(/&gt;/g, "");
         } else {
-            currentSpeak = document.getElementsByClassName('speakable')[0].innerHTML.replace(/<br>/g, "").replace(/<\/br>/g, "").replace(/[><\]\[]/g, "").replace(/&gt;/g, "");
+            //currentSpeak = document.getElementsByClassName('speakable')[0].innerHTML.replace(/<br>/g, "").replace(/<\/br>/g, "").replace(/[><\]\[]/g, "").replace(/&gt;/g, "");
         }
     }
     if (localChange) {
@@ -1854,7 +1864,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			var foundFood=false;
 			var foodName="";
 			for(var foods in foodStuff){
-				if(itemName==foodStuff[foods].name){
+				if(itemName.toLowerCase()==foodStuff[foods].name.toLowerCase()){
 					foundFood=true;
 					foodName=foods;
 				}else if(!foundFood){
