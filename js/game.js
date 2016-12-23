@@ -6,6 +6,8 @@ var playerLevel=0;
 var xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
 var hunger = 100;
 var maxHunger=100;
+var MaxedHealth;
+var CurrentHealth;
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
@@ -43,6 +45,7 @@ var foodStuff={
 		},
 		timeToGrow:5,
 		ticks:0,
+		sellPrice:10,
 	},
 	tomato:{
 		dictName:"tomato",
@@ -122,12 +125,22 @@ var foodStuff={
 };
 var tick=function(n){
 	hunger-=n;
+	var cdfPlantLength=0;
 	for(var i in cdf.plants){
-		if(cdf.plants.length>0){
+		cdfPlantLength++;
+	}
+	for(var i in cdf.plants){
+		if(cdfPlantLength>0){
 			if(cdf.plants[i].planted && cdf.plants[i].ticks < cdf.plants[i].timeToGrow){
 				cdf.plants[i].ticks++;
 			}
 		}
+	}
+	if(hunger<maxHunger*0.15){
+		CurrentHealth--;
+	}
+	if(hunger>(maxHunger*0.8)&&CurrentHealth<MaxedHealth){
+		CurrentHealth+=5;
 	}
 };
 //Move from room -5 hunger
@@ -667,8 +680,6 @@ var titaniumKey = false; {
     var HealAmount;
     var StimDropRate;
     var numStim;
-    var MaxedHealth;
-    var CurrentHealth;
 }
 //Area tiles and RNG
 {
@@ -1206,6 +1217,7 @@ function startSPECIAL() {
     //end notes
 }
 setInterval(function(){
+	var isDead=false;
 	if(enterBattle==1){
 		if(turn===-1){
 			if(encounteredEnemy[1]>0){
@@ -1234,7 +1246,7 @@ setInterval(function(){
 				enterBattle=0;
 				turn=1;
 			}
-			if(CurrentHealth<0){
+			if(CurrentHealth<0&&!isDead){
 				var lastwords=prompt("YOU DIED!\nAny final words?","");
 				var thisUser=firebase.auth().currentUser.uid;
 				firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
@@ -1242,7 +1254,7 @@ setInterval(function(){
 			}
 			turn*=-1;
 		}else{
-			if(CurrentHealth<0){
+			if(CurrentHealth<0&&!isDead){
 				var lastwords=prompt("YOU DIED!\nAny final words?","");
 				var thisUser=firebase.auth().currentUser.uid;
 				firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
@@ -1250,7 +1262,7 @@ setInterval(function(){
 			}	
 		}
 	}else{
-		if(CurrentHealth<0){
+		if(CurrentHealth<0&&!isDead){
 			var lastwords=prompt("YOU DIED!\nAny final words?","");
 			var thisUser=firebase.auth().currentUser.uid;
 			firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
