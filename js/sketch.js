@@ -469,7 +469,11 @@ for(var pyy=0;pyy<10;pyy++){
 				seedableSelect.hide();
 				craftSeedButton.hide();
 			}
+			var xFix=0;
 			for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
+				if(cropIndex%10==0&&cropIndex!==0){
+					xFix++;
+				}
 				cropInfoP[cropIndex].position(650,500+(cropIndex*20));
 				cropInfoP[cropIndex].show();
 				if(cropIndex>=cdf.plantLimit){
@@ -497,7 +501,7 @@ for(var pyy=0;pyy<10;pyy++){
 				if(p%5==0&&p!==0){
 					yFix++;
 				}
-				cropList[p].position(700+((p%5)*50),120+(yFix*25));
+				cropList[p].position(700+((p%5)*60),120+(yFix*25));
 				if(cropList[p].elt.innerHTML=="undefined" || !cdf.plants[p].planted){
 					cropList[p].elt.innerHTML=p+" [-]";
 				}
