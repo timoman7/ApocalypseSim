@@ -32,6 +32,7 @@ var foodStuff={
 		name:"Potato",
 		plantable:true,
 		seeds:1,
+		borderColor:'SaddleBrown',
 		color:'beige',
 		chanceToDrop:{
 			one:80,
@@ -56,6 +57,7 @@ var foodStuff={
 		name:"Tomato",
 		plantable:true,
 		seeds:0,
+		borderColor:'FireBrick',
 		color:'IndianRed',
 		chanceToDrop:{
 			one:80,
@@ -79,6 +81,7 @@ var foodStuff={
 		name:"Corn",
 		plantable:true,
 		seeds:1,
+		borderColor:'Lime',
 		color:'Cornsilk',
 		chanceToDrop:{
 			one:80,
@@ -100,6 +103,7 @@ var foodStuff={
 		hungerRestored:10,
 		amount:1,
 		name:"Cabbage",
+		borderColor:'LawnGreen',
 		color:'Chartreuse',
 		plantable:true,
 		seeds:1,
