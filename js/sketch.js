@@ -205,7 +205,7 @@ function setup(){
 }
 function upgradeFarm(event){
 	var requiredCaps=(cdf.tier+1)*10;
-	if(currentCaps>requiredCaps){
+	if(currentCaps>=requiredCaps){
 		currentCaps-=requiredCaps;
 		cdf.tier++;
 		setMaxCrops(cdf.plantLimit+1);
