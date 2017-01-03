@@ -645,7 +645,7 @@ for(var pyy=0;pyy<10;pyy++){
 	}
 	fill(0,255,127);
 	text("Heatlh: "+CurrentHealth+" of "+MaxedHealth,420,100);
-	text("Hunger: "+hunger+" of "+maxHunger,420,120);
-	text("Level: "+playerLevel,420,140);
-	text("XP: "+currentXP+" of "+xpNeeded,420,160);
+	text("Hunger: "+hunger+" of "+maxHunger,420,115);
+	text("Level: "+playerLevel,420,130);
+	text("XP: "+currentXP+" of "+xpNeeded,420,145);
 }
