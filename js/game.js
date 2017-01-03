@@ -1257,6 +1257,7 @@ setInterval(function(){
 				newElement2.class="speakable";
 				newElement2.innerHTML=">You killed the "+encounteredEnemy[0]+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+				currentXP+=encounteredEnemy[4];
 				enterBattle=0;
 				turn=1;
 			}
