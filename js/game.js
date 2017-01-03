@@ -1792,7 +1792,11 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
 				var newElement3=document.createElement('p');
 			    	newElement3.class="speakable";
+				if(equipedWeapon.damage===undefined){   
 	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon[0].damage+" damage.";
+				}else{
+					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
+				}
 				    if(equipedWeapon.damage===undefined){
 					if(Class==="Soldier"){
 						encounteredEnemy[1]-=Math.round(equipedWeapon[0].damage*1.5);
