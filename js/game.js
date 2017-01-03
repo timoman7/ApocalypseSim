@@ -126,7 +126,7 @@ var foodStuff={
 		dictName:"genericFrozenMeal",
 		hungerRestored:16,
 		amount:0,
-		name:"Chef Man-ardee",
+		name:"Chef Manardee",
 		plantable:false,
 		chanceToFind:{
 			one:30,
