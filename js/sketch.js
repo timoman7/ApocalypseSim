@@ -378,8 +378,8 @@ var imgHeight=-0.17;
 var imgWidth=0.284;
 function levelUp(){
 	if(currentXP>=xpNeeded){
+		currentXP=currentXP-xpNeeded;
 		playerLevel++;
-		currentXP=0;
 		xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
 	}
 	//Show available perks and if possible, stat to level up
