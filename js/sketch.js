@@ -1,4 +1,5 @@
-//loading a game does not update the cdf.plantLimit immediately
+//Add weapon attachments 
+//
 //
 var imgWidth=0;
 var imgHeight=0;
