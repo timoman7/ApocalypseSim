@@ -147,6 +147,7 @@ var tick=function(n){
 		if(cdfPlantLength>0){
 			if(cdf.plants[i].planted && cdf.plants[i].ticks < cdf.plants[i].timeToGrow){
 				cdf.plants[i].ticks++;
+				console.log(cdf.plants[i],cdf.plants[i].ticks,i);
 			}
 		}
 	}
