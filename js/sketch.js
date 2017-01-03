@@ -376,8 +376,17 @@ var watList = []; //Array to store instances of the wat element
 watList.push($("#message_wat"));
 var imgHeight=-0.17;
 var imgWidth=0.284;
+function levelUp(){
+	if(currentXP>=xpNeeded){
+		playerLevel++;
+		currentXP=0;
+		xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+	}
+	//Show available perks and if possible, stat to level up
+};
 function draw(){
     background(10,10,0);
+	xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
 	fill(0,255,0);
 	image(img1,-100,-60,(windowWidth-50)*1.186,(windowHeight-60)*1.186);//window.innerWidth,window.innerHeight
 	typing();
