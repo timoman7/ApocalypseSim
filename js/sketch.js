@@ -138,8 +138,10 @@ function setMaxCrops(n){
 		}
 		var tempBtn=createButton();
 		var tempP=createP();
-		if(!cdf.plants[i].planted){
-			cdf.plants[i]={planted:false,ticks:0};
+		if(cdf.plants[i]){
+			if(!cdf.plants[i].planted){
+				cdf.plants[i]={planted:false,ticks:0};
+			}
 		}
 		tempP.id("cropInfo"+i);
 		tempBtn.id("crop"+i);
