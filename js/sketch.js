@@ -142,6 +142,8 @@ function setMaxCrops(n){
 			if(!cdf.plants[i].planted){
 				cdf.plants[i]={planted:false,ticks:0};
 			}
+		}else{
+			cdf.plants[i]={planted:false,ticks:0};
 		}
 		tempP.id("cropInfo"+i);
 		tempBtn.id("crop"+i);
