@@ -100,6 +100,7 @@ var foodPlants={};
 var refreshFoodButton;
 var harvestButton;
 var upgradeCdfButton;
+var dispInfo;
 function refreshPlantInfo(){
 	plantInfoP=[];
 	var pc=0;
@@ -152,10 +153,15 @@ function setup(){
 	farmMode=createSelect();
 	plantSelect=createSelect();
 	qcList=createSelect();
+	dispInfo=createSelect();
 	saveList=createSelect();
 	//(cdf.upgrades.tier1.effect+cdf.upgrades.tier2.effect+cdf.upgrades.tier3.effect) will get max potential limit
 	setMaxCrops(cdf.plantLimit);
 	refreshPlantInfo();
+	dispInfo.position(650,495);
+	dispInfo.option("Planted");
+	dispInfo.option("Crop Inventory");
+	dispInfo.hide();
 	farmMode.position(750,420);
 	farmMode.option("Craft");
 	farmMode.option("Plant");
@@ -445,6 +451,7 @@ for(var pyy=0;pyy<10;pyy++){
 }
 	if(area[playerY][playerX][0]==98){
 		if(farmGuiOpen){
+			dispInfo.show();
 			farmMode.show();
 			upgradeCdfButton.show();
 			var plantState=plantSelect.style('display');
@@ -474,7 +481,7 @@ for(var pyy=0;pyy<10;pyy++){
 				if(cropIndex%10==0&&cropIndex!==0){
 					xFix++;
 				}
-				cropInfoP[cropIndex].position(650+(xFix*500),500+((cropIndex%10)*20));
+				cropInfoP[cropIndex].position(470+(xFix*400),500+((cropIndex%10)*20));
 				cropInfoP[cropIndex].show();
 				if(cropIndex>=cdf.plantLimit){
 					cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
@@ -575,8 +582,11 @@ for(var pyy=0;pyy<10;pyy++){
 		farmGuiOpen=false;
 		plantSelect.hide();
 		farmMode.hide();
+		dispInfo.hide();
 		seedableSelect.hide();
 	}
 	//println(keyCode);
 	//println(charList[i]+": "+keysDown[charList[i]]);
+	text("Heatlh: "+CurrentHealth+" of "+MaxedHealth,420,100);
+	text("Hunger: "+hunger+" of "+maxHunger,420,120);
 }
