@@ -361,6 +361,7 @@ function harvestCrops(){
 			for(var chance in foodStuff[cropName].chanceToDrop){
 				if(rngA(100)<foodStuff[cropName].chanceToDrop[chance]){
 					foodStuff[cropName].amount++;
+					currentXP+=2;
 				}
 			}
 			foodStuff[cropName].seeds++;
