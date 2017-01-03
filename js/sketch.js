@@ -162,8 +162,8 @@ function setup(){
 	//(cdf.upgrades.tier1.effect+cdf.upgrades.tier2.effect+cdf.upgrades.tier3.effect) will get max potential limit
 	setMaxCrops(cdf.plantLimit);
 	refreshPlantInfo();
-	cropInfoDiv.position(575,450);
-	plantInfoDiv.position(575,450);
+	cropInfoDiv.position(460,450);
+	plantInfoDiv.position(460,450);
 	cropInfoDiv.html("");
 	plantInfoDiv.html("");
 	cropInfoDiv.style('width','600px');
