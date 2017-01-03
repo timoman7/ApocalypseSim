@@ -476,33 +476,43 @@ for(var pyy=0;pyy<10;pyy++){
 				seedableSelect.hide();
 				craftSeedButton.hide();
 			}
-			if(dispInfo.selected() == "Planted"){
-				var xFix=0;
-				for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
-					if(cropIndex%10==0&&cropIndex!==0){
-						xFix++;
-					}
-					cropInfoP[cropIndex].position(470+(xFix*400),500+((cropIndex%10)*20));
-					cropInfoP[cropIndex].show();
-					if(cropIndex>=cdf.plantLimit){
-						cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
+			var xFix=0;
+			for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
+				if(cropIndex%10==0&&cropIndex!==0){
+					xFix++;
+				}
+				cropInfoP[cropIndex].position(470+(xFix*400),500+((cropIndex%10)*20));
+				cropInfoP[cropIndex].show();
+				if(cropIndex>=cdf.plantLimit){
+					cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
+				}else{
+					if(cdf.plants[cropIndex].planted){
+						cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: "+cdf.plants[cropIndex].name+" | Growth Progress: "+cdf.plants[cropIndex].ticks+" / "+cdf.plants[cropIndex].timeToGrow);
 					}else{
-						if(cdf.plants[cropIndex].planted){
-							cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: "+cdf.plants[cropIndex].name+" | Growth Progress: "+cdf.plants[cropIndex].ticks+" / "+cdf.plants[cropIndex].timeToGrow);
-						}else{
-							cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: None");
-						}
+						cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Plant: None");
 					}
 				}
-			}else if(dispInfo.selected() == "Crop Inventory"){
+			}
+			for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
+				var pInfoP=plantInfoP[pIndex];
+				var pInfo=foodStuff[foodPlants[pIndex].dictName];
+				plantInfoP[pIndex].position(470,500+(pIndex*20));
+				if(pInfo!==undefined){
+					plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored+" | Sell/Buy Price: "+pInfo.sellPrice+"/"+pInfo.buyPrice+" Shekels");
+				}
+			}			if(dispInfo.selected() == "Planted"){
 				for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
-					var pInfoP=plantInfoP[pIndex];
-					var pInfo=foodStuff[foodPlants[pIndex].dictName];
-					plantInfoP[pIndex].position(470,500+(pIndex*20));
+					plantInfoP[pIndex].hide();
+				}
+				for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
+					cropInfoP[cropIndex].show();
+				}
+			}else if(dispInfo.selected() == "Crop Inventory"){
+				for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
+					cropInfoP[cropIndex].hide();
+				}
+				for(var pIndex=0;pIndex<plantInfoP.length;pIndex++){
 					plantInfoP[pIndex].show();
-					if(pInfo!==undefined){
-						plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored+" | Sell/Buy Price: "+pInfo.sellPrice+"/"+pInfo.buyPrice+" Shekels");
-					}
 				}
 			}
 			var yFix=0;
