@@ -626,6 +626,9 @@ for(var pyy=0;pyy<10;pyy++){
 	}
 	//println(keyCode);
 	//println(charList[i]+": "+keysDown[charList[i]]);
+	if(hunger>maxHunger){
+		hunger=maxHunger;
+	}
 	fill(0,255,127);
 	text("Heatlh: "+CurrentHealth+" of "+MaxedHealth,420,100);
 	text("Hunger: "+hunger+" of "+maxHunger,420,120);
