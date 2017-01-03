@@ -494,7 +494,7 @@ for(var pyy=0;pyy<10;pyy++){
 				seedableSelect.hide();
 				craftSeedButton.hide();
 			}
-			if(frameCount%50==0){
+			if(frameCount%20==0){
 				var xFix=0;
 				for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
 					if(cropIndex%10==0&&cropIndex!==0){
@@ -531,7 +531,7 @@ for(var pyy=0;pyy<10;pyy++){
 					plantInfoDiv.show();
 				}
 			}
-			if(frameCount%50==0){
+			if(frameCount%10==0){
 				var yFix=0;
 				for(var p=0;p<cdf.plantLimit;p++){
 					cropList[p].show();
