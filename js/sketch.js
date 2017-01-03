@@ -162,8 +162,8 @@ function setup(){
 	//(cdf.upgrades.tier1.effect+cdf.upgrades.tier2.effect+cdf.upgrades.tier3.effect) will get max potential limit
 	setMaxCrops(cdf.plantLimit);
 	refreshPlantInfo();
-	cropInfoDiv.position(360,510);
-	plantInfoDiv.position(360,510);
+	cropInfoDiv.position(575,450);
+	plantInfoDiv.position(575,450);
 	cropInfoDiv.html("");
 	plantInfoDiv.html("");
 	cropInfoDiv.style('width','600px');
@@ -176,7 +176,7 @@ function setup(){
 	plantInfoDiv.style('overflow-y','scroll');
 	cropInfoDiv.hide();
 	plantInfoDiv.hide();
-	dispInfo.position(460,495);
+	dispInfo.position(460,435);
 	dispInfo.option("Planted");
 	dispInfo.option("Crop Inventory");
 	dispInfo.hide();
@@ -494,13 +494,14 @@ for(var pyy=0;pyy<10;pyy++){
 				seedableSelect.hide();
 				craftSeedButton.hide();
 			}
-			if(frameCount%100==0){
+			if(frameCount%50==0){
 				var xFix=0;
 				for(var cropIndex=0;cropIndex<cropInfoP.length;cropIndex++){
 					if(cropIndex%10==0&&cropIndex!==0){
 						xFix++;
 					}
 					cropInfoP[cropIndex].show();
+					cropInfoP[cropIndex].style('margin','8px 0px');
 					cropInfoP[cropIndex].parent(cropInfoDiv);
 					if(cropIndex>=cdf.plantLimit){
 						cropInfoP[cropIndex].html("Crop ID:"+cropIndex+" | Status: Unavailable");
@@ -516,6 +517,7 @@ for(var pyy=0;pyy<10;pyy++){
 					var pInfoP=plantInfoP[pIndex];
 					var pInfo=foodStuff[foodPlants[pIndex].dictName];
 					plantInfoP[pIndex].show();
+					plantInfoP[pIndex].style('margin','8px 0px');
 					plantInfoP[pIndex].parent(plantInfoDiv);
 					if(pInfo!==undefined){
 						plantInfoP[pIndex].html(pInfo.name+": Amount: "+pInfo.amount+" | Seeds: "+pInfo.seeds+" | Hunger Restored: "+pInfo.hungerRestored+" | Sell/Buy Price: "+pInfo.sellPrice+"/"+pInfo.buyPrice+" Shekels");
