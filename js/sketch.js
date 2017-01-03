@@ -104,6 +104,10 @@ var upgradeCdfButton;
 var dispInfo;
 var cropInfoDiv;
 var plantInfoDiv;
+
+var currentXP=0;
+var playerLevel=0;
+var xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
 function refreshPlantInfo(){
 	plantInfoP=[];
 	var pc=0;
@@ -633,4 +637,6 @@ for(var pyy=0;pyy<10;pyy++){
 	fill(0,255,127);
 	text("Heatlh: "+CurrentHealth+" of "+MaxedHealth,420,100);
 	text("Hunger: "+hunger+" of "+maxHunger,420,120);
+	text("Level: "+playerLevel,420,140);
+	text("XP: "+currentXP+" of "+xpNeeded,420,140);
 }
