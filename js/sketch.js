@@ -196,7 +196,7 @@ function setMaxCrops(n){
 	}
 }
 //Level gui variables
-var levelGui=createDiv("");
+var levelGui;
 var levelUpBtn;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
@@ -283,6 +283,7 @@ function setup(){
 	levelUpBtn.id("levelUpBtn");
 	levelUpBtn.mouseClicked(openLevelGui);
 	levelUpBtn.hide();
+	levelGui=createDiv("")
 	levelGui.hide();
 	levelGui.position(0,0);
 	levelGui.style('width',width+"px");
@@ -522,7 +523,7 @@ function levelGuiCreate(){
 		sCount++;
 	}
 }
-levelGui.update=function(){
+updateLevel=function(){
 	strength=BaseS.value;
 	perception=BaseP.value;
 	endurance=BaseE.value;
@@ -599,7 +600,7 @@ function draw(){
 		levelUpBtn.hide();
 	}
 	//Levelling happens here
-	levelGui.update();
+	updateLevel();
 	if(levelGuiO){
 		levelGui.show();
 	}else{
