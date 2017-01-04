@@ -140,7 +140,7 @@ var plantInfoDiv;
 
 var currentXP=0;
 var playerLevel=0;
-var xpNeeded=(29+(1/Math.pow(10,-(playerLevel*0.8))));
+var xpNeeded=Math.floor(29+(1/Math.pow(10,-(playerLevel*0.8))));
 function refreshPlantInfo(){
 	plantInfoP=[];
 	var pc=0;
@@ -446,7 +446,7 @@ function levelUp(){
 	if(currentXP>=xpNeeded){
 		currentXP=currentXP-xpNeeded;
 		playerLevel++;
-		xpNeeded=(29+(1/Math.pow(10,-(playerLevel*0.8))));
+		xpNeeded=Math.floor(29+(1/Math.pow(10,-(playerLevel*0.8))));
 		skillPoints++;
 	}
 	//Show available perks and if possible, stat to level up
@@ -593,7 +593,7 @@ function draw(){
 	statList.intelligence=intelligence;
 	statList.agility=agility;
 	statList.luck=luck;
-	xpNeeded=(29+(1/Math.pow(10,-(playerLevel*0.8))));
+	xpNeeded=Math.floor(29+(1/Math.pow(10,-(playerLevel*0.8))));
 	levelUp();
 	if(skillPoints>0){
 		levelUpBtn.show();
