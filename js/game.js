@@ -4,6 +4,7 @@ var Class;
 var currentXP=0;
 var playerLevel=0;
 var xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+var skillPoints=0;
 var hunger = 100;
 var maxHunger=100;
 var MaxedHealth;
@@ -1451,6 +1452,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		    gameData.playerLevel=playerLevel;
 		    gameData.currentXP=currentXP;
 		    gameData.xpNeeded=xpNeeded;
+		gameData.skillPoints=skillPoints;
                 gameData.totalP=totalP;
                 gameData.CurrentHealth=CurrentHealth;
 		gameData.Class=Class;
@@ -1477,6 +1479,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		    gameData.currentXP=currentXP;
 		    gameData.xpNeeded=xpNeeded;
 		gameData.hunger=hunger;
+		gameData.skillPoints=skillPoints;
             gameData.stats={};
             gameData.stats.Strength=BaseS.valueAsNumber;
             gameData.stats.Perception=BaseP.valueAsNumber;
@@ -1523,6 +1526,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		    currentXP=loadData.currentXP;
 		    xpNeeded=loadData.xpNeeded;
 		Class=loadData.Class;
+		skillPoints=loadData.skillPoints;
 		setMaxCrops(loadData.cdf.plantLimit);
             done=1;
             document.getElementById('command_line').value=loadData.playerName;
