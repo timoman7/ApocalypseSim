@@ -490,13 +490,16 @@ function levelGuiCreate(){
 	}
 	var sCount=0;
 	for(var Stat in perkTree){
-		function tempFunc1(){
-			statList[Stat]++;
+		function tempFunc1(S){
+			statList[S]++;
 			closeLevelGui();
+		}
+		function tempFunc3(){
+			tempFunc1(Stat);
 		}
 		var tempB1=createButton();
 		tempB1.id(Stat+"Btn");
-		tempB1.mouseClicked(tempFunc1);
+		tempB1.mouseClicked(tempFunc3);
 		tempB1.position(100+(100*sCount),100);
 		tempB1.html(Stat+": "+statList[Stat]);
 		tempB1.parent(levelGui);
@@ -505,13 +508,16 @@ function levelGuiCreate(){
 		for(var Perk in perkTree[Stat]){
 			var tCount=0;
 			for(var Tier in perkTree[Stat][Perk]){
-				function tempFunc(){
-					perkTree[Stat][Perk][Tier].has=true;
+				function tempFunc(S,P,T){
+					perkTree[S][P][T].has=true;
 					closeLevelGui();
+				}
+				function tempFunc2(){
+					tempFunc(Stat,Perk,Tier);
 				}
 				var tempB=createButton();
 				tempB.id(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
-				tempB.mouseClicked(tempFunc);
+				tempB.mouseClicked(tempFunc2);
 				tempB.position(100+(100*sCount),200+(100*pCount));
 				tempB.html(perkTree[Stat][Perk][Tier].description);
 				tempB.parent(levelGui);
