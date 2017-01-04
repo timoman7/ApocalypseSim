@@ -197,6 +197,7 @@ function setMaxCrops(n){
 }
 //Level gui variables
 var levelGui;
+var levelUpBtn;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
@@ -277,6 +278,11 @@ function setup(){
 	saveList.mouseOut(saveEventOut);
 	
 	//Painful task of creating level gui
+	levelUpBtn.createButton();
+	levelUpBtn.position(540,115);
+	levelUpBtn.id("levelUpBtn");
+	levelUpBtn.mouseClicked(openLevelGui);
+	levelUpBtn.hide();
 	levelGui.createDiv("");
 	levelGui.hide();
 	levelGui.position(0,0);
@@ -284,6 +290,7 @@ function setup(){
 	levelGui.style('height',height+"px");
 	levelGui.id("levelGui");
 	levelGui.hide();
+	levelGuiCreate();
 }
 function upgradeFarm(event){
 	var requiredCaps=(cdf.tier+1)*10;
@@ -440,7 +447,7 @@ function levelUp(){
 		currentXP=currentXP-xpNeeded;
 		playerLevel++;
 		xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
-		levelGuiO=true;
+		skillPoints++;
 	}
 	//Show available perks and if possible, stat to level up
 };
@@ -452,11 +459,118 @@ var intelligence;
 var agility;
 var luck;
 var statList={};
+//Create gui with function
+var perkBtns={};
+function levelGuiCreate(){
+	strength=BaseS.value;
+	perception=BaseP.value;
+	endurance=BaseE.value;
+	charisma=BaseC.value;
+	intelligence=BaseI.value;
+	agility=BaseA.value;
+	luck=BaseL.value;
+	statList.strength=strength;
+	statList.perception=perception;
+	statList.endurance=endurance;
+	statList.charisma=charisma;
+	statList.intelligence=intelligence;
+	statList.agility=agility;
+	statList.luck=luck;
+	var sLength=0;
+	var pLength=0;
+	var tLength=0;
+	for(var Stat in perkTree){
+		sLength++;
+		for(var Perk in perkTree[Stat]){
+			pLength++;
+			for(var Tier in perkTree[Stat][Perk]){
+				tLength++;
+			}
+		}
+	}
+	var sCount=0;
+	for(var Stat in perkTree){
+		function tempFunc1(){
+			statList[Stat]++;
+			closeLevelGui();
+		}
+		var tempB1=createButton();
+		tempB1.id(Stat+"Btn");
+		tempB1.mouseClicked(tempFunc1);
+		tempB1.position(100+(100*sCount),100);
+		tempB1.html(Stat+": "+statList[Stat]);
+		tempB1.parent(levelGui);
+		perkBtns[Stat+"Btn"]=tempB1;
+		var pCount=0;
+		for(var Perk in perkTree[Stat]){
+			var tCount=0;
+			for(var Tier in perkTree[Stat][Perk]){
+				function tempFunc(){
+					perkTree[Stat][Perk][Tier].has=true;
+					closeLevelGui();
+				}
+				var tempB=createButton();
+				tempB.id(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
+				tempB.mouseClicked(tempFunc);
+				tempB.position(100+(100*sCount),200+(100*pCount));
+				tempB.html(perkTree[Stat][Perk][Tier].description);
+				tempB.parent(levelGui);
+				perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()]=tempB;
+				tCount++;
+			}
+			pCount++;
+		}
+		sCount++;
+	}
+}
+levelGui.update=function(){
+	strength=BaseS.value;
+	perception=BaseP.value;
+	endurance=BaseE.value;
+	charisma=BaseC.value;
+	intelligence=BaseI.value;
+	agility=BaseA.value;
+	luck=BaseL.value;
+	statList.strength=strength;
+	statList.perception=perception;
+	statList.endurance=endurance;
+	statList.charisma=charisma;
+	statList.intelligence=intelligence;
+	statList.agility=agility;
+	statList.luck=luck;
+	var sCount=0;
+	for(var Stat in perkTree){
+		if(statList[Stat]>=10){
+			perkBtns[Stat+"Btn"].elt.removeEventListener('click',perkBtns[Stat+"Btn"]._events.click["[[TargetFunction]]"]);
+		}
+		var pCount=0;
+		for(var Perk in perkTree[Stat]){
+			var tCount=0;
+			for(var Tier in perkTree[Stat][Perk]){
+				var perk=document.getElementById(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
+				if(!perkTree[Stat][Perk][Tier].has && playerLevel >= perkTree[Stat][Perk][Tier].levelReq && statList[Stat] >= perkTree[Stat][Perk][Tier].req){
+					if(parseInt(Tier.split("Tier")[1])==1){
+						perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
+					}else{
+						if(!perkTree[Stat][Perk][Tier].has && perkTree[Stat][Perk]["Tier"+(parseInt(Tier.split("Tier")[1])-1)].has){
+							perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
+						}
+					}
+				}else{
+					perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
+				}
+				tCount++;
+			}
+			pCount++;
+		}
+		sCount++;
+	}
+};
 function openLevelGui(){
-	levelGui.show();
+	levelGuiO=true;
 }
 function closeLevelGui(){
-	levelGui.hide();
+	levelGuiO=false;
 }
 function draw(){
     background(10,10,0);
@@ -475,9 +589,18 @@ function draw(){
 	statList.agility=agility;
 	statList.luck=luck;
 	xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+	levelUp();
+	if(skillPoints>0){
+		levelUpBtn.show();
+	}else{
+		levelUpBtn.hide();
+	}
 	//Levelling happens here
+	levelGui.update();
 	if(levelGuiO){
-		
+		levelGui.show();
+	}else{
+		levelGui.hide();
 	}
 	//^^
 	fill(0,255,0);
