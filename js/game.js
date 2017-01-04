@@ -175,16 +175,22 @@ var perkTree={
 	endurance:{
 		timParadox:{
 			tier1:{
+				name:"The Tim Paradox",
+				id:"tPar",
 				has:false,
 				levelReq: 4,
 				req:3,
 			},
 			tier2:{
+				name:"The Tim Paradox",
+				id:"tPar",
 				has:false,
 				levelReq: 6,
 				req:4,
 			},
 			tier3:{
+				name:"The Tim Paradox",
+				id:"tPar",
 				has:false,
 				levelReq: 7,
 				req:5,
@@ -192,11 +198,15 @@ var perkTree={
 		},
 		swampMan:{
 			tier1:{
+				name:"Swamp Man",
+				id:"sMan",
 				has:false,
 				levelReq: 5,
 				req:7,
 			},
 			tier2:{
+				name:"Swamp Man",
+				id:"sMan",
 				has:false,
 				levelReq: 6,
 				req:8,
