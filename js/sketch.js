@@ -157,6 +157,7 @@ function setMaxCrops(n){
 		cropInfoP.push(tempP);
 		harvestList.push({readyH:false,selectedH:false});
 		cropList.push(tempBtn);
+		cropList[i].mouseClicked(uniEvent);
 	}
 }
 function setup(){
@@ -302,10 +303,12 @@ function plantSeed(event){
 }
 function selectCrop(event){
 	var plantLocation=event.target.id.split("crop")[1];
-	if(harvestList[plantLocation].selectedH){
-		harvestList[plantLocation].selectedH=false;
-	}else{
-		harvestList[plantLocation].selectedH=true;
+	if(harvestList[plantLocation].readyH){
+		if(harvestList[plantLocation].selectedH){
+			harvestList[plantLocation].selectedH=false;
+		}else{
+			harvestList[plantLocation].selectedH=true;
+		}
 	}
 }
 function farmModeEvent(event){
@@ -378,6 +381,13 @@ var watList = []; //Array to store instances of the wat element
 watList.push($("#message_wat"));
 var imgHeight=-0.17;
 var imgWidth=0.284;
+function uniEvent(event){
+	if(farmMode.selected()=="Harvest"){
+		selectCrop(event);
+	}else if(farmMode.selected()=="Plant"){
+		plantSeed(event);
+	}
+}
 function levelUp(){
 	if(currentXP>=xpNeeded){
 		currentXP=currentXP-xpNeeded;
@@ -576,19 +586,14 @@ for(var pyy=0;pyy<10;pyy++){
 					}
 					cropList[p].elt.innerHTML=p+" "+grown;
 					if(plantState=="block"){
-						cropList[p].mouseClicked(function(){});
-						cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 						if(cdf.plants[p].planted){
 							cropList[p].style('background-color',cdf.plants[p].color);
 							cropList[p].style('borderColor',cdf.plants[p].borderColor);
 						}else{
 							cropList[p].style('background-color','buttonface');
 							cropList[p].style('borderColor','buttonface');
-							cropList[p].mouseClicked(plantSeed);
 						}
 					}else if(farmMode.selected()=="Harvest"){
-						cropList[p].mouseClicked(function(){});
-						cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 						if(cdf.plants[p].planted){
 							if(harvestList[p].selectedH){
 								cropList[p].style('background-color','purple');
@@ -598,11 +603,9 @@ for(var pyy=0;pyy<10;pyy++){
 							}
 							if(harvestable){
 								harvestList[p].readyH=true;
-								cropList[p].mouseClicked(selectCrop);
 							}
 						}else{
 							cropList[p].style('background-color','buttonface');
-							cropList[p].elt.removeEventListener('click',cropList[p]._events.click["[[TargetFunction]]"]);
 						}
 					}
 				}
