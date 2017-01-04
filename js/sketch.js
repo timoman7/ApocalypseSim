@@ -551,10 +551,10 @@ function updateLevel(){
 				if(perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()]){
 					perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].html(perkTree[Stat][Perk][Tier].description);
 					if(!perkTree[Stat][Perk][Tier].has && playerLevel >= perkTree[Stat][Perk][Tier].levelReq && statList[Stat] >= perkTree[Stat][Perk][Tier].req){
-						if(parseInt(Tier.split("Tier")[1])==1){
+						if(parseInt(Tier.split("tier")[1])==1){
 							perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
 						}else{
-							if(!perkTree[Stat][Perk][Tier].has && perkTree[Stat][Perk]["Tier"+(parseInt(Tier.split("Tier")[1])-1)].has){
+							if(!perkTree[Stat][Perk][Tier].has && perkTree[Stat][Perk]["tier"+(parseInt(Tier.split("tier")[1])-1)].has){
 								perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
 							}else{
 								perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
