@@ -195,6 +195,8 @@ function setMaxCrops(n){
 		cropList[i].mouseClicked(uniEvent);
 	}
 }
+//Level gui variables
+var levelGui;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
@@ -273,6 +275,15 @@ function setup(){
 	saveList.mouseClicked(saveEvent);
 	qcList.mouseOut(qcEventOut);
 	saveList.mouseOut(saveEventOut);
+	
+	//Painful task of creating level gui
+	levelGui.createDiv("");
+	levelGui.hide();
+	levelGui.position(0,0);
+	levelGui.style('width',width+"px");
+	levelGui.style('height',height+"px");
+	levelGui.id("levelGui");
+	levelGui.hide();
 }
 function upgradeFarm(event){
 	var requiredCaps=(cdf.tier+1)*10;
@@ -423,17 +434,52 @@ function uniEvent(event){
 		plantSeed(event);
 	}
 }
+var levelGuiO=false;
 function levelUp(){
 	if(currentXP>=xpNeeded){
 		currentXP=currentXP-xpNeeded;
 		playerLevel++;
 		xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+		levelGuiO=true;
 	}
 	//Show available perks and if possible, stat to level up
 };
+var strength;
+var perception;
+var endurance;
+var charisma;
+var intelligence;
+var agility;
+var luck;
+var statList={};
+function openLevelGui(){
+	levelGui.show();
+}
+function closeLevelGui(){
+	levelGui.hide();
+}
 function draw(){
     background(10,10,0);
+	strength=BaseS.value;
+	perception=BaseP.value;
+	endurance=BaseE.value;
+	charisma=BaseC.value;
+	intelligence=BaseI.value;
+	agility=BaseA.value;
+	luck=BaseL.value;
+	statList.strength=strength;
+	statList.perception=perception;
+	statList.endurance=endurance;
+	statList.charisma=charisma;
+	statList.intelligence=intelligence;
+	statList.agility=agility;
+	statList.luck=luck;
 	xpNeeded=(29+(1/Math.pow(10,-(playerLevel/10))));
+	//Levelling happens here
+	if(levelGuiO){
+		
+	}
+	//^^
 	fill(0,255,0);
 	image(img1,-100,-60,(windowWidth-50)*1.186,(windowHeight-60)*1.186);//window.innerWidth,window.innerHeight
 	typing();
