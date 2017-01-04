@@ -114,7 +114,7 @@ function refreshPlantInfo(){
 	var pcc=0;
 	for(var i in foodStuff){
 		if(foodStuff[i].plantable){
-			foodPlants[pcc]=foodStuff[i];
+			foodPlants[pcc]=Object.create(foodStuff[i]);
 			pcc++;
 		}
 	}
@@ -290,7 +290,7 @@ function plantSeed(event){
 	for(var plant in plantableFood){
 		if(plantSelect.value().toLowerCase()==plantableFood[plant].name.toLowerCase()){
 			if(foodStuff[plant].seeds>0 && !cdf.plants[plantLocation].planted){
-				cdf.plants[plantLocation]=plantableFood[plant];
+				cdf.plants[plantLocation]=Object.create(plantableFood[plant]);
 				cdf.plants[plantLocation].planted=true;
 				cdf.plants[plantLocation].ticks=0;
 				foodStuff[plant].seeds--;
@@ -500,12 +500,12 @@ for(var pyy=0;pyy<10;pyy++){
 			
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].seeds>0){
-					plantableFood[plant]=foodStuff[plant];
+					plantableFood[plant]=Object.create(foodStuff[plant]);
 				}
 			}
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].amount>0){
-					seedableFood[plant]=foodStuff[plant];
+					seedableFood[plant]=Object.create(foodStuff[plant]);
 				}
 			}
 			refreshFoodButton.show();
