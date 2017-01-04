@@ -3,7 +3,7 @@ var farmGuiOpen=false;
 var Class;
 var currentXP=0;
 var playerLevel=0;
-var xpNeeded=(29+(1/Math.pow(10,-(playerLevel*0.8))));
+var xpNeeded=Math.floor(29+(1/Math.pow(10,-(playerLevel*0.8))));
 var skillPoints=0;
 var hunger = 100;
 var maxHunger=100;
