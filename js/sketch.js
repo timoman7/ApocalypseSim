@@ -84,6 +84,39 @@ function typing(){
     	}
     }
 }
+function clone(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || "object" != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+        copy = new Date();
+        copy.setTime(obj.getTime());
+        return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+        copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = clone(obj[i]);
+        }
+        return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+        copy = {};
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
+}
 var testLoad;
 var qcClick=0;
 var saveClick=0;
@@ -114,7 +147,7 @@ function refreshPlantInfo(){
 	var pcc=0;
 	for(var i in foodStuff){
 		if(foodStuff[i].plantable){
-			foodPlants[pcc]=Object.create(foodStuff[i]);
+			foodPlants[pcc]=clone(foodStuff[i]);
 			pcc++;
 		}
 	}
@@ -293,7 +326,7 @@ function plantSeed(event){
 	for(var plant in plantableFood){
 		if(plantSelect.value().toLowerCase()==plantableFood[plant].name.toLowerCase()){
 			if(foodStuff[plant].seeds>0 && !cdf.plants[plantLocation].planted){
-				cdf.plants[plantLocation]=Object.create(plantableFood[plant]);
+				cdf.plants[plantLocation]=clone(plantableFood[plant]);
 				cdf.plants[plantLocation].planted=true;
 				cdf.plants[plantLocation].ticks=0;
 				foodStuff[plant].seeds--;
@@ -512,12 +545,12 @@ for(var pyy=0;pyy<10;pyy++){
 			
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].seeds>0){
-					plantableFood[plant]=Object.create(foodStuff[plant]);
+					plantableFood[plant]=clone(foodStuff[plant]);
 				}
 			}
 			for(var plant in foodStuff){
 				if(foodStuff[plant].plantable && foodStuff[plant].amount>0){
-					seedableFood[plant]=Object.create(foodStuff[plant]);
+					seedableFood[plant]=clone(foodStuff[plant]);
 				}
 			}
 			refreshFoodButton.show();
