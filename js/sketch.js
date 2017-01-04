@@ -278,12 +278,12 @@ function setup(){
 	saveList.mouseOut(saveEventOut);
 	
 	//Painful task of creating level gui
-	levelUpBtn.createButton();
+	levelUpBtn=createButton();
 	levelUpBtn.position(540,115);
 	levelUpBtn.id("levelUpBtn");
 	levelUpBtn.mouseClicked(openLevelGui);
 	levelUpBtn.hide();
-	levelGui.createDiv("");
+	levelGui=createDiv("");
 	levelGui.hide();
 	levelGui.position(0,0);
 	levelGui.style('width',width+"px");
