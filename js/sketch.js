@@ -523,7 +523,7 @@ function levelGuiCreate(){
 		sCount++;
 	}
 }
-updateLevel=function(){
+function updateLevel(){
 	strength=BaseS.value;
 	perception=BaseP.value;
 	endurance=BaseE.value;
@@ -548,20 +548,21 @@ updateLevel=function(){
 		for(var Perk in perkTree[Stat]){
 			var tCount=0;
 			for(var Tier in perkTree[Stat][Perk]){
-				var perk=document.getElementById(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
-				perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].html(perkTree[Stat][Perk][Tier].description);
-				if(!perkTree[Stat][Perk][Tier].has && playerLevel >= perkTree[Stat][Perk][Tier].levelReq && statList[Stat] >= perkTree[Stat][Perk][Tier].req){
-					if(parseInt(Tier.split("Tier")[1])==1){
-						perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
-					}else{
-						if(!perkTree[Stat][Perk][Tier].has && perkTree[Stat][Perk]["Tier"+(parseInt(Tier.split("Tier")[1])-1)].has){
+				if(perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()]){
+					perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].html(perkTree[Stat][Perk][Tier].description);
+					if(!perkTree[Stat][Perk][Tier].has && playerLevel >= perkTree[Stat][Perk][Tier].levelReq && statList[Stat] >= perkTree[Stat][Perk][Tier].req){
+						if(parseInt(Tier.split("Tier")[1])==1){
 							perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
 						}else{
-							perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
+							if(!perkTree[Stat][Perk][Tier].has && perkTree[Stat][Perk]["Tier"+(parseInt(Tier.split("Tier")[1])-1)].has){
+								perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
+							}else{
+								perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
+							}
 						}
+					}else{
+						perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
 					}
-				}else{
-					perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
 				}
 				tCount++;
 			}
