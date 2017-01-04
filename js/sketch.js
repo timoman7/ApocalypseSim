@@ -294,6 +294,7 @@ function plantSeed(event){
 				cdf.plants[plantLocation].planted=true;
 				cdf.plants[plantLocation].ticks=0;
 				foodStuff[plant].seeds--;
+				return
 			}
 		}
 	}
