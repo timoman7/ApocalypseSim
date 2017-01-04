@@ -543,7 +543,7 @@ function updateLevel(){
 		if(statList[Stat]>=10){
 			perkBtns[Stat+"Btn"].elt.removeEventListener('click',perkBtns[Stat+"Btn"]._events.click["[[TargetFunction]]"]);
 		}
-		perkBtns[Stat+"Btn"].html(perkTree[Stat]+": "+statList[Stat]);
+		perkBtns[Stat+"Btn"].html(Stat+": "+statList[Stat]);
 		var pCount=0;
 		for(var Perk in perkTree[Stat]){
 			var tCount=0;
