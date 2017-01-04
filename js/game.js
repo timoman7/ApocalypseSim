@@ -161,15 +161,54 @@ var tick=function(n){
 //Luck o' the Irish, find 7% more caps, tier 2: 20% more likely to find potato
 var perkTree={
 	charisma:{
-		
+		silverTounge:{
+			tier1:{
+				description:"Silver Tounge: Tier 1\nDesc",
+				name:"Silver Tounge",
+				id:"slickTalker",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
 	},
 	strength:{
+		banePerk:{
+			tier1:{
+				description:"Strongman: Tier 1\nDesc",
+				name:"Strongman",
+				id:"strongMan",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
 		
 	},
 	agility:{
+		triggerFinger:{
+			tier1:{
+				description:"Trigger Finger: Tier 1\nDesc",
+				name:"Trigger Finger",
+				id:"trigF",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
 		
 	},
 	luck:{
+		luckIrish:{
+			tier1:{
+				description:"Luck o' The Irish: Tier 1\nDesc",
+				name:"Luck o' The Irish",
+				id:"lIrish",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
 		
 	},
 	endurance:{
@@ -219,9 +258,29 @@ var perkTree={
 		},
 	},
 	perception:{
+		fourEyes:{
+			tier1:{
+				description:"Four-Eyes: Tier 1\nDesc",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
 		
 	},
 	intelligence:{
+		allA:{
+			tier1:{
+				description:"All A's: Tier 1\nDesc",
+				name:"All A's",
+				id:"aStudent",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
 		
 	}
 };
