@@ -196,7 +196,7 @@ function setMaxCrops(n){
 	}
 }
 //Level gui variables
-var levelGui;
+var levelGui=createDiv("");
 var levelUpBtn;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
@@ -283,7 +283,6 @@ function setup(){
 	levelUpBtn.id("levelUpBtn");
 	levelUpBtn.mouseClicked(openLevelGui);
 	levelUpBtn.hide();
-	levelGui=createDiv("");
 	levelGui.hide();
 	levelGui.position(0,0);
 	levelGui.style('width',width+"px");
