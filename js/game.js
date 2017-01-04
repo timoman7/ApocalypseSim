@@ -150,7 +150,7 @@ var tick=function(n){
 	if(hunger<maxHunger*0.15){
 		CurrentHealth--;
 	}
-	if(hunger>(maxHunger*0.8)&&CurrentHealth<MaxedHealth){
+	if(hunger>(maxHunger*0.8)&&CurrentHealth<MaxedHealth && !(CurrentHealth+5 > MaxedHealth)){
 		CurrentHealth+=5;
 	}
 };
