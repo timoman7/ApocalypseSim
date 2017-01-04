@@ -543,17 +543,21 @@ levelGui.update=function(){
 		if(statList[Stat]>=10){
 			perkBtns[Stat+"Btn"].elt.removeEventListener('click',perkBtns[Stat+"Btn"]._events.click["[[TargetFunction]]"]);
 		}
+		perkBtns[Stat+"Btn"].html(perkTree[Stat]+": "+statList[Stat]);
 		var pCount=0;
 		for(var Perk in perkTree[Stat]){
 			var tCount=0;
 			for(var Tier in perkTree[Stat][Perk]){
 				var perk=document.getElementById(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
+				perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].html(perkTree[Stat][Perk][Tier].description);
 				if(!perkTree[Stat][Perk][Tier].has && playerLevel >= perkTree[Stat][Perk][Tier].levelReq && statList[Stat] >= perkTree[Stat][Perk][Tier].req){
 					if(parseInt(Tier.split("Tier")[1])==1){
 						perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
 					}else{
 						if(!perkTree[Stat][Perk][Tier].has && perkTree[Stat][Perk]["Tier"+(parseInt(Tier.split("Tier")[1])-1)].has){
 							perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].show();
+						}else{
+							perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()].hide();
 						}
 					}
 				}else{
