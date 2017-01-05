@@ -465,7 +465,21 @@ function upStat(event){
 	var SPT=event.target.id;
 	var S=SPT.split(".")[0];
 	console.log(event,S,statList[S]);
-	statList[S]++;
+	if(S=="strength"){
+		BaseS.value++;
+	}else if(S=="perception"){
+		BaseP.value++;
+	}else if(S=="endurance"){
+		BaseE.value++;
+	}else if(S=="charisma"){
+		BaseC.value++;
+	}else if(S=="intelligence"){
+		BaseI.value++;
+	}else if(S=="agility"){
+		BaseA.value++;
+	}else if(S=="luck"){
+		BaseL.value++;
+	}
 	skillPoints--;
 	console.log(S,statList[S]);
 	closeLevelGui();
