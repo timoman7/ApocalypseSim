@@ -281,6 +281,7 @@ function setup(){
 	levelUpBtn=createButton();
 	levelUpBtn.position(540,115);
 	levelUpBtn.id("levelUpBtn");
+	levelUpBtn.html("");
 	levelUpBtn.mouseClicked(openLevelGui);
 	levelUpBtn.hide();
 	levelGui=createDiv("")
@@ -550,6 +551,7 @@ function levelGuiCreate(){
 	}
 }
 function updateLevel(){
+	levelUpBtn.html(skillPoints+" Skill Points");
 	strength=BaseS.value;
 	perception=BaseP.value;
 	endurance=BaseE.value;
@@ -603,7 +605,9 @@ function openLevelGui(){
 function closeLevelGui(){
 	levelGuiO=false;
 }
+
 function draw(){
+	textFont("Courier");
 	background(10,10,0);
 	strength=BaseS.value;
 	perception=BaseP.value;
