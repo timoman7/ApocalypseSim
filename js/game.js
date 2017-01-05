@@ -166,7 +166,8 @@ var perkTree={
 	charisma:{
 		silverTounge:{
 			tier1:{
-				description:"Silver Tounge: Tier 1\nDesc",
+				description:"Silver Tounge: Tier 1",
+				title:"Buy and sell prices are better.",
 				name:"Silver Tounge",
 				id:"slickTalker",
 				has:false,
@@ -178,7 +179,8 @@ var perkTree={
 	strength:{
 		banePerk:{
 			tier1:{
-				description:"Strongman: Tier 1\nDesc",
+				description:"Strongman: Tier 1",
+				title:"Melee attacks deal 20% more damage.",
 				name:"Strongman",
 				id:"strongMan",
 				has:false,
@@ -191,7 +193,8 @@ var perkTree={
 	agility:{
 		triggerFinger:{
 			tier1:{
-				description:"Trigger Finger: Tier 1\nDesc",
+				description:"Trigger Finger: Tier 1",
+				title:"Fire twice instead of once when attacking.",
 				name:"Trigger Finger",
 				id:"trigF",
 				has:false,
@@ -204,7 +207,8 @@ var perkTree={
 	luck:{
 		luckIrish:{
 			tier1:{
-				description:"Luck o' The Irish: Tier 1\nDesc",
+				description:"Luck o' The Irish: Tier 1",
+				title:"Find 10% more caps",
 				name:"Luck o' The Irish",
 				id:"lIrish",
 				has:false,
@@ -217,7 +221,8 @@ var perkTree={
 	endurance:{
 		timParadox:{
 			tier1:{
-				description:"The Tim Paradox: Tier 1\nDesc",
+				description:"The Tim Paradox: Tier 1",
+				title:"Increases max hunger by 15 points.",
 				name:"The Tim Paradox",
 				id:"tPar",
 				has:false,
@@ -225,25 +230,28 @@ var perkTree={
 				req:3,
 			},
 			tier2:{
-				description:"The Tim Paradox: Tier 2\nDesc",
+				description:"The Tim Paradox: Tier 2",
+				title:"Increases max hunger by 30 points.",
 				name:"The Tim Paradox",
 				id:"tPar",
 				has:false,
 				levelReq: 6,
-				req:4,
+				req:5,
 			},
 			tier3:{
-				description:"The Tim Paradox: Tier 3\nDesc",
+				description:"The Tim Paradox: Tier 3",
+				title:"Increases max hunger by 55 points.",
 				name:"The Tim Paradox",
 				id:"tPar",
 				has:false,
 				levelReq: 7,
-				req:5,
+				req:8,
 			},
 		},
 		swampMan:{
 			tier1:{
-				description:"Swamp Man: Tier 1\nDesc",
+				description:"Swamp Man: Tier 1",
+				title:"Become 20% more resistant to radiation.",
 				name:"Swamp Man",
 				id:"sMan",
 				has:false,
@@ -251,7 +259,8 @@ var perkTree={
 				req:7,
 			},
 			tier2:{
-				description:"Swamp Man: Tier 2\nDesc",
+				description:"Swamp Man: Tier 2",
+				title:"Become 50% more resistant to radiation.",
 				name:"Swamp Man",
 				id:"sMan",
 				has:false,
@@ -263,7 +272,8 @@ var perkTree={
 	perception:{
 		fourEyes:{
 			tier1:{
-				description:"Four-Eyes: Tier 1\nDesc",
+				description:"Four-Eyes: Tier 1",
+				title:"Able to search an area twice.",
 				name:"Four-Eyes",
 				id:"fourI",
 				has:false,
@@ -276,7 +286,8 @@ var perkTree={
 	intelligence:{
 		allA:{
 			tier1:{
-				description:"All A's: Tier 1\nDesc",
+				description:"All A's: Tier 1",
+				title:"Studying rewards 10% more XP.",
 				name:"All A's",
 				id:"aStudent",
 				has:false,
