@@ -290,6 +290,7 @@ function setup(){
 	levelGui.style('width',width+"px");
 	levelGui.style('height',height+"px");
 	levelGui.style("background-image","url('./images/brQeTf76.png')");
+	levelGui.style("background-size",'cover');
 	levelGui.id("levelGui");
 	levelGui.hide();
 	levelGuiCreate();
