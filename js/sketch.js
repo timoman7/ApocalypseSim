@@ -289,6 +289,7 @@ function setup(){
 	levelGui.position(0,0);
 	levelGui.style('width',width+"px");
 	levelGui.style('height',height+"px");
+	levelGui.style("backgroundColor","DarkGreen");
 	levelGui.id("levelGui");
 	levelGui.hide();
 	levelGuiCreate();
@@ -528,7 +529,7 @@ function levelGuiCreate(){
 		var tempB1=createButton();
 		tempB1.id(Stat+".");
 		tempB1.mouseClicked(upStat);
-		tempB1.position(100+(100*sCount),100);
+		tempB1.position(100+(150*sCount),100);
 		tempB1.html(Stat+": "+statList[Stat]);
 		tempB1.parent(levelGui);
 		perkBtns[Stat+"Btn"]=tempB1;
@@ -539,7 +540,7 @@ function levelGuiCreate(){
 				var tempB=createButton();
 				tempB.id(Stat+"."+Perk+"."+Tier);
 				tempB.mouseClicked(ulPerk);
-				tempB.position(100+(100*sCount),200+(100*pCount));
+				tempB.position(100+(150*sCount),200+(100*pCount));
 				tempB.html(perkTree[Stat][Perk][Tier].description);
 				tempB.parent(levelGui);
 				perkBtns[perkTree[Stat][Perk][Tier].id+(tCount+1).toString()]=tempB;
@@ -634,6 +635,7 @@ function draw(){
 	updateLevel();
 	if(levelGuiO){
 		levelGui.show();
+		farmGuiOpen=false;
 	}else{
 		levelGui.hide();
 	}
