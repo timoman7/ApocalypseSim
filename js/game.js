@@ -1,3 +1,6 @@
+//Rework weapons as unique objects
+//Look around will lead to a function in sketch
+//Do this in shop
 var currentUser;
 var farmGuiOpen=false;
 var Class;
