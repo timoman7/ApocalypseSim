@@ -284,12 +284,12 @@ function setup(){
 	levelUpBtn.html("");
 	levelUpBtn.mouseClicked(openLevelGui);
 	levelUpBtn.hide();
-	levelGui=createDiv("")
+	levelGui=createDiv("");
 	levelGui.hide();
 	levelGui.position(0,0);
 	levelGui.style('width',width+"px");
 	levelGui.style('height',height+"px");
-	levelGui.style("background",url('./images/brQeTf76.png'))
+	levelGui.style("background-image",url('./images/brQeTf76.png'));
 	levelGui.id("levelGui");
 	levelGui.hide();
 	levelGuiCreate();
