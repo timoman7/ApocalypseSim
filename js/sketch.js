@@ -526,7 +526,7 @@ function levelGuiCreate(){
 	var sCount=0;
 	for(var Stat in perkTree){
 		var tempB1=createButton();
-		tempB1.id(Stat);
+		tempB1.id(Stat+".");
 		tempB1.mouseClicked(upStat);
 		tempB1.position(100+(100*sCount),100);
 		tempB1.html(Stat+": "+statList[Stat]);
@@ -537,7 +537,7 @@ function levelGuiCreate(){
 			var tCount=0;
 			for(var Tier in perkTree[Stat][Perk]){
 				var tempB=createButton();
-				tempB.id(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
+				tempB.id(Stat+"."+Perk+"."+Tier);
 				tempB.mouseClicked(ulPerk);
 				tempB.position(100+(100*sCount),200+(100*pCount));
 				tempB.html(perkTree[Stat][Perk][Tier].description);
