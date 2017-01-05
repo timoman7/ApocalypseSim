@@ -461,6 +461,20 @@ var luck;
 var statList={};
 //Create gui with function
 var perkBtns={};
+function upStat(event){
+	var SPT=event.target.id;
+	var S=SPT.split(".")[0];
+	statList[S]++;
+	closeLevelGui();
+}
+function ulPerk(event){
+	var SPT=event.target.id.split(".");
+	var S=SPT[0];
+	var P=SPT[1];
+	var T=SPT[2];
+	perkTree[S][P][T].has=true;
+	closeLevelGui();
+}
 function levelGuiCreate(){
 	strength=BaseS.value;
 	perception=BaseP.value;
@@ -490,15 +504,9 @@ function levelGuiCreate(){
 	}
 	var sCount=0;
 	for(var Stat in perkTree){
-		function tempFunc1(event){
-			var SPT=event.target.id;
-			var S=SPT.split(".")[0];
-			statList[S]++;
-			closeLevelGui();
-		}
 		var tempB1=createButton();
 		tempB1.id(Stat);
-		tempB1.mouseClicked(tempFunc1);
+		tempB1.mouseClicked(upStat);
 		tempB1.position(100+(100*sCount),100);
 		tempB1.html(Stat+": "+statList[Stat]);
 		tempB1.parent(levelGui);
@@ -507,17 +515,9 @@ function levelGuiCreate(){
 		for(var Perk in perkTree[Stat]){
 			var tCount=0;
 			for(var Tier in perkTree[Stat][Perk]){
-				function tempFunc(event){
-					var SPT=event.target.id.split(".");
-					var S=SPT[0];
-					var P=SPT[1];
-					var T=SPT[2];
-					perkTree[S][P][T].has=true;
-					closeLevelGui();
-				}
 				var tempB=createButton();
 				tempB.id(perkTree[Stat][Perk][Tier].id+(tCount+1).toString());
-				tempB.mouseClicked(tempFunc);
+				tempB.mouseClicked(ulPerk);
 				tempB.position(100+(100*sCount),200+(100*pCount));
 				tempB.html(perkTree[Stat][Perk][Tier].description);
 				tempB.parent(levelGui);
@@ -584,7 +584,7 @@ function closeLevelGui(){
 	levelGuiO=false;
 }
 function draw(){
-    background(10,10,0);
+	background(10,10,0);
 	strength=BaseS.value;
 	perception=BaseP.value;
 	endurance=BaseE.value;
