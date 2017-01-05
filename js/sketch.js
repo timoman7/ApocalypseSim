@@ -289,7 +289,7 @@ function setup(){
 	levelGui.position(0,0);
 	levelGui.style('width',width+"px");
 	levelGui.style('height',height+"px");
-	levelGui.style("backgroundColor","DarkGreen");
+	levelGui.style("backgroundUrl",img1)
 	levelGui.id("levelGui");
 	levelGui.hide();
 	levelGuiCreate();
