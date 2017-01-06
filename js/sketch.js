@@ -608,7 +608,28 @@ function openLevelGui(){
 function closeLevelGui(){
 	levelGuiO=false;
 }
-
+//Weapon recreating
+function addWeapon(weapon){
+	for(var i = 0;i < playerInventory.capacity;i++){
+		if(playerInventory[i].empty){
+			playerInventory[i]=weapon;
+			playerInventory[i].empty=false;
+			return;
+		}
+	}
+}
+function remWeapon(index){
+	if(!playerInventory[index].empty){
+		playerInventory[index]={empty:true};
+	}
+}
+/*function(){
+	for(var k=0;k<playerInventory.capacity;k++){
+		if(!playerInventory[k].empty){
+			return playerInventory[k].name;
+		}
+	}
+}*/
 function draw(){
 	textFont("Courier");
 	background(10,10,0);
@@ -655,14 +676,8 @@ function draw(){
 	    var availableItems=[];
 	    if(prefix.toLowerCase() === "check"){
 	        if(item.toLowerCase() === "prices"){
-	            shopWeapList=[];
-	            for(var i=0;i<shopWeapNameType.length-1;i++){
-	                for(var l=0;l<shopEffectList.length;l++){
-	                    var shopWeap=new weap(shopWeapNameType[i][0],shopEffectList[l],shopWeapNameType[i][1],(weapList.length+shopWeapList.length));
-	                    var avItem=[shopWeap.name,shopWeap.value];
-	                    shopWeapList.push(shopWeap);
-	                    itemListDisp=itemListDisp+avItem[0]+' | Value:'+avItem[1]+'\n';
-	                }
+	            for(var i=0;i<shopInventory;i++){
+	                    itemListDisp=itemListDisp+shopInventory[i].name+' | Value:'+shopInventory[i].value+'\n';
 	            }
 	            sellingDisp=itemListDisp;
 	        }
@@ -678,10 +693,10 @@ function draw(){
 		           	}
 			}
 		}else{
-	       		for(var i=1;i<playerInventory.length;i++){
-	           		if(item.toLowerCase() === playerInventory[i][0].name.toLowerCase() && playerInventory[i][1]>0){
-	               			currentCaps+=playerInventory[i][0].value;
-	               			playerInventory[i][1]-=1;
+	       		for(var i=1;i<playerInventory.capacity;i++){
+	           		if(playerInventory[parseInt(item)].value){
+	               			currentCaps+=playerInventory[i].value;
+	               			remWeapon(parseInt(item));
 		               		sellCheck=true;
 		           	}
 	        	}
@@ -698,17 +713,13 @@ function draw(){
 		           	}
 			}
 		}else{
-	       		for(var i=0;i<shopWeapList.length;i++){
-	           		if(item.toLowerCase() === shopWeapList[i].name.toLowerCase() && currentCaps>shopWeapList[i].value){
-	               			currentCaps-=shopWeapList[i].value;
-	               			if(shopWeapList[i].name==function(){for(var k=0;k<playerInventory.length;k++){if(playerInventory[k][1]>0){return playerInventory[k][0].name;}}}){
-	                    			playerInventory[i][1]++;
-	               			}else{
-	                    			playerInventory.push([shopWeapList[i],1]);
-	               			}
-	               			sellCheck=true;
-	           		}
-	        	}
+	       		if(parseInt(item)<shopInventory.length){
+				if(currentCaps > shopInventory[parseInt(item)].value){
+					currentCaps-=shopInventory[parseInt(item)].value;
+					addWeap(shopInventory[parseInt(item)]);
+					sellCheck=true;
+				}
+			}
 	    	}
 	    }
 	}
