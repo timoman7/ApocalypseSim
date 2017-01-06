@@ -917,7 +917,7 @@ var titaniumKey = false; {
 		for(var ii=0;ii<rngA(20);ii++){
 			shopInventory.push(giveRandomWeap());
 		}
-		roomGen[roomGen.length-1]["searched"]=0;
+		roomGen[counter-1]["searched"]=0;
             	fixArea.push(roomGen);
         }
         area.push(fixArea);
