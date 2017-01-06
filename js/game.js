@@ -3,7 +3,7 @@
 //Do this in shop
 var currentUser;
 var farmGuiOpen=false;
-var Class;
+var Class;r
 var currentXP=0;
 var playerLevel=0;
 var xpNeeded=Math.floor(29+(1/Math.pow(4,-(playerLevel*0.1))));
@@ -904,20 +904,27 @@ var titaniumKey = false; {
                 document.getElementsByClassName('items')[0].appendChild(ab4);
             }
 	    */
+	roomGen.push(1);
             if (counter == rSpawn) {
-		    
-                roomGen.push(100);
+		    var rrr=[100];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             } else if (counter == merchSpawn) {
-                roomGen.push(99);
+                	var rrr=[99];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             } else if (counter == cdfSpawn) {
-                roomGen.push(98);
+                var rrr=[98];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             } else {
-                roomGen.push(rngA(4));
+                var rrr=[rngA(4)];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             }
 		for(var ii=0;ii<rngA(20);ii++){
 			shopInventory.push(giveRandomWeap());
 		}
-		roomGen[counter-1]["searched"]=0;
             	fixArea.push(roomGen);
         }
         area.push(fixArea);
