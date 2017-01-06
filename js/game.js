@@ -12,6 +12,13 @@ var hunger = 100;
 var maxHunger=100;
 var MaxedHealth;
 var CurrentHealth;
+//New inventory and weapon system
+var overEncumbered=false;
+var irish=0;
+var fourI=0;
+
+
+
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
