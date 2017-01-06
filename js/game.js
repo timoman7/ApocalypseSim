@@ -1552,9 +1552,11 @@ var itemAfter = "";
 function updateInventory() {
     itemBefore = "";
     itemAfter = "";
-    for (var i = 1; i < playerInventory.capacity; i++) {
-        itemBefore = playerInventory[i][0].name + "s:.." + playerInventory[i][1] + "..||.Damage:.." + playerInventory[i][0].damage + " ...||.Value:.." + playerInventory[i][0].value + " caps" + "<br>";
-        itemAfter = itemAfter + itemBefore;
+    for (var i = 0; i < playerInventory.capacity; i++) {
+	    if(!playerInventory[i].empty){
+        	itemBefore = playerInventory[i].name + "s:....||.Damage:.." + playerInventory[i].damage + " ...||.Value:.." + playerInventory[i].value + " Shekels"+"<br>";
+        	itemAfter = itemAfter + itemBefore;
+	    }
         inventory.innerHTML = itemAfter;
     }
 };
