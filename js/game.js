@@ -621,26 +621,11 @@ var checkChange = function() {
 };
 //Rooms Check
 var playerInventory = {
-	0:{
-		empty:true,
-	},
-	1:{
-		empty:true,
-	},
-	3:{
-		empty:true,
-	},
-	4:{
-		empty:true,
-	},
-	5:{
-		empty:true,
-	},
-	6:{
-		empty:true,
-	},
-	capacity:2,
+	capacity:8,
 };
+for(var i=0;i<50;i++){
+	playerInventory[i]={empty:true};
+}
 var currentCaps = 10;
 var canTrade = false;
 var startMSG = document.getElementById('area_vault');
@@ -844,8 +829,8 @@ var titaniumKey = false; {
 //Items/Equip
 {
     var equipItem = new weap(fistBase, "Normal", "Fists", -1);
-    playerInventory[6]=equipItem;
-	playerInventory[6].empty=false;
+    playerInventory[49]=equipItem;
+	playerInventory[49].empty=false;
     var equipedWeapon;
     // Action/Perk Variables
     var MeleeDmg;
