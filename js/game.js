@@ -1496,7 +1496,9 @@ function checkItem() {
 		this.capsFound=0;
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<30+(irish*5)){
-				this.foundItems.push(giveRandomWeap());
+				var disItem=giveRandomWeap();
+				this.foundItems.push(disItem);
+				addWeapon(disItem);
 			}
 		}
 		for(var i = 0; i < rngA(2+irish);i++){
