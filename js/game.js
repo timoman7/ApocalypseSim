@@ -336,9 +336,9 @@ setInterval(function(){
 			irish++;
 		}
 	}
-	if(checkPerk("perception","fourI","1").has){
+	if(checkPerk("perception","fourEyes","1").has){
 		fourI++;
-		if(checkPerk("perception","fourI","2").has){
+		if(checkPerk("perception","fourEyes","2").has){
 			fourI++;
 		}
 	}
