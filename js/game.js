@@ -904,7 +904,7 @@ var titaniumKey = false; {
                 document.getElementsByClassName('items')[0].appendChild(ab4);
             }
 	    */
-	roomGen.push(1);
+		roomGen.push(1);
             if (counter == rSpawn) {
 		    var rrr=[100];
 		    rrr["searched"]=0;
@@ -946,17 +946,27 @@ var createNewArea=function(){
             counter++;
             var roomGen = [];
 		//Create an object of a random length for the shopkeepers inventory
-            if (counter == merchSpawn) {
-                roomGen.push(99);
+            roomGen.push(1);
+            if (counter == rSpawn) {
+		    var rrr=[100];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
+            } else if (counter == merchSpawn) {
+                	var rrr=[99];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             } else if (counter == cdfSpawn) {
-                roomGen.push(98);
+                var rrr=[98];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             } else {
-                roomGen.push(rngA(4));
+                var rrr=[rngA(4)];
+		    rrr["searched"]=0;
+                roomGen[counter-1]=rrr;
             }
 		for(var ii=0;ii<rngA(20);ii++){
 			shopInventory.push(giveRandomWeap());
 		}
-		roomGen[counter-1]["searched"]=0;
             fixArea.push(roomGen);
         }
         area.push(fixArea);
