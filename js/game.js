@@ -627,7 +627,7 @@ var playerInventory = {
 	},
 	6:{
 		empty:true,
-	}
+	},
 	capacity:2,
 };
 var currentCaps = 10;
@@ -833,8 +833,8 @@ var titaniumKey = false; {
 //Items/Equip
 {
     var equipItem = new weap(fistBase, "Normal", "Fists", -1);
-	playerInventory
-    playerInventory.push([equipItem, 1]);
+    playerInventory[6]=equipItem;
+	playerInventory[6].empty=false;
     var equipedWeapon;
     // Action/Perk Variables
     var MeleeDmg;
@@ -870,6 +870,7 @@ var titaniumKey = false; {
         for (var xx = 0; xx < 10; xx++) {
             counter++;
             var roomGen = [];
+		/*
             var itemGen = [];
             for (var ii = 0; ii < 4; ii++) {
 		    //Label for init area INITREWORK
@@ -906,27 +907,25 @@ var titaniumKey = false; {
                 //ab4.hidden=true;
                 document.getElementsByClassName('items')[0].appendChild(ab4);
             }
+	    */
             if (counter == rSpawn) {
-                roomGen.push(100, itemGen);
+                roomGen.push(100);
             } else if (counter == merchSpawn) {
-                roomGen.push(99, itemGen);
+                roomGen.push(99);
             } else if (counter == cdfSpawn) {
-                roomGen.push(98, itemGen);
+                roomGen.push(98);
             } else {
-                roomGen.push(rngA(4), itemGen);
+                roomGen.push(rngA(4));
             }
+		for(var ii=0;ii<rngA(20);ii++){
+			shopInventory.push(giveRandomWeap());
+		}
+		roomGen[roomGen.length-1].searched=0;
             fixArea.push(roomGen);
         }
         area.push(fixArea);
         fixArea = [];
     }
-    setInterval(function() {
-        for (var i = 0; i < playerInventory.capacity; i++) {
-            if (playerInventory[i] == 0) {
-                playerInventory.splice(i, 1);
-            }
-        }
-    }, 10);
 var createNewArea=function(){
 	area=[];
 	shopInventory=[];
@@ -980,9 +979,6 @@ var createNewArea=function(){
             }
 	    */
 		//Create an object of a random length for the shopkeepers inventory
-		for(var ii=0;ii<rngA(20);ii++){
-			shopInventory.push(giveRandomWeap());
-		}
             if (counter == merchSpawn) {
                 roomGen.push(99);
             } else if (counter == cdfSpawn) {
@@ -990,6 +986,9 @@ var createNewArea=function(){
             } else {
                 roomGen.push(rngA(4));
             }
+		for(var ii=0;ii<rngA(20);ii++){
+			shopInventory.push(giveRandomWeap());
+		}
 		roomGen[roomGen.length-1].searched=0;
             fixArea.push(roomGen);
         }
