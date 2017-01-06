@@ -783,6 +783,8 @@ var titaniumKey = false; {
 }
 //Area tiles and RNG
 {
+	//Defined the shopkeepers inventory
+	var shopInventory=[];
     var rngA = function(n) {
         var resA = Math.round(Math.random() * n);
         var resB = Math.round(Math.random() * n);
@@ -808,6 +810,7 @@ var titaniumKey = false; {
             var roomGen = [];
             var itemGen = [];
             for (var ii = 0; ii < 4; ii++) {
+		    //Label for init area INITREWORK
                 var rngWeap = rngA(100);
                 var abc = giveRandomWeap();
                 weapList.push(abc);
@@ -864,6 +867,7 @@ var titaniumKey = false; {
     }, 10);
 var createNewArea=function(){
 	area=[];
+	shopInventory=[];
     var merchSpawn = rngA(100);
     var cdfSpawn = rngA(100);
 	while(cdfSpawn==merchSpawn){
@@ -876,8 +880,9 @@ var createNewArea=function(){
         for (var xx = 0; xx < 10; xx++) {
             counter++;
             var roomGen = [];
-            var itemGen = [];
+		/*
             for (var ii = 0; ii < 4; ii++) {
+		    //Label for CREATEREWORK
                 var rngWeap = rngA(100);
                 var abc = giveRandomWeap();
                 weapList.push(abc);
@@ -911,13 +916,19 @@ var createNewArea=function(){
                 //ab4.hidden=true;
                 document.getElementsByClassName('items')[0].appendChild(ab4);
             }
+	    */
+		//Create an object of a random length for the shopkeepers inventory
+		for(var ii=0;ii<rngA(20);ii++){
+			shopInventory.push(giveRandomWeap());
+		}
             if (counter == merchSpawn) {
-                roomGen.push(99, itemGen);
+                roomGen.push(99);
             } else if (counter == cdfSpawn) {
-                roomGen.push(98, itemGen);
+                roomGen.push(98);
             } else {
-                roomGen.push(rngA(4), itemGen);
+                roomGen.push(rngA(4));
             }
+		roomGen[roomGen.length-1].searched=0;
             fixArea.push(roomGen);
         }
         area.push(fixArea);
@@ -1406,17 +1417,72 @@ function updateText() {
 var inventory = document.getElementById('messageInventory');
 
 function checkItem() {
-    this.foundSomething=false;
-    for (var i = 0; i < 4; i++) {
-        if (area[playerY][playerX][1][i][1] == 1) {
-            $("#message_item" + area[playerY][playerX][1][i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-            this.foundSomething=true;
-        }
-    }
-    if(!this.foundSomething){
-        $("#message_nothing").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-        return
-    }
+	if(area[playerX][playerY].searched<1+fourI && !overEncumbered){
+		this.foundSomething=false;
+		this.foundItems=[];
+		this.foundCaps=false;
+		this.capsFound=0;
+		for(var i = 0; i < rngA(4+irish); i++){
+			if(rngA(100)<30+(irish*5)){
+				this.foundItems.push(giveRandomWeap());
+			}
+		}
+		for(var i = 0; i < rngA(2+irish);i++){
+			if(rngA(100)<20+(irish*5)){
+				var irishMod = 0;
+				if(irish==1){
+					irishMod=0.2;
+				}else if(irish==2){
+					irishMod=0.5;
+				}
+				this.capsFound+=(rngA(30)+1)*(1+(irishMod));
+				this.foundCaps=true;
+			}
+		}
+		if(this.foundItems.length>0 || this.foundCaps){
+			this.foundSomething=true;
+		}
+		if(!this.foundSomething){
+			$("#message_nothing").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+			return;
+		}else{
+			if(this.foundItems.length>0){
+				var newElement2=document.createElement('p');
+				newElement2.class="speakable";
+				var itemsFound="";
+				for(var i = 0;i<this.foundItems.length;i++){
+					if(this.foundItems.length==1){
+						itemsFound+=this.foundItems[i];
+					}else if(i<this.foundItems.length-1){
+						itemsFound+=this.foundItems[i];
+					}else{
+						itemsFound+=this.foundItems[i]+" and ";
+					}
+				}
+				newElement2.innerHTML=">You found "+itemsFound+".";
+				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			if(this.foundCaps){
+				var newElement2=document.createElement('p');
+				newElement2.class="speakable";
+				newElement2.innerHTML=">You found "+this.capsFound+" Shekels.";
+				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+		}
+		area[playerX][playerY].searched++;
+	}else{
+		if(overEncumbered){
+			var newElement2=document.createElement('p');
+			newElement2.class="speakable";
+			newElement2.innerHTML=">You are unable to hold any more items, drop a few or sell them.";
+			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+		}else{
+			var newElement2=document.createElement('p');
+			newElement2.class="speakable";
+			newElement2.innerHTML=">There is nothing else to be found here.";
+			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+		}
+	}
 };
 var itemBefore = "";
 var itemAfter = "";
