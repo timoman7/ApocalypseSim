@@ -215,12 +215,21 @@ var perkTree={
 		luckIrish:{
 			tier1:{
 				description:"Luck o' The Irish: Tier 1",
-				title:"Find 10% more caps",
+				title:"Find 20% more caps, and find items more often.",
 				name:"Luck o' The Irish",
 				id:"lIrish",
 				has:false,
-				levelReq: 4,
-				req:3,
+				levelReq: 6,
+				req:5,
+			},
+			tier2:{
+				description:"Luck o' The Irish: Tier 2",
+				title:"Find 50% more caps, and find items more often.",
+				name:"Luck o' The Irish",
+				id:"lIrish",
+				has:false,
+				levelReq: 10,
+				req:6,
 			},
 		},
 		
@@ -287,6 +296,15 @@ var perkTree={
 				levelReq: 4,
 				req:3,
 			},
+			tier1:{
+				description:"Four-Eyes: Tier 2",
+				title:"Able to search an area thrice.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
 		},
 		
 	},
@@ -309,6 +327,22 @@ var checkPerk=function(statName,perkName,tierNum){
 	var ret = perkTree[statName][perkName]["tier"+tierNum];
 	return ret;
 };
+setInterval(function(){
+	irish=0;
+	fourI=0;
+	if(checkPerk("luck","luckIrish","tier1").has){
+		irish++;
+		if(checkPerk("luck","luckIrish","tier2").has){
+			irish++;
+		}
+	}
+	if(checkPerk("perception","fourI","tier1").has){
+		fourI++;
+		if(checkPerk("perception","fourI","tier2").has){
+			fourI++;
+		}
+	}
+},20);
 var clickedButton=false;
 var clickButton=function(){
 	clickedButton=true;
@@ -575,7 +609,27 @@ var checkChange = function() {
     }
 };
 //Rooms Check
-var playerInventory = [];
+var playerInventory = {
+	0:{
+		empty:true,
+	},
+	1:{
+		empty:true,
+	},
+	3:{
+		empty:true,
+	},
+	4:{
+		empty:true,
+	},
+	5:{
+		empty:true,
+	},
+	6:{
+		empty:true,
+	}
+	capacity:2,
+};
 var currentCaps = 10;
 var canTrade = false;
 var startMSG = document.getElementById('area_vault');
@@ -779,6 +833,7 @@ var titaniumKey = false; {
 //Items/Equip
 {
     var equipItem = new weap(fistBase, "Normal", "Fists", -1);
+	playerInventory
     playerInventory.push([equipItem, 1]);
     var equipedWeapon;
     // Action/Perk Variables
@@ -866,7 +921,7 @@ var titaniumKey = false; {
         fixArea = [];
     }
     setInterval(function() {
-        for (var i = 0; i < playerInventory.length; i++) {
+        for (var i = 0; i < playerInventory.capacity; i++) {
             if (playerInventory[i] == 0) {
                 playerInventory.splice(i, 1);
             }
@@ -1498,7 +1553,7 @@ var itemAfter = "";
 function updateInventory() {
     itemBefore = "";
     itemAfter = "";
-    for (var i = 1; i < playerInventory.length; i++) {
+    for (var i = 1; i < playerInventory.capacity; i++) {
         itemBefore = playerInventory[i][0].name + "s:.." + playerInventory[i][1] + "..||.Damage:.." + playerInventory[i][0].damage + " ...||.Value:.." + playerInventory[i][0].value + " caps" + "<br>";
         itemAfter = itemAfter + itemBefore;
         inventory.innerHTML = itemAfter;
@@ -1552,17 +1607,11 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
         }
     };
     var weapInputCheck = function() {
-        this.check = true;
-        for (var i = 0; i < playerInventory.length; i++) {
-            if (item.toLowerCase() === playerInventory[i][0].name.toLowerCase() && this.check === true) {
-                this.check = false;
-            }
-        }
-        if (this.check === true) {
-            return true;
-        } else {
-            return false;
-        }
+        if(parseInt(item)>playerInventory.capacity){
+		return false;
+	}else{
+		return true;
+	}
     };
     var checkData=function(){
         var appendedConfirmText="";
@@ -1813,38 +1862,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                         $("#message_take").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
                     }
                     //for(var j=0;j<weapList.length;j++){
-                    for (var i = 0; i < 4; i++) {
-                        var fix = false;
-                        if (area[playerY][playerX][1][i][0].name === undefined && area[playerY][playerX][1][i][0] !== 0) {
-                            return false;
-                        } else if (area[playerY][playerX][1][i][0].name === undefined && area[playerY][playerX][1][i][0] === 0 && area[playerY][playerX][1][i][1] !== 0) {
-                            fix = item;
-                        } else if (area[playerY][playerX][1][i][0] !== 0) {
-                            fix = area[playerY][playerX][1][i][0].name.toLowerCase();
-                        }
-                        if (item.toLowerCase() == fix && area[playerY][playerX][1][i][1] > 0) {
-                            var checkFix = false;
-                            var mFix = 0;
-                            $("#message_takeItem" + area[playerY][playerX][1][i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-                            for (var m = 0; m < playerInventory.length; m++) {
-                                if (playerInventory[m][0].name.toLowerCase() == item) {
-                                    if (playerInventory[m][1] > 0) {
-                                        checkFix = true;
-                                        mFix = m;
-                                    }
-                                } else {
-                                    checkFix = false;
-                                }
-                            }
-                            if (checkFix) {
-                                playerInventory[mFix][1]++;
-                            } else {
-                                playerInventory.push([area[playerY][playerX][1][i][0], 1]);
-                            }
-                            area[playerY][playerX][1][i][1] = 0;
-                            area[playerY][playerX][1][i][0] = 0;
-                        }
-                    }
+                    
                     //}
                 }
                 if (prefix.toLowerCase() == "inventory") {
@@ -2024,17 +2042,25 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				turn*=-1;
 			    }
 			}
+			//Label for EQUIPITEM
 			if (prefix.toLowerCase() == "equip" && turn !== -1) {
-			    for (var i = 0; i < playerInventory.length; i++) {
-				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] > 0) {
-				    $("#message_equipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-				    equipItem = playerInventory[i];
-					turn*=-1;
+				if(parseInt(item)<playerInventory.capacity){
+			    		for (var i = 0; i < playerInventory.capacity; i++) {
+						if (parseInt(item.toLowerCase()) == i) {
+							var newElement3=document.createElement('p');
+							newElement3.class="speakable";
+							newElement3.innerHTML=">Equipped weapon is not an SMG.";
+							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						    	equipItem = playerInventory[i];
+							turn*=-1;
+						}
+					}
+				}else{
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">Your inventory is not that big.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 				}
-				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] == 0) {
-				    $("#message_noEquipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-				}
-			    }
 			}
                 }
                 if (prefix.toLowerCase() == "stats") {
@@ -2163,7 +2189,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			    }
 			}
 			if (prefix.toLowerCase() == "equip") {
-			    for (var i = 0; i < playerInventory.length; i++) {
+			    for (var i = 0; i < playerInventory.capacity; i++) {
 				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] > 0) {
 				    $("#message_equipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
 				    equipItem = playerInventory[i];
