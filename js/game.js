@@ -905,6 +905,7 @@ var titaniumKey = false; {
             }
 	    */
             if (counter == rSpawn) {
+		    
                 roomGen.push(100);
             } else if (counter == merchSpawn) {
                 roomGen.push(99);
@@ -917,7 +918,7 @@ var titaniumKey = false; {
 			shopInventory.push(giveRandomWeap());
 		}
 		roomGen[roomGen.length-1]["searched"]=0;
-            fixArea.push(roomGen);
+            	fixArea.push(roomGen);
         }
         area.push(fixArea);
         fixArea = [];
@@ -937,43 +938,6 @@ var createNewArea=function(){
         for (var xx = 0; xx < 10; xx++) {
             counter++;
             var roomGen = [];
-		/*
-            for (var ii = 0; ii < 4; ii++) {
-		    //Label for CREATEREWORK
-                var rngWeap = rngA(100);
-                var abc = giveRandomWeap();
-                weapList.push(abc);
-                if (rngWeap < 20) {
-                    itemGen.push([abc, 1]);
-                } else {
-                    itemGen.push([0, 0]);
-                }
-                var ab = document.createElement('p');
-                var bc = document.createTextNode('>You took a ' + abc.name + ".");
-                var ab2 = document.createElement('p');
-                var bc2 = document.createTextNode('>You equipped ' + abc.name + ".");
-                var ab3 = document.createElement('p');
-                var bc3 = document.createTextNode('>You see a ' + abc.name + ".");
-                var ab4 = document.createElement('p');
-                var bc4 = document.createTextNode(">You don't have " + abc.name + ".");
-                ab.appendChild(bc);
-                ab.id = "message_takeItem" + abc.id;
-                //ab.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab);
-                ab2.appendChild(bc2);
-                ab2.id = "message_equipItem" + abc.id;
-                //ab2.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab2);
-                ab3.appendChild(bc3);
-                ab3.id = "message_item" + abc.id;
-                //ab3.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab3);
-                ab4.appendChild(bc4);
-                ab4.id = "message_noEquip" + abc.id;
-                //ab4.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab4);
-            }
-	    */
 		//Create an object of a random length for the shopkeepers inventory
             if (counter == merchSpawn) {
                 roomGen.push(99);
@@ -985,7 +949,7 @@ var createNewArea=function(){
 		for(var ii=0;ii<rngA(20);ii++){
 			shopInventory.push(giveRandomWeap());
 		}
-		roomGen[roomGen.length-1]["searched"]=0;
+		roomGen[counter-1]["searched"]=0;
             fixArea.push(roomGen);
         }
         area.push(fixArea);
