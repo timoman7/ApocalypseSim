@@ -2050,7 +2050,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if (parseInt(item.toLowerCase()) == i) {
 							var newElement3=document.createElement('p');
 							newElement3.class="speakable";
-							newElement3.innerHTML=">Equipped weapon is not an SMG.";
+							newElement3.innerHTML=">You equiped the "+playerInventory[i].name+".";
 							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						    	equipItem = playerInventory[i];
 							turn*=-1;
@@ -2175,30 +2175,31 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		if(area[playerY][playerX][0]==98){
 			if(prefix.toLowerCase() == "farm"){
 				if(item.toLowerCase() == "help"){
-					
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">Type farm open to get started.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 				}else if(item.toLowerCase() == "open"){
 					farmGuiOpen=true;
 				}
 			}
 		}
-		if(enterBattle!==1){
-			if (prefix.toLowerCase() == "use") {
-			    if (item.toLowerCase() == "bandage" && items[7][2] > 0) {
-				items[7][2] -= 1;
-				$("#useBandage").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-				CurrentHealth += HealAmount;
-			    }
-			}
-			if (prefix.toLowerCase() == "equip") {
-			    for (var i = 0; i < playerInventory.capacity; i++) {
-				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] > 0) {
-				    $("#message_equipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-				    equipItem = playerInventory[i];
+		if (prefix.toLowerCase() == "equip" && enterBattle !== -1) {
+			if(parseInt(item)<playerInventory.capacity){
+				for (var i = 0; i < playerInventory.capacity; i++) {
+					if (parseInt(item.toLowerCase()) == i) {
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You equiped the "+playerInventory[i].name+".";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						equipItem = playerInventory[i];
+					}
 				}
-				if (item.toLowerCase() == playerInventory[i][0].name.toLowerCase() && playerInventory[i][1] == 0) {
-				    $("#message_noEquipItem" + playerInventory[i][0].id).clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
-				}
-			    }
+			}else{
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML=">Your inventory is not that big.";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
                 if (input !== "done" && input !== "attack" && input !== "burst" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
