@@ -330,17 +330,28 @@ var checkPerk=function(statName,perkName,tierNum){
 setInterval(function(){
 	irish=0;
 	fourI=0;
-	if(checkPerk("luck","luckIrish","tier1").has){
+	if(checkPerk("luck","luckIrish","1").has){
 		irish++;
-		if(checkPerk("luck","luckIrish","tier2").has){
+		if(checkPerk("luck","luckIrish","2").has){
 			irish++;
 		}
 	}
-	if(checkPerk("perception","fourI","tier1").has){
+	if(checkPerk("perception","fourI","1").has){
 		fourI++;
-		if(checkPerk("perception","fourI","tier2").has){
+		if(checkPerk("perception","fourI","2").has){
 			fourI++;
 		}
+	}
+	var totalItems=0;
+	for(var i=0;i<playerInventory.capacity;i++){
+		if(!playerInventory[i].empty){
+			totalItems++;
+		}
+	}
+	if(totalItems>=playerInventory.capacity){
+		overEncumbered=true;
+	}else{
+		overEncumbered=false;
 	}
 },20);
 var clickedButton=false;
