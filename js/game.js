@@ -51,18 +51,18 @@ var equipedArmor={
 	boots:noBoots,
 };
 var armorInventory={
-	helmet:{
-		0:noHelmet,
-	},
-	chest:{
-		0:noChest,
-	},
-	pants:{
-		0:noPants,
-	},
-	boots:{
-		0:noBoots,
-	},
+	helmet:[
+		noHelmet,
+	],
+	chest:[
+		noChest,
+	],
+	pants:[
+		noPants,
+	],
+	boots:[
+		noBoots,
+	],
 	capacity:40,
 };
 for(var i=0;i<39;i++){
