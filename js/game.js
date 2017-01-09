@@ -104,10 +104,7 @@ function addArmor(armor,debug){
 	var stahp = false;
 	for(var i = 0; i < armorInventory.capacity; i++){
 		if(!stahp){
-			if(this.debug && armorInventory[armor.slot][i].name !== "None"){
-				firstEmpty=i;
-				stahp=true;
-			}else if(armorInventory[armor.slot][i].empty){
+			if(armorInventory[armor.slot][i].empty){
 				firstEmpty=i;
 				stahp=true;
 			}
@@ -159,10 +156,10 @@ function removeArmor(index){
 	}
 }
 for(var i=0;i<38;i++){
-	addArmor(noHelmet,true);
-	addArmor(noChest,true);
-	addArmor(noPants,true);
-	addArmor(noBoots,true);
+	armorInventory["helmet"].push(noHelmet);
+	armorInventory["chest"].push(noChest);
+	armorInventory["pants"].push(noPants);
+	armorInventory["boots"].push(noBoots);
 }
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
