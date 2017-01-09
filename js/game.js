@@ -1697,6 +1697,12 @@ function checkItem() {
 				addWeapon(disItem);
 			}
 		}
+		for(var i = 0; i < rngA(4+irish); i++){
+			if(rngA(100)<25+(irish*5)){
+				addArmor(randomArmor());
+				this.foundSomething=true;
+			}
+		}
 		for(var i = 0; i < rngA(2+irish);i++){
 			if(rngA(100)<20+(irish*5)){
 				var irishMod = 0;
