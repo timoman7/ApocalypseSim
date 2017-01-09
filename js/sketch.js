@@ -620,6 +620,8 @@ function addWeapon(weapon){
 }
 function remWeapon(index){
 	if(!playerInventory[index].empty){
+		equipItem=playerInventory[49];
+		equipedWeapon=playerInventory[49];
 		playerInventory[index]={empty:true};
 	}
 }
@@ -690,6 +692,7 @@ function draw(){
 	               			currentCaps+=foodStuff[checkFood(item).foodName].sellPrice;
 	               			foodStuff[checkFood(item).foodName].amount--;
 		               		sellCheck=true;
+					
 		           	}
 			}
 		}else{
