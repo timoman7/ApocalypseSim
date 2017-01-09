@@ -25,25 +25,26 @@ var createDefense=function(){
 	}
 	return def;
 };
-var Armor=function(slot,material,attributes,defense,name){
+var Armor=function(slot,material,attributes,defense,value,name){
 	this.slot=slot;
 	this.material=material;
 	this.attributes=attributes;
 	this.defense=defense;
+	this.value=value;
 	this.name=name;
 	this.empty=false;
 	if(this.name=="None"){
 		this.empty=true;
 	}
 };
-var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),"None");
-var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0]),"None");
-var noPants=new Armor('pants',['none'],['none'],createDefense(["all",0]),"None");
-var noBoots=new Armor('boots',['none'],['none'],createDefense(["all",0]),"None");
-var vaultArmorHat=new Armor('helmet',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Hat");
-var vaultArmorChest=new Armor('chest',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Shirt");
-var vaultArmorPants=new Armor('pants',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Pants");
-var vaultArmorBoots=new Armor('boots',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Boots");
+var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),0,"None");
+var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0]),0,"None");
+var noPants=new Armor('pants',['none'],['none'],createDefense(["all",0]),0,"None");
+var noBoots=new Armor('boots',['none'],['none'],createDefense(["all",0]),0,"None");
+var vaultArmorHat=new Armor('helmet',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Hat");
+var vaultArmorChest=new Armor('chest',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Shirt");
+var vaultArmorPants=new Armor('pants',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Pants");
+var vaultArmorBoots=new Armor('boots',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Boots");
 var equipedArmor={
 	helmet:noHelmet,
 	chest:noChest,
@@ -2376,8 +2377,87 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					newElement3.innerHTML=">You removed your "+slot+".";
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "inspect"){
+				var slot;
+				switch(item.split(" ")[1].split("e")[0]){
+					case "a":
+						slot="helmet";
+						break;
+					case "b":
+						slot="chest";
+						break;
+					case "c":
+						slot="pants";
+						break;
+					case "d":
+						slot="boots";
+						break;
+				}
+				var id=item.split(" ")[1].split("e")[1];
+				var dispArmor=armorInventory[slot][id];
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				var dispAttr="";
+				var dispMat="";
+				var dispDef="";
+				for(var i = 0; i < dispArmor.attributes.length;i++){
+					dispAttr+=">\t"+dispArmor.attributes[i]+"<br>";
+				}
+				for(var i = 0; i < dispArmor.material.length;i++){
+					dispMat+=">\t"+dispArmor.attributes[i]+"<br>";
+				}
+				for(var i in dispArmor.defense){
+					if(dispArmor.defense[i] == 0){
+						if(i == "rad"){
+							dispDef+=">\tRadiation: None<br>";
+						}
+						if(i == "all"){
+							dispDef+=">\tAll: None<br>";
+						}
+					}else{
+						if(i == "rad"){
+							dispDef+=">\tRadiation: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "all"){
+							dispDef+=">\tAll: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+					}
+				}
+				newElement3.innerHTML=">"+armorInventory[slot][id].name+"<br>>Defenses:..<br>"+dispDef+">Attributes:..<br>"+dispAttr+">Material:..<br>"+dispMat+">Value: "+dispArmor.value+" Shekels";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "help"){
-				
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML=">Type armor <cmd> to access armors.<br>>Valid commands:<br>>help - Display this.<br>>equip <id> - equip the armor piece<br>>\t<id>: a/b/c/d+e+id<br>>\ta:Helmet, b:Chestpiece, c:Pants, d:Boots<br>>inventory - Check your armor inventory.<br>>inspect <id> - Inspect the stats of an armor piece.<br>>\tid has the same structure as equip.<br>>equiped - Check your currently equiped armor.";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "inventory"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML=">Helmets......<br>";
+				for(var i=0;i<armorInventory["helmet"].length;i++){
+					if(!armorInventory["helmet"][i].empty||i==0||i=="0"){
+						newElement3.innerHTML+=">"+i+": "+armorInventory["helmet"][i].name+".<br>";
+					}
+				}
+				newElement3.innerHTML+=">Chestpiece......<br>";
+				for(var i=0;i<armorInventory["chest"].length;i++){
+					if(!armorInventory["chest"][i].empty||i==0||i=="0"){
+						newElement3.innerHTML+=">"+i+": "+armorInventory["chest"][i].name+".<br>";
+					}
+				}
+				newElement3.innerHTML+=">Pants......<br>";
+				for(var i=0;i<armorInventory["pants"].length;i++){
+					if(!armorInventory["pants"][i].empty||i==0||i=="0"){
+						newElement3.innerHTML+=">"+i+": "+armorInventory["pants"][i].name+".<br>";
+					}
+				}
+				newElement3.innerHTML+=">Boots......<br>";
+				for(var i=0;i<armorInventory["boots"].length;i++){
+					if(!armorInventory["boots"][i].empty||i==0||i=="0"){
+						newElement3.innerHTML+=">"+i+": "+armorInventory["boots"][i].name+".<br>";
+					}
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
                 if (input !== "done" && input !== "attack" && input !== "burst" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
