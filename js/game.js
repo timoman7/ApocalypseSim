@@ -298,14 +298,41 @@ var perkTree={
 				levelReq: 4,
 				req:3,
 			},
-			tier1:{
+			tier2:{
 				description:"Four-Eyes: Tier 2",
 				title:"Able to search an area thrice.",
 				name:"Four-Eyes",
 				id:"fourI",
 				has:false,
-				levelReq: 4,
-				req:3,
+				levelReq: 5,
+				req:4,
+			},
+			tier3:{
+				description:"Four-Eyes: Tier 3",
+				title:"Able to search an area 4 times.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 7,
+				req:6,
+			},
+			tier4:{
+				description:"Four-Eyes: Tier 4",
+				title:"Able to search an area 5 times.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 9,
+				req:8,
+			},
+			tier5:{
+				description:"Four-Eyes: Tier 5",
+				title:"Able to search an area 6 times.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 11,
+				req:10,
 			},
 		},
 		
@@ -332,15 +359,13 @@ var checkPerk=function(statName,perkName,tierNum){
 setInterval(function(){
 	irish=0;
 	fourI=0;
-	if(checkPerk("luck","luckIrish","1").has){
-		irish++;
-		if(checkPerk("luck","luckIrish","2").has){
+	for(var i in perkTree["luck"]["luckIrish"]){
+		if(checkPerk("luck","luckIrish",i.split("tier")[1]).has){
 			irish++;
 		}
 	}
-	if(checkPerk("perception","fourEyes","1").has){
-		fourI++;
-		if(checkPerk("perception","fourEyes","2").has){
+	for(var i in perkTree["perception"]["fourEyes"]){
+		if(checkPerk("perception","fourEyes",i.split("tier")[1]).has){
 			fourI++;
 		}
 	}
