@@ -1444,6 +1444,7 @@ var inventory = document.getElementById('messageInventory');
 
 function checkItem() {
 	if(area[playerY][playerX].searched<1+fourI && !overEncumbered){
+		tick(2);
 		this.foundSomething=false;
 		this.foundItems=[];
 		this.foundCaps=false;
