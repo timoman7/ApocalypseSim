@@ -145,7 +145,9 @@ var foodStuff={
 	},
 };
 var tick=function(n){
-	hunger-=n;
+	if(hunger>0){
+		hunger-=n;
+	}
 	var cdfPlantLength=0;
 	for(var i in cdf.plants){
 		cdfPlantLength++;
