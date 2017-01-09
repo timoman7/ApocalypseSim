@@ -1480,11 +1480,11 @@ function checkItem() {
 				var itemsFound="";
 				for(var i = 0;i<this.foundItems.length;i++){
 					if(this.foundItems.length==1){
-						itemsFound+=this.foundItems[i];
+						itemsFound+=this.foundItems[i].name;
 					}else if(i<this.foundItems.length-1){
-						itemsFound+=this.foundItems[i];
+						itemsFound+=this.foundItems[i].name;
 					}else{
-						itemsFound+=this.foundItems[i]+" and ";
+						itemsFound+=this.foundItems[i].name+" and ";
 					}
 				}
 				newElement2.innerHTML=">You found "+itemsFound+".";
