@@ -2350,6 +2350,20 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
+		if(prefix.toLowerCase() == "food" && enterBattle !== -1) {
+			var cmd=item.split(" ")[0];
+			if(cmd == "inventory"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				for(var i in foodStuff){
+					if(foodStuff[i].amount>0){
+						newElement3.innerHTML+=">"+foodStuff[i].name+"<br>>\t\tAmount: "+foodStuff[i].amount+"<br>>\t\tHunger restored: "+foodStuff[i].hungerRestored+"<br>>-------<br>";
+					}
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				
+			}
+		}
 		if(prefix.toLowerCase() == "armor" && enterBattle !== -1) {
 			var cmd=item.split(" ")[0];
 			if(cmd == "equip"){
