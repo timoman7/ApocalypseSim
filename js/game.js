@@ -2458,6 +2458,18 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					}
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "equiped"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML=">Helmet<br>";
+				newElement3.innerHTML+=">"+equipedArmor["helmet"].name+".<br>";
+				newElement3.innerHTML+=">Chestpiece<br>";
+				newElement3.innerHTML+=">"+equipedArmor["chest"].name+".<br>";
+				newElement3.innerHTML+=">Pants<br>";
+				newElement3.innerHTML+=">"+equipedArmor["pants"].name+".<br>";
+				newElement3.innerHTML+=">Boots<br>";
+				newElement3.innerHTML+=">"+equipedArmor["boots"].name+".<br>";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
                 if (input !== "done" && input !== "attack" && input !== "burst" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
