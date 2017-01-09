@@ -865,7 +865,10 @@ var titaniumKey = false; {
     for (var yy = 0; yy < 10; yy++) {
         for (var xx = 0; xx < 10; xx++) {
             counter++;
-            var roomGen = [];
+            var roomGen = {
+		    0:0,
+		    searched:0,
+	    };
 		/*
             var itemGen = [];
             for (var ii = 0; ii < 4; ii++) {
@@ -904,24 +907,15 @@ var titaniumKey = false; {
                 document.getElementsByClassName('items')[0].appendChild(ab4);
             }
 	    */
-		roomGen.push(1);
-            if (counter == rSpawn) {
-		    var rrr=[100];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            } else if (counter == merchSpawn) {
-                	var rrr=[99];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            } else if (counter == cdfSpawn) {
-                var rrr=[98];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            } else {
-                var rrr=[rngA(4)];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            }
+		if (counter == rSpawn) {
+			roomGen[0]=100;
+		} else if (counter == merchSpawn) {
+			roomGen[0]=99;
+		} else if (counter == cdfSpawn) {
+			roomGen[0]=98;
+		} else {
+			roomGen[0]=rngA(4);
+		}
 		for(var ii=0;ii<rngA(20);ii++){
 			shopInventory.push(giveRandomWeap());
 		}
@@ -939,39 +933,33 @@ var createNewArea=function(){
 		merchSpawn = rngA(100);
 		cdfSpawn = rngA(100);
 	}
-    var fixArea = [];
-    var counter = 0;
-    for (var yy = 0; yy < 10; yy++) {
-        for (var xx = 0; xx < 10; xx++) {
-            counter++;
-            var roomGen = [];
-		//Create an object of a random length for the shopkeepers inventory
-            roomGen.push(1);
-            if (counter == rSpawn) {
-		    var rrr=[100];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            } else if (counter == merchSpawn) {
-                	var rrr=[99];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            } else if (counter == cdfSpawn) {
-                var rrr=[98];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            } else {
-                var rrr=[rngA(4)];
-		    rrr["searched"]=0;
-                roomGen[counter-1]=rrr;
-            }
-		for(var ii=0;ii<rngA(20);ii++){
-			shopInventory.push(giveRandomWeap());
+    	var fixArea = [];
+    	var counter = 0;
+	for (var yy = 0; yy < 10; yy++) {
+		for (var xx = 0; xx < 10; xx++) {
+			counter++;
+			var roomGen = {
+				0:0,
+				searched:0,
+			};
+			//Create an object of a random length for the shopkeepers inventory
+			if (counter == rSpawn) {
+				roomGen[0]=100;
+			} else if (counter == merchSpawn) {
+				roomGen[0]=99;
+			} else if (counter == cdfSpawn) {
+				roomGen[0]=98;
+			} else {
+				roomGen[0]=rngA(4);
+			}
+			for(var ii=0;ii<rngA(20);ii++){
+				shopInventory.push(giveRandomWeap());
+			}
+			fixArea.push(roomGen);
 		}
-            fixArea.push(roomGen);
-        }
-        area.push(fixArea);
-        fixArea = [];
-    }
+		area.push(fixArea);
+		fixArea = [];
+	}
 };
     /*
 for(var y=0; y<area.length;y++){
