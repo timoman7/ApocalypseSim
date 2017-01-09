@@ -20,8 +20,8 @@ var fourI=0;
 //Creating armor
 var createDefense=function(){
 	def={};
-	for(var i=0;i<attributes.length;i++){
-		def[attributes[i][0]]=attributes[i][1];
+	for(var i=0;i<arguments.length;i++){
+		def[arguments[i][0]]=arguments[i][1];
 	}
 	return def;
 };
