@@ -1946,15 +1946,15 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				var newElement3=document.createElement('p');
 			    	newElement3.class="speakable";
 				if(equipedWeapon.damage===undefined){   
-	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon[0].damage+" damage.";
+	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
 				}else{
 					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
 				}
 				    if(equipedWeapon.damage===undefined){
 					if(Class==="Soldier"){
-						encounteredEnemy[1]-=Math.round(equipedWeapon[0].damage*1.5);
+						encounteredEnemy[1]-=Math.round(equipedWeapon.damage*1.5);
 					}else{
-						encounteredEnemy[1]-=equipedWeapon[0].damage;
+						encounteredEnemy[1]-=equipedWeapon.damage;
 					}
 				    }else{
 					if(Class==="Soldier"){
@@ -1976,15 +1976,15 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                     }
 			
                     if(prefix.toLowerCase() == "burst" && turn !== -1){
-			    if(equipedWeapon[0].type.toLowerCase() == "smg"){
+			    if(equipedWeapon.type.toLowerCase() == "smg"){
                         	if(item.toLowerCase() == "2" || item.toLowerCase() == "3" || item.toLowerCase() == "4" || item.toLowerCase() == "5" || item.toLowerCase() == "6"){
 					for(var smgLoop=0;smgLoop<parseInt(item.toLowerCase());smgLoop++){
 					    var tempRNG=rngA(100);
 					    if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
-						newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon[0].damage+" damage.";
-						    encounteredEnemy[1]-=equipedWeapon[0].damage;
+						newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
+						    encounteredEnemy[1]-=equipedWeapon.damage;
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					    }else{
 						var newElement3=document.createElement('p');
