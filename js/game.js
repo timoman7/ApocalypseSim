@@ -67,6 +67,7 @@ var armorInventory={
 		0:noBoots,
 		1:vaultArmorBoots,
 	},
+	capacity:40,
 };
 function equipArmor(index){
 	var slot=index.split("e")[0];
@@ -101,7 +102,7 @@ function addArmor(armor,debug){
 	this.debug=debug||false;
 	var firstEmpty=0;
 	var stahp = false;
-	for(var i in armorInventory[armor.slot]){
+	for(var i = 0; i < armorInventory.capacity; i++){
 		if(!stahp){
 			if(this.debug && armorInventory[armor.slot][i].name !== "None"){
 				firstEmpty=i;
