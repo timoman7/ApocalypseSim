@@ -1086,13 +1086,13 @@ var titaniumKey = false; {
 		} else {
 			roomGen[0]=rngA(4);
 		}
-		for(var ii=0;ii<rngA(20);ii++){
-			shopInventory.push(giveRandomWeap());
-		}
             	fixArea.push(roomGen);
         }
         area.push(fixArea);
         fixArea = [];
+	for(var ii=0;ii<rngA(20);ii++){
+		shopInventory.push(giveRandomWeap());
+	}
     }
 var createNewArea=function(){
 	area=[];
@@ -1122,13 +1122,13 @@ var createNewArea=function(){
 			} else {
 				roomGen[0]=rngA(4);
 			}
-			for(var ii=0;ii<rngA(20);ii++){
-				shopInventory.push(giveRandomWeap());
-			}
 			fixArea.push(roomGen);
 		}
 		area.push(fixArea);
 		fixArea = [];
+	}
+	for(var ii=0;ii<rngA(20);ii++){
+		shopInventory.push(giveRandomWeap());
 	}
 };
     /*
