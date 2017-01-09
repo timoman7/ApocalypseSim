@@ -2404,7 +2404,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					dispAttr+=">\t"+dispArmor.attributes[i]+"<br>";
 				}
 				for(var i = 0; i < dispArmor.material.length;i++){
-					dispMat+=">\t"+dispArmor.attributes[i]+"<br>";
+					dispMat+=">\t"+dispArmor.material[i]+"<br>";
 				}
 				for(var i in dispArmor.defense){
 					if(dispArmor.defense[i] == 0){
