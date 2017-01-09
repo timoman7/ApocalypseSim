@@ -1813,6 +1813,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.Class=Class;
 		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
+		gameData.maxHunger=maxHunger;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -1852,6 +1853,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.Class=Class;
 		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
+		gameData.maxHunger=maxHunger;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
 		});
@@ -1905,6 +1907,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		Class=loadData.Class;
 		equippedArmor=loadData.equippedArmor;
 		armorInventory=loadData.armorInventory;
+		maxHunger=loadData.maxHunger;
         }else{
             alert("No save data available.");
         }
