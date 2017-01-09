@@ -27,7 +27,7 @@ function keyPressed(){
 	keysDown["."+key.toLowerCase()]=true;
 	keysDown[key.toString().toLowerCase()]=true;
     }
-	if(event.code=="Enter"){
+	if(event.code=="Enter"||event.code=="NumpadEnter"){
 	    keysDown[".enterKey"]=true;
 	}
 	if(event.code=="ShiftLeft"||event.code=="ShiftRight"){
@@ -43,7 +43,7 @@ function keyReleased(){
 	keyDown["."+key.toLowerCase()]=false;
 	keyDown[key.toLowerCase()]=false;
     }
-	if(event.code=="Enter"){
+	if(event.code=="Enter"||event.code=="NumpadEnter"){
 	    keysDown[".enterKey"]=false;
 	    keyDown[".enterKey"]=false;
 	}
