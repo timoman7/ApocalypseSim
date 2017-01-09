@@ -309,6 +309,9 @@ var tick=function(n){
 	if(hunger>(maxHunger*0.8)&&CurrentHealth<MaxedHealth && !(CurrentHealth+5 > MaxedHealth)){
 		CurrentHealth+=5;
 	}
+	if(hunger<0){
+		hunger=0;
+	}
 };
 //Move from room -5 hunger
 //Scavenge -8 hunger and 2 ticks
