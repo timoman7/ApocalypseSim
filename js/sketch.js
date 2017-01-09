@@ -678,7 +678,7 @@ function draw(){
 	    var availableItems=[];
 	    if(prefix.toLowerCase() === "check"){
 	        if(item.toLowerCase() === "prices"){
-	            for(var i=0;i<shopInventory;i++){
+	            for(var i=0;i<shopInventory.length;i++){
 	                    itemListDisp=itemListDisp+shopInventory[i].name+' | Value:'+shopInventory[i].value+'\n';
 	            }
 	            sellingDisp=itemListDisp;
