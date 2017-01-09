@@ -102,7 +102,7 @@ function addArmor(armor,debug){
 	this.debug=debug||false;
 	var firstEmpty=0;
 	var stahp = false;
-	for(var i = 0; i < armorInventory.capacity; i++){
+	for(var i = 1; i < armorInventory.capacity; i++){
 		if(!stahp){
 			if(armorInventory[armor.slot][i].empty){
 				firstEmpty=i;
