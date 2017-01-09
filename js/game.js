@@ -1443,7 +1443,7 @@ function updateText() {
 var inventory = document.getElementById('messageInventory');
 
 function checkItem() {
-	if(area[playerX][playerY].searched<1+fourI && !overEncumbered){
+	if(area[playerY][playerX].searched<1+fourI && !overEncumbered){
 		this.foundSomething=false;
 		this.foundItems=[];
 		this.foundCaps=false;
@@ -1497,7 +1497,7 @@ function checkItem() {
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
-		area[playerX][playerY].searched++;
+		area[playerY][playerX].searched++;
 	}else{
 		if(overEncumbered){
 			var newElement2=document.createElement('p');
