@@ -45,7 +45,7 @@ var vaultArmorHat=new Armor('helmet',['cloth'],['Warm'],createDefense(["rad",0.0
 var vaultArmorChest=new Armor('chest',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Shirt");
 var vaultArmorPants=new Armor('pants',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Pants");
 var vaultArmorBoots=new Armor('boots',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Boots");
-var equipedArmor={
+var equippedArmor={
 	helmet:noHelmet,
 	chest:noChest,
 	pants:noPants,
@@ -78,25 +78,25 @@ function equipArmor(index){
 	if(slot == "a"){
 		if(armorInventory["helmet"][id]){
 			if(!armorInventory["helmet"][id].empty){
-				equipedArmor.helmet=armorInventory["helmet"][id];
+				equippedArmor.helmet=armorInventory["helmet"][id];
 			}
 		}
 	}else if(slot == "b"){
 		if(armorInventory["chest"][id]){
 			if(!armorInventory["chest"][id].empty){
-				equipedArmor.chest=armorInventory["chest"][id];
+				equippedArmor.chest=armorInventory["chest"][id];
 			}
 		}
 	}else if(slot == "c"){
 		if(armorInventory["pants"][id]){
 			if(!armorInventory["pants"][id].empty){
-				equipedArmor.pants=armorInventory["pants"][id];
+				equippedArmor.pants=armorInventory["pants"][id];
 			}
 		}
 	}else if(slot == "d"){
 		if(armorInventory["boots"][id]){
 			if(!armorInventory["boots"][id].empty){
-				equipedArmor.boots=armorInventory["boots"][id];
+				equippedArmor.boots=armorInventory["boots"][id];
 			}
 		}
 	}
@@ -122,8 +122,8 @@ function removeArmor(index){
 		if(slot == "a"){
 			if(armorInventory["helmet"][id]){
 				if(!armorInventory["helmet"][id].empty){
-					if(equipedArmor.helmet==armorInventory["helmet"][id]){
-						equipedArmor.helmet=armorInventory["helmet"][0];
+					if(equippedArmor.helmet==armorInventory["helmet"][id]){
+						equippedArmor.helmet=armorInventory["helmet"][0];
 					}
 					armorInventory["helmet"][id]=armorInventory["helmet"][0];
 				}
@@ -131,8 +131,8 @@ function removeArmor(index){
 		}else if(slot == "b"){
 			if(armorInventory["chest"][id]){
 				if(!armorInventory["chest"][id].empty){
-					if(equipedArmor.chest==armorInventory["chest"][id]){
-						equipedArmor.chest=armorInventory["chest"][0];
+					if(equippedArmor.chest==armorInventory["chest"][id]){
+						equippedArmor.chest=armorInventory["chest"][0];
 					}
 					armorInventory["chest"][id]=armorInventory["chest"][0];
 				}
@@ -140,8 +140,8 @@ function removeArmor(index){
 		}else if(slot == "c"){
 			if(armorInventory["pants"][id]){
 				if(!armorInventory["pants"][id].empty){
-					if(equipedArmor.pants==armorInventory["pants"][id]){
-						equipedArmor.pants=armorInventory["pants"][0];
+					if(equippedArmor.pants==armorInventory["pants"][id]){
+						equippedArmor.pants=armorInventory["pants"][0];
 					}
 					armorInventory["pants"][id]=armorInventory["pants"][0];
 				}
@@ -149,8 +149,8 @@ function removeArmor(index){
 		}else if(slot == "d"){
 			if(armorInventory["boots"][id]){
 				if(!armorInventory["boots"][id].empty){
-					if(equipedArmor.boots==armorInventory["boots"][id]){
-						equipedArmor.boots=armorInventory["boots"][0];
+					if(equippedArmor.boots==armorInventory["boots"][id]){
+						equippedArmor.boots=armorInventory["boots"][0];
 					}
 					armorInventory["boots"][id]=armorInventory["boots"][0];
 				}
@@ -1001,7 +1001,7 @@ var titaniumKey = false; {
     var equipItem = new weap(fistBase, "Normal", "Fists", -1);
     playerInventory[49]=equipItem;
 	playerInventory[49].empty=false;
-    var equipedWeapon;
+    var equippedWeapon;
     // Action/Perk Variables
     var MeleeDmg;
     var curDmg;
@@ -1457,11 +1457,11 @@ function startSPECIAL() {
 //Game Machinecs
 {
     setInterval(function() {
-        equipedWeapon = equipItem;
+        equippedWeapon = equipItem;
     }, 10);
     CurrentHealth = 100;
     setInterval(function() {
-        curDmg = equipedWeapon.damage;
+        curDmg = equippedWeapon.damage;
 	    if(Class==="Doctor"){
 		HealAmount = Math.round(((BaseI.valueAsNumber * 5) + 20)*1.4);
 	    }else{
@@ -1804,14 +1804,14 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.playerLevel=playerLevel;
 		gameData.currentXP=currentXP;
 		gameData.xpNeeded=xpNeeded;
-		gameData.equipedWeapon=equipedWeapon;
+		gameData.equippedWeapon=equippedWeapon;
 		gameData.equipItem=equipItem;
 		gameData.playerInventory=playerInventory;
 		gameData.skillPoints=skillPoints;
 		gameData.totalP=totalP;
 		gameData.CurrentHealth=CurrentHealth;
 		gameData.Class=Class;
-		gameData.equipedArmor=equipedArmor;
+		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -1835,7 +1835,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.currentXP=currentXP;
 		gameData.xpNeeded=xpNeeded;
 		gameData.hunger=hunger;
-		gameData.equipedWeapon=equipedWeapon;
+		gameData.equippedWeapon=equippedWeapon;
 		gameData.equipItem=equipItem;
 		gameData.playerInventory=playerInventory;
 		gameData.skillPoints=skillPoints;
@@ -1850,7 +1850,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.totalP=totalP;
 		gameData.CurrentHealth=CurrentHealth;
 		gameData.Class=Class;
-		gameData.equipedArmor=equipedArmor;
+		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -1885,7 +1885,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		playerLevel=loadData.playerLevel;
 		currentXP=loadData.currentXP;
 		xpNeeded=loadData.xpNeeded;
-		equipedWeapon=loadData.equipedWeapon;
+		equippedWeapon=loadData.equippedWeapon;
 		playerInventory=loadData.playerInventory;
 		equipItem=loadData.equipItem;
 		Class=loadData.Class;
@@ -1903,7 +1903,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		BaseA.value=loadData.stats.Agility;
 		BaseL.value=loadData.stats.Luck;
 		Class=loadData.Class;
-		equipedArmor=loadData.equipedArmor;
+		equippedArmor=loadData.equippedArmor;
 		armorInventory=loadData.armorInventory;
         }else{
             alert("No save data available.");
@@ -2126,22 +2126,22 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
 				var newElement3=document.createElement('p');
 			    	newElement3.class="speakable";
-				if(equipedWeapon.damage===undefined){   
-	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
+				if(equippedWeapon.damage===undefined){   
+	    			newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equippedWeapon.damage+" damage.";
 				}else{
-					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
+					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equippedWeapon.damage+" damage.";
 				}
-				    if(equipedWeapon.damage===undefined){
+				    if(equippedWeapon.damage===undefined){
 					if(Class==="Soldier"){
-						encounteredEnemy[1]-=Math.round(equipedWeapon.damage*1.5);
+						encounteredEnemy[1]-=Math.round(equippedWeapon.damage*1.5);
 					}else{
-						encounteredEnemy[1]-=equipedWeapon.damage;
+						encounteredEnemy[1]-=equippedWeapon.damage;
 					}
 				    }else{
 					if(Class==="Soldier"){
-				    		encounteredEnemy[1]-=Math.round(equipedWeapon.damage*1.5);
+				    		encounteredEnemy[1]-=Math.round(equippedWeapon.damage*1.5);
 					}else{
-						encounteredEnemy[1]-=equipedWeapon.damage;
+						encounteredEnemy[1]-=equippedWeapon.damage;
 					}
 				    }
 	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
@@ -2157,15 +2157,15 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                     }
 			
                     if(prefix.toLowerCase() == "burst" && turn !== -1){
-			    if(equipedWeapon.type.toLowerCase() == "smg"){
+			    if(equippedWeapon.type.toLowerCase() == "smg"){
                         	if(item.toLowerCase() == "2" || item.toLowerCase() == "3" || item.toLowerCase() == "4" || item.toLowerCase() == "5" || item.toLowerCase() == "6"){
 					for(var smgLoop=0;smgLoop<parseInt(item.toLowerCase());smgLoop++){
 					    var tempRNG=rngA(100);
 					    if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
-						newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equipedWeapon.damage+" damage.";
-						    encounteredEnemy[1]-=equipedWeapon.damage;
+						newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equippedWeapon.damage+" damage.";
+						    encounteredEnemy[1]-=equippedWeapon.damage;
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					    }else{
 						var newElement3=document.createElement('p');
@@ -2198,7 +2198,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if (parseInt(item.toLowerCase()) == i) {
 							var newElement3=document.createElement('p');
 							newElement3.class="speakable";
-							newElement3.innerHTML=">You equiped the "+playerInventory[i].name+".";
+							newElement3.innerHTML=">You equipped the "+playerInventory[i].name+".";
 							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						    	equipItem = playerInventory[i];
 							turn*=-1;
@@ -2338,7 +2338,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					if (parseInt(item.toLowerCase()) == i) {
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
-						newElement3.innerHTML=">You equiped the "+playerInventory[i].name+".";
+						newElement3.innerHTML=">You equipped the "+playerInventory[i].name+".";
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						equipItem = playerInventory[i];
 					}
@@ -2372,7 +2372,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						break;
 				}
 				if(armorInventory[slot][item.split(" ")[1].split("e")[1]].name !== "None"){
-					newElement3.innerHTML=">You equiped the "+armorInventory[slot][item.split(" ")[1].split("e")[1]].name+".";
+					newElement3.innerHTML=">You equipped the "+armorInventory[slot][item.split(" ")[1].split("e")[1]].name+".";
 				}else{
 					newElement3.innerHTML=">You removed your "+slot+".";
 				}
@@ -2428,7 +2428,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			}else if(cmd == "help"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
-				newElement3.innerHTML=">Type armor <cmd> to access armors.<br>>Valid commands:<br>>help - Display this.<br>>equip <id> - equip the armor piece<br>>\t<id>: a/b/c/d+e+id<br>>\ta:Helmet, b:Chestpiece, c:Pants, d:Boots<br>>inventory - Check your armor inventory.<br>>inspect <id> - Inspect the stats of an armor piece.<br>>\tid has the same structure as equip.<br>>equiped - Check your currently equiped armor.";
+				newElement3.innerHTML=">Type armor <cmd> to access armors.<br>>Valid commands:<br>>help - Display this.<br>>equip \<id\> - equip the armor piece<br>>\t\t\<id\>: a/b/c/d+e+id<br>>\t\ta:Helmet, b:Chestpiece, c:Pants, d:Boots<br>>inventory - Check your armor inventory.<br>>inspect \<id\> - Inspect the stats of an armor piece.<br>>\t\tid has the same structure as equip.<br>>equipped - Check your currently equipped armor.";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "inventory"){
 				var newElement3=document.createElement('p');
@@ -2458,17 +2458,17 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					}
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-			}else if(cmd == "equiped"){
+			}else if(cmd == "equipped"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
 				newElement3.innerHTML=">Helmet<br>";
-				newElement3.innerHTML+=">"+equipedArmor["helmet"].name+".<br>";
+				newElement3.innerHTML+=">"+equippedArmor["helmet"].name+".<br>";
 				newElement3.innerHTML+=">Chestpiece<br>";
-				newElement3.innerHTML+=">"+equipedArmor["chest"].name+".<br>";
+				newElement3.innerHTML+=">"+equippedArmor["chest"].name+".<br>";
 				newElement3.innerHTML+=">Pants<br>";
-				newElement3.innerHTML+=">"+equipedArmor["pants"].name+".<br>";
+				newElement3.innerHTML+=">"+equippedArmor["pants"].name+".<br>";
 				newElement3.innerHTML+=">Boots<br>";
-				newElement3.innerHTML+=">"+equipedArmor["boots"].name+".<br>";
+				newElement3.innerHTML+=">"+equippedArmor["boots"].name+".<br>";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
