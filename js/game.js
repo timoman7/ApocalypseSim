@@ -155,10 +155,10 @@ function removeArmor(index){
 	}
 }
 for(var i=0;i<38;i++){
-	addArmor(noHelmet);
-	addArmor(noChest);
-	addArmor(noPants);
-	addArmor(noBoots);
+	addArmor(noHelmet,true);
+	addArmor(noChest,true);
+	addArmor(noPants,true);
+	addArmor(noBoots,true);
 }
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
