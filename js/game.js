@@ -17,8 +17,145 @@ var overEncumbered=false;
 var irish=0;
 var fourI=0;
 
-
-
+//Creating armor
+var createDefense=function(){
+	def={};
+	for(var i=0;i<attributes.length;i++){
+		def[attributes[i][0]]=attributes[i][1];
+	}
+	return def;
+};
+var Armor=function(slot,material,attributes,defense,name){
+	this.slot=slot;
+	this.material=material;
+	this.attributes=attributes;
+	this.defense=defense;
+	this.name=name;
+	this.empty=false;
+	if(this.name=="None"){
+		this.empty=true;
+	}
+};
+var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),"None");
+var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0]),"None");
+var noPants=new Armor('pants',['none'],['none'],createDefense(["all",0]),"None");
+var noBoots=new Armor('boots',['none'],['none'],createDefense(["all",0]),"None");
+var vaultArmorHat=new Armor('helmet',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Hat");
+var vaultArmorChest=new Armor('chest',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Shirt");
+var vaultArmorPants=new Armor('pants',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Pants");
+var vaultArmorBoots=new Armor('boots',['cloth'],['Warm'],createDefense(["rad",0.05]),"Vault 42 Boots");
+var equipedArmor={
+	helmet:noHelmet,
+	chest:noChest,
+	pants:noPants,
+	boots:noBoots,
+};
+var armorInventory={
+	helmet:{
+		0:noHelmet,
+		1:vaultArmorHat,
+	},
+	chest:{
+		0:noChest,
+		1:vaultArmorChest,
+	},
+	pants:{
+		0:noPants,
+		1:vaultArmorPants,
+	},
+	boots:{
+		0:noBoots,
+		1:vaultArmorBoots,
+	},
+};
+function equipArmor(index){
+	var slot=index.split("e")[0];
+	var id=index.split("e")[1];
+	if(slot == "a"){
+		if(armorInventory["helmet"][id]){
+			if(!armorInventory["helmet"][id].empty){
+				equipedArmor.helmet=armorInventory["helmet"][id];
+			}
+		}
+	}else if(slot == "b"){
+		if(armorInventory["chest"][id]){
+			if(!armorInventory["chest"][id].empty){
+				equipedArmor.chest=armorInventory["chest"][id];
+			}
+		}
+	}else if(slot == "c"){
+		if(armorInventory["pants"][id]){
+			if(!armorInventory["pants"][id].empty){
+				equipedArmor.pants=armorInventory["pants"][id];
+			}
+		}
+	}else if(slot == "d"){
+		if(armorInventory["boots"][id]){
+			if(!armorInventory["boots"][id].empty){
+				equipedArmor.boots=armorInventory["boots"][id];
+			}
+		}
+	}
+}
+function addArmor(armor){
+	var firstEmpty=0;
+	for(var i in armorInventory[armor.slot]){
+		if(armorInventory[armor.slot][i].empty){
+			firstEmpty=i;
+			return
+		}
+	}
+	armorInventory[armor.slot][firstEmpty]=armor;
+}
+function removeArmor(index){
+	var slot=index.split("e")[0];
+	var id=index.split("e")[1];
+	if(id !== "0" || id !== 0){
+		if(slot == "a"){
+			if(armorInventory["helmet"][id]){
+				if(!armorInventory["helmet"][id].empty){
+					if(equipedArmor.helmet==armorInventory["helmet"][id]){
+						equipedArmor.helmet=armorInventory["helmet"][0];
+					}
+					armorInventory["helmet"][id]=armorInventory["helmet"][0];
+				}
+			}
+		}else if(slot == "b"){
+			if(armorInventory["chest"][id]){
+				if(!armorInventory["chest"][id].empty){
+					if(equipedArmor.chest==armorInventory["chest"][id]){
+						equipedArmor.chest=armorInventory["chest"][0];
+					}
+					armorInventory["chest"][id]=armorInventory["chest"][0];
+				}
+			}
+		}else if(slot == "c"){
+			if(armorInventory["pants"][id]){
+				if(!armorInventory["pants"][id].empty){
+					if(equipedArmor.pants==armorInventory["pants"][id]){
+						equipedArmor.pants=armorInventory["pants"][0];
+					}
+					armorInventory["pants"][id]=armorInventory["pants"][0];
+				}
+			}
+		}else if(slot == "d"){
+			if(armorInventory["boots"][id]){
+				if(!armorInventory["boots"][id].empty){
+					if(equipedArmor.boots==armorInventory["boots"][id]){
+						equipedArmor.boots=armorInventory["boots"][0];
+					}
+					armorInventory["boots"][id]=armorInventory["boots"][0];
+				}
+			}
+		}
+	}
+}
+for(var i=0;i<38;i++){
+	addArmor(noHelmet);
+	addArmor(noChest);
+	addArmor(noPants);
+	addArmor(noBoots);
+}
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
