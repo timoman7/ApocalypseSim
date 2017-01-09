@@ -53,22 +53,24 @@ var equipedArmor={
 var armorInventory={
 	helmet:{
 		0:noHelmet,
-		1:vaultArmorHat,
 	},
 	chest:{
 		0:noChest,
-		1:vaultArmorChest,
 	},
 	pants:{
 		0:noPants,
-		1:vaultArmorPants,
 	},
 	boots:{
 		0:noBoots,
-		1:vaultArmorBoots,
 	},
 	capacity:40,
 };
+for(var i=0;i<39;i++){
+	armorInventory["helmet"].push(noHelmet);
+	armorInventory["chest"].push(noChest);
+	armorInventory["pants"].push(noPants);
+	armorInventory["boots"].push(noBoots);
+}
 function equipArmor(index){
 	var slot=index.split("e")[0];
 	var id=index.split("e")[1];
@@ -155,12 +157,10 @@ function removeArmor(index){
 		}
 	}
 }
-for(var i=0;i<38;i++){
-	armorInventory["helmet"].push(noHelmet);
-	armorInventory["chest"].push(noChest);
-	armorInventory["pants"].push(noPants);
-	armorInventory["boots"].push(noBoots);
-}
+addArmor(vaultArmorHat);
+addArmor(vaultArmorChest);
+addArmor(vaultArmorPants);
+addArmor(vaultArmorBoots);
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
