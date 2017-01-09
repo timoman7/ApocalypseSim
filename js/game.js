@@ -1521,7 +1521,7 @@ function updateInventory() {
     itemAfter = "";
     for (var i = 0; i < playerInventory.capacity; i++) {
 	    if(!playerInventory[i].empty){
-        	itemBefore = playerInventory[i].name + "s:....||.Damage:.." + playerInventory[i].damage + " ...||.Value:.." + playerInventory[i].value + " Shekels"+"<br>";
+        	itemBefore = "ID: "+i+" || Name: "+playerInventory[i].name + " ||.Damage:.." + playerInventory[i].damage + " ...||.Value:.." + playerInventory[i].value + " Shekels"+"<br>";
         	itemAfter = itemAfter + itemBefore;
 	    }
         inventory.innerHTML = itemAfter;
