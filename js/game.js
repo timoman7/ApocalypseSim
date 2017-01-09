@@ -16,7 +16,12 @@ var CurrentHealth;
 var overEncumbered=false;
 var irish=0;
 var fourI=0;
-
+var rngA = function(n) {
+	var resA = Math.round(Math.random() * n);
+	var resB = Math.round(Math.random() * n);
+	var resC = Math.round((resA / 2) + (resB / 2));
+	return resC;
+};
 //Creating armor
 var createDefense=function(){
 	def={};
@@ -37,6 +42,71 @@ var Armor=function(slot,material,attributes,defense,value,name){
 		this.empty=true;
 	}
 };
+var defenseList=[
+	"rad",
+	"all",
+	"cold",
+	"bllt",
+	"fire",
+	"exp",
+];
+var materialList=[
+	"cloth",
+	"leather",
+	"metal",
+	"tech",
+];
+var attributesList=[
+	"Warm",
+	"Healing",
+	"Insulated",
+];
+var armorNames=[
+	"Basic",
+	"Raider",
+	"Advanced",
+	"Warrior",
+];
+var armorTypes=[
+	"helmet",
+	"chest",
+	"boots",
+	"pants",
+];
+function randomArmor(){
+	var defense=[];
+	for(var i=0;i<rngA(defenseList);i++){
+		defense.push([defenseList[rngA(defenseList.length)-1],(Math.floor(random(0,0.4)*10)/10)]);
+	}
+	var material=[];
+	for(var i=0;i<rngA(materialList);i++){
+		material.push(materialList[rngA(materialList.length)-1]);
+	}
+	var attributes=[];
+	for(var i=0;i<rngA(attributesList);i++){
+		attributes.push(attributesList[rngA(attributesList.length)-1]);
+	}
+	var type=armorTypes[rngA(armorTypes.length)-1];
+	var name=armorNames[rngA(armorNames.length)-1];
+	var newType;
+	switch(type){
+		case "helmet":
+			newType="Helmet";
+			break;
+		case "chest":
+			newType="Chestpiece";
+			break;
+		case "pants":
+			newType="Pants";
+			break;
+		case "boots":
+			newType="Boots";
+			break;
+		
+	}
+	var newName = name + " " + material + " " + type;
+	return new Armor(type,material,attributes,defense,Math.floor(random(30,80)),newName);
+}
 var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),0,"None");
 var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0]),0,"None");
 var noPants=new Armor('pants',['none'],['none'],createDefense(["all",0]),0,"None");
@@ -1016,12 +1086,7 @@ var titaniumKey = false; {
 {
 	//Defined the shopkeepers inventory
 	var shopInventory=[];
-    var rngA = function(n) {
-        var resA = Math.round(Math.random() * n);
-        var resB = Math.round(Math.random() * n);
-        var resC = Math.round((resA / 2) + (resB / 2));
-        return resC;
-    };
+    
     var playerX;
     var playerY;
     var rSpawn = rngA(100);
