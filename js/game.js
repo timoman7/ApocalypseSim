@@ -2428,7 +2428,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			}else if(cmd == "help"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
-				newElement3.innerHTML=">Type armor [cmd] to access armors.<br>>Valid commands:<br>>help - Display this.<br>>equip [id] - equip the armor piece<br>>\t\t\[id]>: a/b/c/d+e+id<br>>\t\ta:Helmet, b:Chestpiece, c:Pants, d:Boots<br>>inventory - Check your armor inventory.<br>>inspect [id] - Inspect the stats of an armor piece.<br>>\t\t[id] has the same structure as equip.<br>>equipped - Check your currently equipped armor.";
+				newElement3.innerHTML=">Type armor [cmd] to access armors.<br>>Valid commands:<br>>help - Display this.<br>>equip [id] - equip the armor piece<br>>\t\t\[id]: a/b/c/d+e+id<br>>\t\ta:Helmet, b:Chestpiece, c:Pants, d:Boots<br>>inventory - Check your armor inventory.<br>>inspect [id] - Inspect the stats of an armor piece.<br>>\t\t[id] has the same structure as equip.<br>>equipped - Check your currently equipped armor.";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "inventory"){
 				var newElement3=document.createElement('p');
