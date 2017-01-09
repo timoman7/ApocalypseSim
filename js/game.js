@@ -1472,6 +1472,7 @@ function checkItem() {
 		}
 		if(!this.foundSomething){
 			$("#message_nothing").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
+			area[playerY][playerX].searched++;
 			return;
 		}else{
 			if(this.foundItems.length>0){
