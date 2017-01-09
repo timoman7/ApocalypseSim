@@ -2353,7 +2353,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		if(prefix.toLowerCase() == "armor" && enterBattle !== -1) {
 			var cmd=item.split(" ")[0];
 			if(cmd == "equip"){
-				equipArmor(item.split(" ")[1].split("e")[0],item.split(" ")[1].split("e")[1]);
+				equipArmor(item.split(" ")[1]);
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
 				var slot;
@@ -2373,10 +2373,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 				if(armorInventory[slot][item.split(" ")[1].split("e")[1]].name !== "None"){
 					newElement3.innerHTML=">You equipped the "+armorInventory[slot][item.split(" ")[1].split("e")[1]].name+".";
-					equipArmor(armorInventory[slot][item.split(" ")[1]);
 				}else{
 					newElement3.innerHTML=">You removed your "+slot+".";
-					equipArmor(armorInventory[slot][item.split(" ")[1]);
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "inspect"){
