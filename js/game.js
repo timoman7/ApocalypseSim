@@ -2349,6 +2349,37 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
+		if(prefix.toLowerCase() == "armor" && enterBattle !== -1) {
+			var cmd=item.split(" ")[0];
+			if(cmd == "equip"){
+				equipArmor(item.split(" ")[1].split("e")[0],item.split(" ")[1].split("e")[1]);
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				var slot;
+				switch(item.split(" ")[1].split("e")[0]){
+					case "a":
+						slot="helmet";
+						break;
+					case "b":
+						slot="chest";
+						break;
+					case "c":
+						slot="pants";
+						break;
+					case "d":
+						slot="boots";
+						break;
+				}
+				if(armorInventory[slot][item.split(" ")[1].split("e")[1]].name !== "None"){
+					newElement3.innerHTML=">You equiped the "+armorInventory[slot][item.split(" ")[1].split("e")[1]].name+".";
+				}else{
+					newElement3.innerHTML=">You removed your "+slot+".";
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "help"){
+				
+			}
+		}
                 if (input !== "done" && input !== "attack" && input !== "burst" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
                     watList.push($("#message_wat").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000));
                 }
