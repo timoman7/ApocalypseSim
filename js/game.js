@@ -97,10 +97,14 @@ function equipArmor(index){
 		}
 	}
 }
-function addArmor(armor){
+function addArmor(armor,debug){
+	this.debug=debug||false;
 	var firstEmpty=0;
 	for(var i in armorInventory[armor.slot]){
-		if(armorInventory[armor.slot][i].empty){
+		if(this.debug && armorInventory[armor.slot][i].name !== "None"){
+			firstEmpty=i;
+			return
+		}else if(armorInventory[armor.slot][i].empty){
 			firstEmpty=i;
 			return
 		}
