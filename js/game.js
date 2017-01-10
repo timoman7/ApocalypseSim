@@ -80,7 +80,8 @@ var maxHunger=100;
 var MaxedHealth;
 var CurrentHealth;
 //New inventory and weapon system
-var overEncumbered=false;
+var overEncumberedItem=false;
+var overEncumberedArmor=false;
 var irish=0;
 var tPara=0;
 var fourI=0;
@@ -787,12 +788,16 @@ setInterval(function(){
 			}
 		}
 	}
-	if((totalItems+totalArmor)/2>=(playerInventory.capacity+armorInventory.capacity)/2){
-		overEncumbered=true;
+	if(totalItems>=playerInventory.capacity){
+		overEncumberedItem=true;
 	}else{
-		overEncumbered=false;
+		overEncumberedItem=false;
 	}
-	
+	if(totalArmor>=armorInventory.capacity){
+		overEncumberedArmor=true;
+	}else{
+		overEncumberedArmor=false;
+	}
 	var tExtra=0;
 	var tExtra2=0;
 	if(tPara>1){
@@ -1831,7 +1836,7 @@ setInterval(function(){
 				newElement2.innerHTML=">You killed the "+encounteredEnemy[0]+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 				currentXP+=encounteredEnemy[4];
-				if(!overEncumbered){
+				if(!overEncumberedItem){
 					addWeapon(encounteredEnemy[2]);
 				}
 				enterBattle=0;
@@ -1896,7 +1901,7 @@ function updateText() {
 var inventory = document.getElementById('messageInventory');
 
 function checkItem() {
-	if(area[playerY][playerX].searched<1+fourI && !overEncumbered){
+	if(area[playerY][playerX].searched<1+fourI && (!overEncumberedItem&&!overEncumberedArmor)){
 		tick(2);
 		this.foundSomething=false;
 		this.foundItems=[];
@@ -1906,18 +1911,22 @@ function checkItem() {
 		this.foundArmor=false;
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<30+(irish*5)){
-				var disItem=giveRandomWeap();
-				this.foundItems.push(disItem);
-				addWeapon(disItem);
+				if(!overEncumberedItem){
+					var disItem=giveRandomWeap();
+					this.foundItems.push(disItem);
+					addWeapon(disItem);
+				}
 			}
 		}
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<25+(irish*5)){
-				var newArmor=randomArmor();
-				addArmor(newArmor);
-				this.foundSomething=true;
-				this.foundArmor=true;
-				this.armorFound.push(newArmor);
+				if(!overEncumberedArmor){
+					var newArmor=randomArmor();
+					addArmor(newArmor);
+					this.foundSomething=true;
+					this.foundArmor=true;
+					this.armorFound.push(newArmor);
+				}
 			}
 		}
 		for(var i = 0; i < rngA(2+irish);i++){
@@ -1982,10 +1991,20 @@ function checkItem() {
 		}
 		area[playerY][playerX].searched++;
 	}else{
-		if(overEncumbered){
+		if(overEncumberedItems && overEncumberedArmor){
 			var newElement2=document.createElement('p');
 			newElement2.class="speakable";
-			newElement2.innerHTML=">You are unable to hold any more items, drop a few or sell them.";
+			newElement2.innerHTML=">You are unable to hold any more weapons or armor, drop a few or sell them.";
+			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+		}else if(overEncumberedItems){
+			var newElement2=document.createElement('p');
+			newElement2.class="speakable";
+			newElement2.innerHTML=">You are unable to hold any more weapons, drop a few or sell them.";
+			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+		}else if(overEncumberedArmor){
+			var newElement2=document.createElement('p');
+			newElement2.class="speakable";
+			newElement2.innerHTML=">You are unable to hold any more armor, drop a few or sell them.";
 			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 		}else{
 			var newElement2=document.createElement('p');
