@@ -2929,17 +2929,70 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "equipped"){
-				var newElement3=document.createElement('p');
-				newElement3.class="speakable";
-				newElement3.innerHTML=">Helmet<br>";
-				newElement3.innerHTML+=">"+equippedArmor["helmet"].name+".<br>";
-				newElement3.innerHTML+=">Chestpiece<br>";
-				newElement3.innerHTML+=">"+equippedArmor["chest"].name+".<br>";
-				newElement3.innerHTML+=">Pants<br>";
-				newElement3.innerHTML+=">"+equippedArmor["pants"].name+".<br>";
-				newElement3.innerHTML+=">Boots<br>";
-				newElement3.innerHTML+=">"+equippedArmor["boots"].name+".<br>";
-				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				for(var slot in equippedArmor){
+					var newElement3=document.createElement('p');
+					var dispArmor=equippedArmor[slot];
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					var dispAttr="";
+					var dispMat="";
+					var dispDef="";
+					for(var i = 0; i < dispArmor.attributes.length;i++){
+						dispAttr+=">\t"+dispArmor.attributes[i]+"<br>";
+					}
+					for(var i = 0; i < dispArmor.material.length;i++){
+						dispMat+=">\t"+dispArmor.material[i]+"<br>";
+					}
+					for(var i in dispArmor.defense){
+						if(dispArmor.defense[i] == 0){
+							if(i == "rad"){
+								dispDef+=">\tRadiation: None<br>";
+							}
+							if(i == "all"){
+								dispDef+=">\tAll: None<br>";
+							}
+							if(i == "cold"){
+								dispDef+=">\tFreezing: None<br>";
+							}
+							if(i == "fire"){
+								dispDef+=">\tFire: None<br>";
+							}
+								if(i == "bllt"){
+								dispDef+=">\tBullets: None<br>";
+							}
+							if(i == "exp"){
+								dispDef+=">\tExplosives: None<br>";
+							}
+							if(i == "mel"){
+								dispDef+=">\tMelee: None<br>";
+							}
+						}else{
+							if(i == "rad"){
+								dispDef+=">\tRadiation: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+							if(i == "all"){
+								dispDef+=">\tAll: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+							if(i == "cold"){
+								dispDef+=">\tFreezing: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+							if(i == "fire"){
+								dispDef+=">\tFire: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+							if(i == "bllt"){
+								dispDef+=">\tBullets: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+							if(i == "exp"){
+								dispDef+=">\tExplosives: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+							if(i == "mel"){
+								dispDef+=">\tMelee: "+(dispArmor.defense[i]*100)+"%<br>";
+							}
+						}
+					}
+					newElement3.innerHTML=">"+equippedArmor[slot].name+"<br>>Defenses:..<br>"+dispDef+">Attributes:..<br>"+dispAttr+">Material:..<br>"+dispMat+">Value: "+dispArmor.value+" Shekels";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				}
 			}
 		}
                 if (input !== "done" && input !== "attack" && input !== "burst" && input !== "stats" && input !== "help" && prefixInputCheck() !== true && itemInputCheck() !== true && weapInputCheck() !== true) {
