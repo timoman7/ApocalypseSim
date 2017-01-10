@@ -779,7 +779,15 @@ setInterval(function(){
 			totalItems++;
 		}
 	}
-	if(totalItems>=playerInventory.capacity){
+	var totalArmor=0;
+	for(var j in armorInventory){
+		for(var i=0;i<armorInventory.capacity;i++){
+			if(!armorInventory[j][i].empty){
+				totalItems++;
+			}
+		}
+	}
+	if((totalItems+totalArmor)/2>=(playerInventory.capacity+armorInventory.capacity)/2){
 		overEncumbered=true;
 	}else{
 		overEncumbered=false;
