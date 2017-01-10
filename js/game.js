@@ -91,8 +91,18 @@ var rngA = function(n) {
 //Creating armor
 var createDefense=function(){
 	def={};
-	for(var i=0;i<arguments.length;i++){
-		def[arguments[i][0]]=arguments[i][1];
+	if(arguments.length>1){
+		for(var i=0;i<arguments.length;i++){
+			def[arguments[i][0]]=arguments[i][1];
+		}
+	}else{
+		for(var i=0;i<arguments[0].length;i++){
+			if(!def[arguments[0][i][0]]==arguments[0][i][0]){
+				def[arguments[0][i][0]]=arguments[0][i][1];
+			}else{
+				def[arguments[0][i][0]]+=arguments[0][i][1];
+			}
+		}
 	}
 	return def;
 };
@@ -142,15 +152,23 @@ var armorTypes=[
 function randomArmor(){
 	var defense=[];
 	for(var i=0;i<rngA(defenseList.length);i++){
-		defense.push([defenseList[rngA(defenseList.length)-1],(Math.floor(random(0,0.4)*10)/10)]);
+		var newDef=defenseList[rngA(defenseList.length)-1];
+		var defRes=(Math.floor(random(0,0.4)*10)/10);
+		defense.push([newDef,defRes]);
 	}
 	var material=[];
 	for(var i=0;i<rngA(materialList.length);i++){
-		material.push(materialList[rngA(materialList.length)-1]);
+		var newMat=materialList[rngA(materialList.length)-1];
+		if(!material.includes(newMat)){
+			material.push(newMat);
+		}
 	}
 	var attributes=[];
 	for(var i=0;i<rngA(attributesList.length);i++){
-		attributes.push(attributesList[rngA(attributesList.length)-1]);
+		var newAtt=attributesList[rngA(attributesList.length)-1];
+		if(!attributes.includes(newAtt)){
+			attributes.push(newAtt);
+		}
 	}
 	var type=armorTypes[rngA(armorTypes.length)-1];
 	var name=armorNames[rngA(armorNames.length)-1];
@@ -170,7 +188,42 @@ function randomArmor(){
 			break;
 		
 	}
-	var newName = name + " " + material + " " + type;
+	var newMatName="";
+	if(material.includes("tech")&&material.includes("cloth")&&!material.includes("leather")&&!material.includes("metal")){
+		newMatName="Clothtech";
+		//Cloth and Tech
+	}else if(material.includes("tech")&&material.includes("cloth")&&!material.includes("leather")&&material.includes("metal")){
+		newMatName="Metal Clothtech";
+		//Metal Cloth and Tech
+	}else if(!material.includes("tech")&&material.includes("cloth")&&material.includes("leather")&&!material.includes("metal")){
+		newMatName="Cloth-Leather";
+		//Cloth and Leather
+	}else if(!material.includes("tech")&&material.includes("cloth")&&material.includes("leather")&&material.includes("metal")){
+		newMatName="Metal Cloth-Leather";
+		//Cloth and Metal and Leather
+	}else if(material.includes("tech")&&!material.includes("cloth")&&material.includes("leather")&&!material.includes("metal")){
+		newMatName="TechLeather";
+		//Tech and Leather
+	}else if(material.includes("tech")&&material.includes("cloth")&&material.includes("leather")&&material.includes("metal")){
+		newMatName="Everything but the kitchen sink";
+		//Tech, Leather, Cloth, Metal
+	}else if(material.includes("tech")&&!material.includes("cloth")&&!material.includes("leather")&&material.includes("metal")){
+		newMatName="Scientific";
+		//Tech, Metal
+	}else if(!material.includes("tech")&&!material.includes("cloth")&&material.includes("leather")&&material.includes("metal")){
+		newMatName="Metal-Leather";
+		//Leather, Metal
+	}else if(!material.includes("tech")&&material.includes("cloth")&&!material.includes("leather")&&material.includes("metal")){
+		newMatName="Metal-Cloth";
+		//Cloth, Metal
+	}else if(material.includes("tech")&&material.includes("cloth")&&material.includes("leather")&&!material.includes("metal")){
+		newMatName="Cloth TechLeather";
+		//Cloth, Leather, Tech
+	}else if(material.includes("tech")&&!material.includes("cloth")&&material.includes("leather")&&material.includes("metal")){
+		newMatName="Metal TechLeather";
+		//Cloth, Leather, Tech
+	}
+	var newName = name + " " + newMatName + " " + type;
 	return new Armor(type,material,attributes,defense,Math.floor(random(30,80)),newName);
 }
 var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),0,"None");
