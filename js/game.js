@@ -1903,7 +1903,7 @@ function updateText() {
 var inventory = document.getElementById('messageInventory');
 
 function checkItem() {
-	if(area[playerY][playerX].searched<1+fourI && (!overEncumberedItem&&!overEncumberedArmor)){
+	if(area[playerY][playerX].searched<1+fourI && (!overEncumberedItem || !overEncumberedArmor)){
 		tick(2);
 		this.foundSomething=false;
 		this.foundItems=[];
