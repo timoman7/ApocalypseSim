@@ -1103,7 +1103,7 @@ var titaniumKey = false; {
 {
 	//Defined the shopkeepers inventory
 	var shopInventory=[];
-    
+    	var shopArmor=[];
     var playerX;
     var playerY;
     var rSpawn = rngA(100);
@@ -1178,10 +1178,14 @@ var titaniumKey = false; {
 	for(var ii=0;ii<rngA(20);ii++){
 		shopInventory.push(giveRandomWeap());
 	}
+	for(var ii=0;ii<rngA(10);ii++){
+		shopArmor.push(randomArmor());
+	}
     }
 var createNewArea=function(){
 	area=[];
 	shopInventory=[];
+	shopArmor=[];
     var merchSpawn = rngA(100);
     var cdfSpawn = rngA(100);
 	while(cdfSpawn==merchSpawn){
@@ -1214,6 +1218,9 @@ var createNewArea=function(){
 	}
 	for(var ii=0;ii<rngA(20);ii++){
 		shopInventory.push(giveRandomWeap());
+	}
+	for(var ii=0;ii<rngA(10);ii++){
+		shopArmor.push(randomArmor());
 	}
 };
     /*
