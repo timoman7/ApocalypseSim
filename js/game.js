@@ -236,7 +236,7 @@ function randomArmor(){
 		//Metal
 	}
 	var newName = name + " " + newMatName + " " + type;
-	return new Armor(type,material,attributes,defense,Math.floor(random(30,80)),newName);
+	return new Armor(type,material,attributes,createDefense(defense),Math.floor(random(30,80)),newName);
 }
 var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),0,"None");
 var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0]),0,"None");
