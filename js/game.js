@@ -115,7 +115,7 @@ var Armor=function(slot,material,attributes,defense,value,name){
 	this.defense=defense;
 	this.value=value;
 	for(var i in this.defense){
-		this.value+=Math.floor(this.defense*10)*5;
+		this.value+=Math.floor(this.defense[i]*10)*5;
 	}
 	if(this.attributes.includes("Warm")){
 		this.value+=15;
