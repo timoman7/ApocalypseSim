@@ -188,7 +188,7 @@ function randomArmor(){
 			break;
 		
 	}
-	var newMatName="";
+	var newMatName=material;
 	if(material.includes("tech")&&material.includes("cloth")&&!material.includes("leather")&&!material.includes("metal")){
 		newMatName="Clothtech";
 		//Cloth and Tech
@@ -222,6 +222,18 @@ function randomArmor(){
 	}else if(material.includes("tech")&&!material.includes("cloth")&&material.includes("leather")&&material.includes("metal")){
 		newMatName="Metal TechLeather";
 		//Cloth, Leather, Tech
+	}else if(material.includes("tech")&&!material.includes("cloth")&&!material.includes("leather")&&!material.includes("metal")){
+		newMatName="Tech";
+		//Tech
+	}else if(!material.includes("tech")&&material.includes("cloth")&&!material.includes("leather")&&!material.includes("metal")){
+		newMatName="Cloth";
+		//Cloth
+	}else if(!material.includes("tech")&&!material.includes("cloth")&&material.includes("leather")&&!material.includes("metal")){
+		newMatName="Leather";
+		//Leather
+	}else if(!material.includes("tech")&&!material.includes("cloth")&&!material.includes("leather")&&material.includes("metal")){
+		newMatName="Metal";
+		//Metal
 	}
 	var newName = name + " " + newMatName + " " + type;
 	return new Armor(type,material,attributes,defense,Math.floor(random(30,80)),newName);
