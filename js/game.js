@@ -502,7 +502,6 @@ var tick=function(n){
 		if(cdfPlantLength>0){
 			if(cdf.plants[i].planted && cdf.plants[i].ticks < cdf.plants[i].timeToGrow){
 				cdf.plants[i].ticks++;
-				console.log(cdf.plants[i],cdf.plants[i].ticks,i);
 			}
 		}
 	}
@@ -1005,10 +1004,8 @@ var checkChange = function() {
         }
     }
     if (localChange) {
-        console.log(currentSpeak);
         //speaking.speak(currentSpeak);
     } else {
-        console.log("No change.");
     }
 };
 //Rooms Check
@@ -2199,7 +2196,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 								if(checkDeadPlayer()){
 									var newElement4=document.createElement('p');
 									newElement4.class="speakable";
-									console.log(getPlayername(i));
 									newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
 									$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 								}
@@ -2487,7 +2483,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 				var rewardString="";
 				var foundAnything=true;
-				console.log(totalRewards,foundItems);
 				for(var reward in foundItems){
 					switch(totalRewards){
 						case 0:
@@ -2504,7 +2499,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						break;
 					}
 				}
-				console.log(foundAnything,rewardString);
 				if(foundAnything){
 					if(totalRewards==2){
 						rewardString=rewardString.replace(" and ","");
