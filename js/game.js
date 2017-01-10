@@ -1454,12 +1454,30 @@ for(var y=0; y<area.length;y++){
         "Goon", //Name
         45, //HP
         giveRandomWeap(), //Item
-        65, //Chance to hit
+        85, //Chance to hit
+        10, //XP
+        10, //Damage
+    ];
+    var savage = [
+        "Savage", //Name
+        55, //HP
+        giveRandomWeap(), //Item
+        85, //Chance to hit
+        10, //XP
+        10, //Damage
+    ];
+    var psycho = [
+        "Psycho", //Name
+        65, //HP
+        giveRandomWeap(), //Item
+        85, //Chance to hit
         10, //XP
         10, //Damage
     ];
     var enList = [
-        goon,
+	goon,
+	savage,
+	psycho,
     ];
 
     function Enemy() {
@@ -1769,7 +1787,7 @@ setInterval(function(){
 			if(encounteredEnemy[1]>0){
 				var tempBRNG=rngA(100);
 				if(tempBRNG>(30+(BaseA.valueAsNumber*2)+(floor(BaseL.valueAsNumber*1.5)))){	//You get attacked
-					var damageTaken=encounteredEnemy[5]-defenceStat;
+					var damageTaken=calculateDamage(encounteredEnemy[2],playerRes);
 					if(damageTaken<0){
 						damageTaken=0;
 					}
