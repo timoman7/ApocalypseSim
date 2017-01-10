@@ -1998,17 +1998,17 @@ function checkItem() {
 			newElement2.class="speakable";
 			newElement2.innerHTML=">You are unable to hold any more weapons or armor, drop a few or sell them.";
 			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
-		}else if(overEncumberedItem){
+		}else if(overEncumberedItem && (area[playerY][playerX].searched<1+fourI)){
 			var newElement2=document.createElement('p');
 			newElement2.class="speakable";
 			newElement2.innerHTML=">You are unable to hold any more weapons, drop a few or sell them.";
 			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
-		}else if(overEncumberedArmor){
+		}else if(overEncumberedArmor && (area[playerY][playerX].searched<1+fourI)){
 			var newElement2=document.createElement('p');
 			newElement2.class="speakable";
 			newElement2.innerHTML=">You are unable to hold any more armor, drop a few or sell them.";
 			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
-		}else{
+		}else if(!(area[playerY][playerX].searched<1+fourI)){
 			var newElement2=document.createElement('p');
 			newElement2.class="speakable";
 			newElement2.innerHTML=">There is nothing else to be found here.";
