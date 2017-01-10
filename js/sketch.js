@@ -764,6 +764,15 @@ function draw(){
 						currentCaps-=shopInventory[parseInt(item.split(' ')[1])].value;
 						addWeap(shopInventory[parseInt(item.split(' ')[1])]);
 						sellCheck=true;
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You purchased the "+shopInventory[parseInt(item.split(' ')[1])].name+" for "+shopInventory[parseInt(item.split(' ')[1])].value+" Shekels.";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					}else{
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You cannot afford the "+shopInventory[parseInt(item.split(' ')[1])].name+".";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					}
 				}
 			}else if(item.split(' ')[0]=='armor'){
@@ -772,6 +781,15 @@ function draw(){
 						currentCaps-=shopArmor[parseInt(item.split(' ')[1])].value;
 						addArmor(shopArmor[parseInt(item.split(' ')[1])]);
 						sellCheck=true;
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You purchased the "+shopArmor[parseInt(item.split(' ')[1])].name+" for "+shopArmor[parseInt(item.split(' ')[1])].value+" Shekels.";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					}else{
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You cannot afford the "+shopArmor[parseInt(item.split(' ')[1])].name+".";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					}
 				}
 			}
