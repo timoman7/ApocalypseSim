@@ -783,8 +783,10 @@ setInterval(function(){
 	var totalArmor=0;
 	for(var j in armorInventory){
 		for(var i=0;i<armorInventory.capacity;i++){
-			if(!armorInventory[j][i].empty){
-				totalItems++;
+			if(j!=="capacity"){
+				if(!armorInventory[j][i].empty){
+					totalItems++;
+				}
 			}
 		}
 	}
