@@ -65,9 +65,9 @@ function random(min, max) {
 function constrain(e,t,n){
 	return e>n?n:e<t?t:e
 }
-function randomProperty(obj) {
+function randomPName(obj) {
     var keys = Object.keys(obj)
-    return obj[keys[ keys.length * Math.random() << 0]];
+    return keys[ keys.length * Math.random() << 0];
 }
 /**
 *	Define non-native functions
@@ -1970,7 +1970,7 @@ function checkItem() {
 		}
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<35+(irish*5)){
-				var newAmmo = randomProperty(ammoTypes);
+				var newAmmo = randomPName(ammoTypes);
 				var j=rngA(20)+1;
 				ammo[newAmmo]+=j;
 				this.ammoFound[newAmmo]=j;
