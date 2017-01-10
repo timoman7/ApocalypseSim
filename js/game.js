@@ -155,7 +155,7 @@ function randomArmor(){
 	var defense=[];
 	for(var i=0;i<defenseList.length;i++){
 		var newDef=defenseList[i];
-		var defRes=constrain(Math.floor(random(-0.4,0.4)*10)/10);
+		var defRes=constrain(Math.floor(random(-0.4,0.4)*10)/10,0,1);
 		defense.push([newDef,defRes]);
 	}
 	var material=[];
