@@ -171,15 +171,15 @@ function randomDef(){
 		var defRes=constrain(Math.floor(random(-0.4,0.4)*100)/100,0,1);
 		defense.push([newDef,defRes]);
 	}
+	for(var i=0;i<defenseList.length;i++){
+		if(defense[i][0]=="all"){
+			defense[i][1]=defense[i][1]/4;
+		}
+	}
 	return defense
 }
 function randomArmor(){
-	var defense=[];
-	for(var i=0;i<defenseList.length;i++){
-		var newDef=defenseList[i];
-		var defRes=constrain(Math.floor(random(-0.4,0.4)*100)/100,0,1);
-		defense.push([newDef,defRes]);
-	}
+	var defense=randomDef();
 	var material=[];
 	for(var i=0;i<1+rngA(materialList.length-1);i++){
 		var newMat=materialList[rngA(materialList.length-1)];
