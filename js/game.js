@@ -62,7 +62,9 @@ function random(min, max) {
     return rand * (max-min) + min;
   }
 }
-
+function constrain(e,t,n){
+	return e>n?n:e<t?t:e
+}
 /**
 *	Define non-native functions
 **/
@@ -151,9 +153,9 @@ var armorTypes=[
 ];
 function randomArmor(){
 	var defense=[];
-	for(var i=0;i<1+rngA(defenseList.length-1);i++){
-		var newDef=defenseList[rngA(defenseList.length-1)];
-		var defRes=(Math.floor(random(0,0.4)*10)/10);
+	for(var i=0;i<defenseList.length;i++){
+		var newDef=defenseList[i];
+		var defRes=constrain(Math.floor(random(-0.4,0.4)*10)/10);
 		defense.push([newDef,defRes]);
 	}
 	var material=[];
@@ -2599,12 +2601,42 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if(i == "all"){
 							dispDef+=">\tAll: None<br>";
 						}
+						if(i == "cold"){
+							dispDef+=">\tFreezing: None<br>";
+						}
+						if(i == "fire"){
+							dispDef+=">\tFire: None<br>";
+						}
+						if(i == "bllt"){
+							dispDef+=">\tBullets: None<br>";
+						}
+						if(i == "exp"){
+							dispDef+=">\tExplosives: None<br>";
+						}
+						if(i == "mel"){
+							dispDef+=">\tMelee: None<br>";
+						}
 					}else{
 						if(i == "rad"){
 							dispDef+=">\tRadiation: "+(dispArmor.defense[i]*100)+"%<br>";
 						}
 						if(i == "all"){
 							dispDef+=">\tAll: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "cold"){
+							dispDef+=">\tFreezing: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "fire"){
+							dispDef+=">\tFire: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "bllt"){
+							dispDef+=">\tBullets: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "exp"){
+							dispDef+=">\tExplosives: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "mel"){
+							dispDef+=">\tMelee: "+(dispArmor.defense[i]*100)+"%<br>";
 						}
 					}
 				}
@@ -2704,12 +2736,42 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if(i == "all"){
 							dispDef+=">\tAll: None<br>";
 						}
+						if(i == "cold"){
+							dispDef+=">\tFreezing: None<br>";
+						}
+						if(i == "fire"){
+							dispDef+=">\tFire: None<br>";
+						}
+						if(i == "bllt"){
+							dispDef+=">\tBullets: None<br>";
+						}
+						if(i == "exp"){
+							dispDef+=">\tExplosives: None<br>";
+						}
+						if(i == "mel"){
+							dispDef+=">\tMelee: None<br>";
+						}
 					}else{
 						if(i == "rad"){
 							dispDef+=">\tRadiation: "+(dispArmor.defense[i]*100)+"%<br>";
 						}
 						if(i == "all"){
 							dispDef+=">\tAll: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "cold"){
+							dispDef+=">\tFreezing: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "fire"){
+							dispDef+=">\tFire: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "bllt"){
+							dispDef+=">\tBullets: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "exp"){
+							dispDef+=">\tExplosives: "+(dispArmor.defense[i]*100)+"%<br>";
+						}
+						if(i == "mel"){
+							dispDef+=">\tMelee: "+(dispArmor.defense[i]*100)+"%<br>";
 						}
 					}
 				}
