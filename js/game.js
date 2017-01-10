@@ -1946,7 +1946,7 @@ function checkItem() {
 		this.capsFound=0;
 		this.armorFound=[];
 		this.foundArmor=false;
-		this.ammoFound=jQuery.extend({},ammoTypes);
+		this.ammoFound=clone(ammoTypes);
 		this.foundAmmo=false;
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<30+(irish*5)){
