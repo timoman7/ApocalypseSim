@@ -1993,12 +1993,12 @@ function checkItem() {
 		}
 		area[playerY][playerX].searched++;
 	}else{
-		if(overEncumberedItems && overEncumberedArmor){
+		if(overEncumberedItem && overEncumberedArmor){
 			var newElement2=document.createElement('p');
 			newElement2.class="speakable";
 			newElement2.innerHTML=">You are unable to hold any more weapons or armor, drop a few or sell them.";
 			$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
-		}else if(overEncumberedItems){
+		}else if(overEncumberedItem){
 			var newElement2=document.createElement('p');
 			newElement2.class="speakable";
 			newElement2.innerHTML=">You are unable to hold any more weapons, drop a few or sell them.";
