@@ -467,23 +467,35 @@ var perkBtns={};
 function upStat(event){
 	var SPT=event.target.id;
 	var S=SPT.split(".")[0];
-	if(S=="strength"){
+	if(S=="strength" && statList[S]<10){
 		BaseS.value++;
-	}else if(S=="perception"){
+		skillPoints--;
+		closeLevelGui();
+	}else if(S=="perception" && statList[S]<10){
 		BaseP.value++;
-	}else if(S=="endurance"){
+		skillPoints--;
+		closeLevelGui();
+	}else if(S=="endurance" && statList[S]<10){
 		BaseE.value++;
-	}else if(S=="charisma"){
+		skillPoints--;
+		closeLevelGui();
+	}else if(S=="charisma" && statList[S]<10){
 		BaseC.value++;
-	}else if(S=="intelligence"){
+		skillPoints--;
+		closeLevelGui();
+	}else if(S=="intelligence" && statList[S]<10){
 		BaseI.value++;
-	}else if(S=="agility"){
+		skillPoints--;
+		closeLevelGui();
+	}else if(S=="agility" && statList[S]<10){
 		BaseA.value++;
-	}else if(S=="luck"){
+		skillPoints--;
+		closeLevelGui();
+	}else if(S=="luck" && statList[S]<10){
 		BaseL.value++;
+		skillPoints--;
+		closeLevelGui();
 	}
-	skillPoints--;
-	closeLevelGui();
 }
 function ulPerk(event){
 	var SPT=event.target.id.split(".");
