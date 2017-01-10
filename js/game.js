@@ -164,6 +164,15 @@ var armorTypes=[
 	"boots",
 	"pants",
 ];
+function randomDef(){
+	var defense=[];
+	for(var i=0;i<defenseList.length;i++){
+		var newDef=defenseList[i];
+		var defRes=constrain(Math.floor(random(-0.4,0.4)*100)/100,0,1);
+		defense.push([newDef,defRes]);
+	}
+	return defense
+}
 function randomArmor(){
 	var defense=[];
 	for(var i=0;i<defenseList.length;i++){
@@ -395,6 +404,19 @@ function checkArmor(){
 			playerRes[res]+=equippedArmor[slot].defense[res]
 		}
 	}
+	if(CurrentHealth>MaxedHealth){
+		CurrentHealth=MaxedHealth;
+	}
+}
+function calcRes(defense){
+	var retRes={};
+	for(var res in defense){
+		retRes[res]=0;
+	}
+	for(var res in defense){
+		retRes[res]+=defense[res]
+	}
+	return retRes
 }
 function calculateDamage(incoming,resistance){
 	this.damageType=incoming.damageType;
@@ -1541,7 +1563,9 @@ for(var y=0; y<area.length;y++){
                     retEnemy[5] = legendary[5] + rndEnemy[5] + retEnemy[2].damage;
                 }
             }
+		
         }
+	retEnemy.defense=createDefense(randomDef());
         return retEnemy;
     };
     // End Enemy List
@@ -2454,22 +2478,28 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
 				var newElement3=document.createElement('p');
 			    	newElement3.class="speakable";
-				if(Class == "Soldier"){   
-	    				newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(equippedWeapon.damage*1.5)+" damage.";
+				if(Class == "Soldier"){
+					var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+	    				newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(newDamage*1.5)+" damage.";
 				}else{
-					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equippedWeapon.damage+" damage.";
+					var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
 				}
 				    if(equippedWeapon.damage===undefined){
 					if(Class==="Soldier"){
-						encounteredEnemy[1]-=Math.round(equippedWeapon.damage*1.5);
+						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+						encounteredEnemy[1]-=Math.round(newDamage*1.5);
 					}else{
-						encounteredEnemy[1]-=equippedWeapon.damage;
+						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+						encounteredEnemy[1]-=newDamage;
 					}
 				    }else{
 					if(Class==="Soldier"){
-				    		encounteredEnemy[1]-=Math.round(equippedWeapon.damage*1.5);
+				    		var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+						encounteredEnemy[1]-=Math.round(newDamage*1.5);
 					}else{
-						encounteredEnemy[1]-=equippedWeapon.damage;
+						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+						encounteredEnemy[1]-=newDamage;
 					}
 				    }
 	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
@@ -2493,11 +2523,13 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
 						if(Class == "Soldier"){
-							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(equippedWeapon.damage*1.5)+" damage.";
-							encounteredEnemy[1]-=equippedWeapon.damage*1.5;
+							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(Math.round(newDamage*1.5))+" damage.";
+							encounteredEnemy[1]-=Math.round(newDamage*1.5);
 						}else{
-							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+equippedWeapon.damage+" damage.";
-							encounteredEnemy[1]-=equippedWeapon.damage;
+							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
+							encounteredEnemy[1]-=newDamage;
 						}
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					    }else{
@@ -2663,7 +2695,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 			}
 		}
-		if (prefix.toLowerCase() == "equip" && enterBattle !== -1) {
+		if (prefix.toLowerCase() == "equip" && enterBattle == -1) {
 			if(parseInt(item)<playerInventory.capacity){
 				for (var i = 0; i < playerInventory.capacity; i++) {
 					if (parseInt(item.toLowerCase()) == i) {
