@@ -406,6 +406,9 @@ function calculateDamage(incoming,resistance){
 			this.received-=this.damage*(constrain(this.resistance[i],0,0.8)*1.5);
 		}
 	}
+	if(this.resistance.all>0){
+		this.receieved-=this.damage*(constrain(this.resistance.all,0,0.8)*1.5);
+	}
 	return this.received
 }
 /**
