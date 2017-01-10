@@ -1849,9 +1849,9 @@ function checkItem() {
 				newElement2.class="speakable";
 				var itemsFound="";
 				for(var i = 0;i<this.foundItems.length;i++){
-					if(this.foundItems.length==1){
+					if(this.foundItems.length == 1){
 						itemsFound+=this.foundItems[i].name;
-					}else if(i<this.foundItems.length-1){
+					}else if(i == this.foundItems.length-1){
 						itemsFound+=this.foundItems[i].name;
 					}else{
 						itemsFound+=this.foundItems[i].name+" and ";
