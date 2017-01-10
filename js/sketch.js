@@ -700,7 +700,7 @@ function draw(){
 				for(var i=1;i<playerInventory.capacity;i++){
 					if(playerInventory[parseInt(item.split(' ')[1])].value){
 						currentCaps+=playerInventory[i].value;
-						remWeapon(parseInt(item));
+						remWeapon(parseInt(item.split(' ')[1]));
 						sellCheck=true;
 					}
 				}
@@ -741,11 +741,21 @@ function draw(){
 		           	}
 			}
 		}else{
-	       		if(parseInt(item)<shopInventory.length){
-				if(currentCaps > shopInventory[parseInt(item)].value){
-					currentCaps-=shopInventory[parseInt(item)].value;
-					addWeap(shopInventory[parseInt(item)]);
-					sellCheck=true;
+			if(item.split(' ')[0]=='weapon'){
+				if(parseInt(item.split(' ')[1])<shopInventory.length){
+					if(currentCaps >= shopInventory[parseInt(item.split(' ')[1])].value){
+						currentCaps-=shopInventory[parseInt(item.split(' ')[1])].value;
+						addWeap(shopInventory[parseInt(item.split(' ')[1])]);
+						sellCheck=true;
+					}
+				}
+			}else if(item.split(' ')[0]=='armor'){
+				if(parseInt(item.split(' ')[1])<shopArmor.length){
+					if(currentCaps >= shopArmor[parseInt(item.split(' ')[1])].value){
+						currentCaps-=shopArmor[parseInt(item.split(' ')[1])].value;
+						addArmor(shopArmor[parseInt(item.split(' ')[1])]);
+						sellCheck=true;
+					}
 				}
 			}
 	    	}
