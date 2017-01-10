@@ -2035,6 +2035,7 @@ function checkItem() {
 				newElement2.class="speakable";
 				var ammoString="";
 				var ammoCount=0;
+				var ammoC=0;
 				for(var i in this.ammoFound){
 					if(this.ammoFound[i]>0){
 						ammoCount++;
@@ -2043,11 +2044,12 @@ function checkItem() {
 				for(var i in this.ammoFound){
 					if(ammoCount==1){
 						ammoString+=this.ammoFound[i]+" "+i+" ammo";
-					}else if(i == ammoCount-1){
+					}else if(ammoC == ammoCount-1){
 						ammoString+=this.ammoFound[i]+" "+i+" ammo";
 					}else{
 						ammoString+=+this.ammoFound[i]+" "+i+" ammo and ";
 					}
+					ammoC++;
 				}
 				newElement2.innerHTML=">You found "+ammoString+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
