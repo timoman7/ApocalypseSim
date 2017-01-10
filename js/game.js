@@ -151,27 +151,27 @@ var armorTypes=[
 ];
 function randomArmor(){
 	var defense=[];
-	for(var i=0;i<rngA(defenseList.length);i++){
-		var newDef=defenseList[rngA(defenseList.length)-1];
+	for(var i=0;i<Math.round(random(0,defenseList.length-1));i++){
+		var newDef=defenseList[Math.round(random(0,defenseList.length-1))];
 		var defRes=(Math.floor(random(0,0.4)*10)/10);
 		defense.push([newDef,defRes]);
 	}
 	var material=[];
-	for(var i=0;i<rngA(materialList.length);i++){
-		var newMat=materialList[rngA(materialList.length)-1];
+	for(var i=0;i<Math.round(random(0,materialList.length-1));i++){
+		var newMat=materialList[Math.round(random(0,materialList.length-1))];
 		if(!material.includes(newMat)){
 			material.push(newMat);
 		}
 	}
 	var attributes=[];
-	for(var i=0;i<rngA(attributesList.length);i++){
-		var newAtt=attributesList[rngA(attributesList.length)-1];
+	for(var i=0;i<Math.round(random(0,attributesList.length-1));i++){
+		var newAtt=attributesList[Math.round(random(0,attributesList.length-1))];
 		if(!attributes.includes(newAtt)){
 			attributes.push(newAtt);
 		}
 	}
-	var type=armorTypes[rngA(armorTypes.length)-1];
-	var name=armorNames[rngA(armorNames.length)-1];
+	var type=armorTypes[Math.round(random(0,armorTypes.length-1))];
+	var name=armorNamesMath.round(random(0,armorNames.length-1))];
 	var newType;
 	switch(type){
 		case "helmet":
