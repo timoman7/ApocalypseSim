@@ -1970,7 +1970,7 @@ function checkItem() {
 		}
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<35+(irish*5)){
-				var newAmmo = randomProperty(this.ammoFound);
+				var newAmmo = randomProperty(ammoTypes);
 				var j=rngA(20)+1;
 				ammo[newAmmo]+=j;
 				this.ammoFound[newAmmo]=j;
@@ -2042,9 +2042,9 @@ function checkItem() {
 				}
 				for(var i in this.ammoFound){
 					if(ammoCount==1){
-						ammoString+=this.ammoFound[i]+i+" ammo";
+						ammoString+=this.ammoFound[i]+" "+i+" ammo";
 					}else if(i == ammoCount-1){
-						ammoString+=this.ammoFound[i]+i+" ammo";
+						ammoString+=this.ammoFound[i]+" "+i+" ammo";
 					}else{
 						ammoString+=+this.ammoFound[i]+" "+i+" ammo and ";
 					}
