@@ -467,7 +467,6 @@ var perkBtns={};
 function upStat(event){
 	var SPT=event.target.id;
 	var S=SPT.split(".")[0];
-	console.log(event,S,statList[S]);
 	if(S=="strength"){
 		BaseS.value++;
 	}else if(S=="perception"){
@@ -484,7 +483,6 @@ function upStat(event){
 		BaseL.value++;
 	}
 	skillPoints--;
-	console.log(S,statList[S]);
 	closeLevelGui();
 }
 function ulPerk(event){
@@ -492,10 +490,8 @@ function ulPerk(event){
 	var S=SPT[0];
 	var P=SPT[1];
 	var T=SPT[2];
-	console.log(event,S,P,T,perkTree[S][P][T],perkTree[S][P][T].has);
 	perkTree[S][P][T].has=true;
 	skillPoints--;
-	console.log(S,P,T,perkTree[S][P][T],perkTree[S][P][T].has);
 	closeLevelGui();
 }
 function levelGuiCreate(){
