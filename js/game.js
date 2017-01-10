@@ -15,6 +15,7 @@ var CurrentHealth;
 //New inventory and weapon system
 var overEncumbered=false;
 var irish=0;
+var tPara=0;
 var fourI=0;
 var rngA = function(n) {
 	var resA = Math.round(Math.random() * n);
@@ -575,6 +576,7 @@ var checkPerk=function(statName,perkName,tierNum){
 setInterval(function(){
 	irish=0;
 	fourI=0;
+	tPara=0;
 	for(var i in perkTree["luck"]["luckIrish"]){
 		if(checkPerk("luck","luckIrish",i.split("tier")[1]).has){
 			irish++;
@@ -583,6 +585,11 @@ setInterval(function(){
 	for(var i in perkTree["perception"]["fourEyes"]){
 		if(checkPerk("perception","fourEyes",i.split("tier")[1]).has){
 			fourI++;
+		}
+	}
+	for(var i in perkTree["endurance"]["timParadox"]){
+		if(checkPerk("endurance","timParadox",i.split("tier")[1]).has){
+			tPara++;
 		}
 	}
 	var totalItems=0;
@@ -596,6 +603,16 @@ setInterval(function(){
 	}else{
 		overEncumbered=false;
 	}
+	
+	var tExtra=0;
+	var tExtra2=0;
+	if(tPara>1){
+		tExtra=15;
+	}
+	if(tPara>2){
+		tExtra2=40;
+	}
+	maxHunger=100+(tPara*15)+tExtra+tExtra2;
 },20);
 var clickedButton=false;
 var clickButton=function(){
