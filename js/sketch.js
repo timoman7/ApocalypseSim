@@ -461,7 +461,15 @@ var charisma;
 var intelligence;
 var agility;
 var luck;
-var statList={};
+var statList={
+	strength:0,
+	perception:0,
+	endurance:0,
+	charisma:0,
+	intelligence:0,
+	agility:0,
+	luck:0,
+};
 //Create gui with function
 var perkBtns={};
 function upStat(event){
