@@ -151,20 +151,20 @@ var armorTypes=[
 ];
 function randomArmor(){
 	var defense=[];
-	for(var i=0;i<rngA(defenseList.length-1);i++){
+	for(var i=0;i<1+rngA(defenseList.length-1);i++){
 		var newDef=defenseList[rngA(defenseList.length-1)];
 		var defRes=(Math.floor(random(0,0.4)*10)/10);
 		defense.push([newDef,defRes]);
 	}
 	var material=[];
-	for(var i=0;i<rngA(materialList.length-1);i++){
+	for(var i=0;i<1+rngA(materialList.length-1);i++){
 		var newMat=materialList[rngA(materialList.length-1)];
 		if(!material.includes(newMat)){
 			material.push(newMat);
 		}
 	}
 	var attributes=[];
-	for(var i=0;i<rngA(attributesList.length-1);i++){
+	for(var i=0;i<1+rngA(attributesList.length-1);i++){
 		var newAtt=attributesList[rngA(attributesList.length-1)];
 		if(!attributes.includes(newAtt)){
 			attributes.push(newAtt);
