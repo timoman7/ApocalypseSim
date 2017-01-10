@@ -1,6 +1,6 @@
-//Rework weapons as unique objects
-//Look around will lead to a function in sketch
-//Do this in shop
+//Add attachment system to weapons
+//Allow attachments and modifications to be made in cdf
+//cdf will function as a farm and a "home"
 /**
 *	Define non-native functions
 **/
