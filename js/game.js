@@ -2042,14 +2042,16 @@ function checkItem() {
 					}
 				}
 				for(var i in this.ammoFound){
-					if(ammoCount==1){
-						ammoString+=this.ammoFound[i]+" "+i+" ammo";
-					}else if(ammoC == ammoCount-1){
-						ammoString+=this.ammoFound[i]+" "+i+" ammo";
-					}else{
-						ammoString+=+this.ammoFound[i]+" "+i+" ammo and ";
+					if(this.ammoFound[i]>0){
+						if(ammoCount==1){
+							ammoString+=this.ammoFound[i]+" "+i+" ammo";
+						}else if(ammoC == ammoCount-1){
+							ammoString+=this.ammoFound[i]+" "+i+" ammo";
+						}else{
+							ammoString+=+this.ammoFound[i]+" "+i+" ammo and ";
+						}
+						ammoC++;
 					}
-					ammoC++;
 				}
 				newElement2.innerHTML=">You found "+ammoString+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
