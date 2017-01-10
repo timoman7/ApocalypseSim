@@ -65,6 +65,10 @@ function random(min, max) {
 function constrain(e,t,n){
 	return e>n?n:e<t?t:e
 }
+function randomProperty(obj) {
+    var keys = Object.keys(obj)
+    return obj[keys[ keys.length * Math.random() << 0]];
+}
 /**
 *	Define non-native functions
 **/
@@ -446,6 +450,13 @@ var cdf={
 	},
 	tier:0,
 	plantLimit:3,
+};
+
+var ammoTypes={
+	pistol:0,
+	nuke:0,
+	smg:0,
+	shotgun:0,
 };
 var ammo={
 	pistol:0,
@@ -1935,6 +1946,8 @@ function checkItem() {
 		this.capsFound=0;
 		this.armorFound=[];
 		this.foundArmor=false;
+		this.ammoFound=jQuery.extend({},ammoTypes);
+		this.foundAmmo=false;
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<30+(irish*5)){
 				if(!overEncumberedItem){
@@ -1953,6 +1966,16 @@ function checkItem() {
 					this.foundArmor=true;
 					this.armorFound.push(newArmor);
 				}
+			}
+		}
+		for(var i = 0; i < rngA(4+irish); i++){
+			if(rngA(100)<35+(irish*5)){
+				var newAmmo = randomProperty(this.ammoFound);
+				var j=rngA(20)+1;
+				ammo[newAmmo]+=j;
+				this.ammoFound[newAmmo]=j;
+				this.foundAmmo=true;
+				this.foundSomething=true;
 			}
 		}
 		for(var i = 0; i < rngA(2+irish);i++){
@@ -2005,6 +2028,28 @@ function checkItem() {
 					}
 				}
 				newElement2.innerHTML=">You found "+armorString+".";
+				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			if(this.foundAmmo){
+				var newElement2=document.createElement('p');
+				newElement2.class="speakable";
+				var ammoString="";
+				var ammoCount=0;
+				for(var i in this.ammoFound){
+					if(this.ammoFound[i]>0){
+						ammoCount++;
+					}
+				}
+				for(var i in this.ammoFound){
+					if(ammoCount==1){
+						ammoString+=this.ammoFound[i]+i+" ammo";
+					}else if(i == ammoCount-1){
+						ammoString+=this.ammoFound[i]+i+" ammo";
+					}else{
+						ammoString+=+this.ammoFound[i]+" "+i+" ammo and ";
+					}
+				}
+				newElement2.innerHTML=">You found "+ammoString+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 			if(this.foundCaps){
