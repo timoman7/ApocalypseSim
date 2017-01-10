@@ -439,7 +439,7 @@ var tick=function(n){
 			}
 		}
 	}
-	if(hunger<maxHunger*(0.15-(tpara*0.01))){
+	if(hunger<maxHunger*(0.15-(tPara*0.01))){
 		CurrentHealth--;
 	}
 	if(hunger>(maxHunger*(0.8-(tPara*0.05)))&&CurrentHealth<MaxedHealth && !(CurrentHealth+5 > MaxedHealth)){
