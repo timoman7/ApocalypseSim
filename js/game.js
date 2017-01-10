@@ -1818,7 +1818,7 @@ function checkItem() {
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<25+(irish*5)){
 				var newArmor=randomArmor();
-				addArmor(armorFound);
+				addArmor(newArmor);
 				this.foundSomething=true;
 				this.foundArmor=true;
 				this.armorFound.push(newArmor);
