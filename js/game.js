@@ -1690,6 +1690,8 @@ function checkItem() {
 		this.foundItems=[];
 		this.foundCaps=false;
 		this.capsFound=0;
+		this.armorFound=[];
+		this.foundArmor=false;
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<30+(irish*5)){
 				var disItem=giveRandomWeap();
@@ -1699,8 +1701,11 @@ function checkItem() {
 		}
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<25+(irish*5)){
-				addArmor(randomArmor());
+				var newArmor=randomArmor();
+				addArmor(armorFound);
 				this.foundSomething=true;
+				this.foundArmor=true;
+				this.armorFound.push(newArmor);
 			}
 		}
 		for(var i = 0; i < rngA(2+irish);i++){
@@ -1737,6 +1742,22 @@ function checkItem() {
 					}
 				}
 				newElement2.innerHTML=">You found "+itemsFound+".";
+				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			if(this.armorFound.length>0){
+				var newElement2=document.createElement('p');
+				newElement2.class="speakable";
+				var armorString="";
+				for(var i = 0;i<this.armorFound.length;i++){
+					if(this.armorFound.length==1){
+						armorString+=this.armorFound[i].name;
+					}else if(i<this.armorFound.length-1){
+						armorString+=this.armorFound[i].name;
+					}else{
+						armorString+=this.armorFound[i].name+" and ";
+					}
+				}
+				newElement2.innerHTML=">You found "+armorString+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 			if(this.foundCaps){
