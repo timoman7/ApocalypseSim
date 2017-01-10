@@ -2695,7 +2695,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 			}
 		}
-		if (prefix.toLowerCase() == "equip" && enterBattle == -1) {
+		if (prefix.toLowerCase() == "equip" && enterBattle == 0) {
 			if(parseInt(item)<playerInventory.capacity){
 				for (var i = 0; i < playerInventory.capacity; i++) {
 					if (parseInt(item.toLowerCase()) == i) {
@@ -2713,7 +2713,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
-		if(prefix.toLowerCase() == "food" && enterBattle !== -1) {
+		if(prefix.toLowerCase() == "food" && enterBattle == 0) {
 			var cmd=item.split(" ")[0];
 			if(cmd == "inventory"){
 				var newElement3=document.createElement('p');
@@ -2727,7 +2727,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				
 			}
 		}
-		if(prefix.toLowerCase() == "shop" && enterBattle !== -1 && canTrade){
+		if(prefix.toLowerCase() == "shop" && enterBattle == 0 && canTrade){
 			var cmd=item.split(" ")[0];
 			if(cmd == "inspect"){
 				var id=item.split(" ")[1];
@@ -2822,7 +2822,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
-		if(prefix.toLowerCase() == "armor" && enterBattle !== -1) {
+		if(prefix.toLowerCase() == "armor" && enterBattle == 0) {
 			var cmd=item.split(" ")[0];
 			if(cmd == "equip"){
 				equipArmor(item.split(" ")[1]);
