@@ -2043,10 +2043,12 @@ function checkItem() {
 				}
 				for(var i in this.ammoFound){
 					if(this.ammoFound[i]>0){
-						if(ammoCount==1){
+						if(ammoCount == 1){
 							ammoString+=this.ammoFound[i]+" "+i+" ammo";
+							console.log("a".ammoC);
 						}else if(ammoC == ammoCount-1){
 							ammoString+=this.ammoFound[i]+" "+i+" ammo";
+							console.log("b",ammoC);
 						}else{
 							ammoString+=+this.ammoFound[i]+" "+i+" ammo and ";
 						}
