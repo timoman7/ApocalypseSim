@@ -2616,25 +2616,25 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				newElement3.innerHTML=">Helmets......<br>";
 				for(var i=0;i<shopArmor.length;i++){
 					if(shopArmor[i].slot=="helmet"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+".<br>";
+						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
 					}
 				}
 				newElement3.innerHTML+=">Chestpiece......<br>";
 				for(var i=0;i<shopArmor.length;i++){
 					if(shopArmor[i].slot=="chest"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+".<br>";
+						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
 					}
 				}
 				newElement3.innerHTML+=">Pants......<br>";
 				for(var i=0;i<shopArmor.length;i++){
 					if(shopArmor[i].slot=="pants"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+".<br>";
+						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
 					}
 				}
 				newElement3.innerHTML+=">Boots......<br>";
 				for(var i=0;i<shopArmor.length;i++){
 					if(shopArmor[i].slot=="boots"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+".<br>";
+						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
 					}
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
