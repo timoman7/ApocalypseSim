@@ -1189,44 +1189,6 @@ var titaniumKey = false; {
 		    0:0,
 		    searched:0,
 	    };
-		/*
-            var itemGen = [];
-            for (var ii = 0; ii < 4; ii++) {
-		    //Label for init area INITREWORK
-                var rngWeap = rngA(100);
-                var abc = giveRandomWeap();
-                weapList.push(abc);
-                if (rngWeap < 20) {
-                    itemGen.push([abc, 1]);
-                } else {
-                    itemGen.push([0, 0]);
-                }
-                var ab = document.createElement('p');
-                var bc = document.createTextNode('>You took a ' + abc.name + ".");
-                var ab2 = document.createElement('p');
-                var bc2 = document.createTextNode('>You equipped ' + abc.name + ".");
-                var ab3 = document.createElement('p');
-                var bc3 = document.createTextNode('>You see a ' + abc.name + ".");
-                var ab4 = document.createElement('p');
-                var bc4 = document.createTextNode(">You don't have " + abc.name + ".");
-                ab.appendChild(bc);
-                ab.id = "message_takeItem" + abc.id;
-                //ab.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab);
-                ab2.appendChild(bc2);
-                ab2.id = "message_equipItem" + abc.id;
-                //ab2.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab2);
-                ab3.appendChild(bc3);
-                ab3.id = "message_item" + abc.id;
-                //ab3.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab3);
-                ab4.appendChild(bc4);
-                ab4.id = "message_noEquip" + abc.id;
-                //ab4.hidden=true;
-                document.getElementsByClassName('items')[0].appendChild(ab4);
-            }
-	    */
 		if (counter == rSpawn) {
 			roomGen[0]=100;
 		} else if (counter == merchSpawn) {
@@ -1240,13 +1202,13 @@ var titaniumKey = false; {
         }
         area.push(fixArea);
         fixArea = [];
-	for(var ii=0;ii<rngA(20);ii++){
-		shopInventory.push(giveRandomWeap());
-	}
-	for(var ii=0;ii<rngA(10);ii++){
-		shopArmor.push(randomArmor());
-	}
     }
+for(var ii=0;ii<rngA(20);ii++){
+	shopInventory.push(giveRandomWeap());
+}
+for(var ii=0;ii<rngA(10);ii++){
+	shopArmor.push(randomArmor());
+}
 var createNewArea=function(){
 	area=[];
 	shopInventory=[];
