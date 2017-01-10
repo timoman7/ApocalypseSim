@@ -114,6 +114,18 @@ var Armor=function(slot,material,attributes,defense,value,name){
 	this.attributes=attributes;
 	this.defense=defense;
 	this.value=value;
+	for(var i in this.defense){
+		this.value+=Math.floor(this.defense*10)*5;
+	}
+	if(this.attributes.includes("Warm")){
+		this.value+=15;
+	}
+	if(this.attributes.includes("Insulated")){
+		this.value+=20;
+	}
+	if(this.attributes.includes("Healing")){
+		this.value+=30;
+	}
 	this.name=name;
 	this.empty=false;
 	if(this.name=="None"){
@@ -155,7 +167,7 @@ function randomArmor(){
 	var defense=[];
 	for(var i=0;i<defenseList.length;i++){
 		var newDef=defenseList[i];
-		var defRes=constrain(Math.floor(random(-0.4,0.4)*10)/10,0,1);
+		var defRes=constrain(Math.floor(random(-0.4,0.4)*100)/100,0,1);
 		defense.push([newDef,defRes]);
 	}
 	var material=[];
@@ -240,14 +252,14 @@ function randomArmor(){
 	var newName = name + " " + newMatName + " " + type;
 	return new Armor(type,material,attributes,createDefense(defense),Math.floor(random(30,80)),newName);
 }
-var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0]),0,"None");
-var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0]),0,"None");
-var noPants=new Armor('pants',['none'],['none'],createDefense(["all",0]),0,"None");
-var noBoots=new Armor('boots',['none'],['none'],createDefense(["all",0]),0,"None");
-var vaultArmorHat=new Armor('helmet',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Hat");
-var vaultArmorChest=new Armor('chest',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Shirt");
-var vaultArmorPants=new Armor('pants',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Pants");
-var vaultArmorBoots=new Armor('boots',['cloth'],['Warm'],createDefense(["rad",0.05]),30,"Vault 42 Boots");
+var noHelmet=new Armor('helmet',['none'],['none'],createDefense(["all",0],["rad",0],["cold",0],["bllt",0],["fire",0],["exp",0]),0,"None");
+var noChest=new Armor('chest',['none'],['none'],createDefense(["all",0],["rad",0],["cold",0],["bllt",0],["fire",0],["exp",0]),0,"None");
+var noPants=new Armor('pants',['none'],['none'],createDefense(["all",0],["rad",0],["cold",0],["bllt",0],["fire",0],["exp",0]),0,"None");
+var noBoots=new Armor('boots',['none'],['none'],createDefense(["all",0],["rad",0],["cold",0],["bllt",0],["fire",0],["exp",0]),0,"None");
+var vaultArmorHat=new Armor('helmet',['cloth'],['Warm'],createDefense(["rad",0.05],["all",0],["cold",0.02],["fire",0.01],["bllt",0.02],["exp",0]),30,"Vault 42 Hat");
+var vaultArmorChest=new Armor('chest',['cloth'],['Warm'],createDefense(["rad",0.05],["all",0],["cold",0.02],["fire",0.01],["bllt",0.02],["exp",0]),30,"Vault 42 Shirt");
+var vaultArmorPants=new Armor('pants',['cloth'],['Warm'],createDefense(["rad",0.05],["all",0],["cold",0.02],["fire",0.01],["bllt",0.02],["exp",0]),30,"Vault 42 Pants");
+var vaultArmorBoots=new Armor('boots',['cloth'],['Warm'],createDefense(["rad",0.05],["all",0],["cold",0.02],["fire",0.01],["bllt",0.02],["exp",0]),30,"Vault 42 Boots");
 var equippedArmor={
 	helmet:noHelmet,
 	chest:noChest,
@@ -365,6 +377,40 @@ addArmor(vaultArmorHat);
 addArmor(vaultArmorChest);
 addArmor(vaultArmorPants);
 addArmor(vaultArmorBoots);
+/**
+*	Identify what armor user is wearing
+**/
+var playerRes={};
+function checkArmor(){
+	//Attributes
+	for(var res in playerRes){
+		playerRes[res]=0;
+	}
+	for(var slot in equippedArmor){
+		if(equippedArmor[slot].attributes.includes("Healing")){
+			CurrentHealth+=4;
+		}
+		for(var res in equippedArmor[slot].defense){
+			playerRes[res]+=equippedArmor[slot].defense[res]
+		}
+	}
+}
+function calculateDamage(incoming,resistance){
+	this.damageType=incoming.damageType;
+	this.damage=incoming.damage;
+	this.received=0;
+	this.resistance=resistance;
+	for(var i in resistance){
+		this.received+=(this.damage/this.damageType.length);
+		if(this.damageType.includes(i)){
+			this.received-=this.damage*(constrain(this.resistance[i],0,0.8)*1.5);
+		}
+	}
+	return this.received
+}
+/**
+*	Identify what armor user is wearing
+**/
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
@@ -514,6 +560,7 @@ var tick=function(n){
 	if(hunger<0){
 		hunger=0;
 	}
+	checkArmor();
 };
 //Move from room -5 hunger
 //Scavenge -8 hunger and 2 ticks
@@ -1078,6 +1125,7 @@ var titaniumKey = false; {
         defName: "Fist",
         value: 5,
         damage: 10,
+	damageType:["mel"],
         reloadSpeed: 1,
         magCap: 12,
         ammoType: "none",
@@ -1087,6 +1135,7 @@ var titaniumKey = false; {
         defName: "9MM Pistol",
         value: 15,
         damage: 30,
+	damageType:["bllt"],
         reloadSpeed: 1,
         magCap: 12,
         ammoType: "pistol",
@@ -1096,6 +1145,7 @@ var titaniumKey = false; {
         defName: "Shotgun",
         value: 35,
         damage: 25,
+	damageType:["bllt"],
         reloadSpeed: 0.8,
         magCap: 6,
         ammoType: "shotgun",
@@ -1105,6 +1155,7 @@ var titaniumKey = false; {
         defName: "SMG",
         value: 20,
         damage: 10,
+	damageType:["bllt"],
         reloadSpeed: 1.2,
         magCap: 32,
         ammoType: "smg",
@@ -1114,6 +1165,7 @@ var titaniumKey = false; {
         defName: "Nuke Launcher",
         value: 70,
         damage: 100,
+	damageType:["exp"],
         reloadSpeed: 0.5,
         magCap: 1,
         ammoType: "nuke",
@@ -1147,6 +1199,7 @@ var titaniumKey = false; {
         this.effect = effect === "Normal" ? "Normal" : effect;
         this.value = this.baseWeap.value;
         this.damage = this.baseWeap.damage;
+	this.damageType = this.baseWeap.damageType;
         this.type = this.baseWeap.type;
         this.magCap = this.baseWeap.magCap;
         this.ammoType = this.baseWeap.ammoType;
@@ -1156,13 +1209,16 @@ var titaniumKey = false; {
                 case "Incendiary":
                     this.damage = this.damage * 1.4;
                     this.value += 40;
+			this.damageType.push("fire");
                     break;
                 case "Cryo":
                     this.damage = this.damage * 1.3;
+			    this.damageType.push("cold");
                     this.value += 30;
                     break;
                 case "Radiant":
                     this.damage = this.damage * 1.2;
+			    this.damageType.push("rad");
                     this.value += 20;
                     break;
                 case "Blinding":
