@@ -696,13 +696,38 @@ function draw(){
 		           	}
 			}
 		}else{
-	       		for(var i=1;i<playerInventory.capacity;i++){
-	           		if(playerInventory[parseInt(item)].value){
-	               			currentCaps+=playerInventory[i].value;
-	               			remWeapon(parseInt(item));
-		               		sellCheck=true;
-		           	}
-	        	}
+			if(item.split(' ')[0]=='weapon'){
+				for(var i=1;i<playerInventory.capacity;i++){
+					if(playerInventory[parseInt(item.split(' ')[1])].value){
+						currentCaps+=playerInventory[i].value;
+						remWeapon(parseInt(item));
+						sellCheck=true;
+					}
+				}
+			}else if(item.split(' ')[0]=='armor'){
+				var slot=item.split(' ')[1].split('e')[0];
+				var id=item.split(' ')[1].split('e')[1];
+				var slotTrue='';
+				switch(slot){
+					case 'a':
+						slotTrue='helmet';
+						break;
+					case 'b':
+						slotTrue='chest';
+						break;
+					case 'c':
+						slotTrue='pants';
+						break;
+					case 'd':
+						slotTrue='boots';
+						break;
+				}
+				if(!armorInventory[slotTrue][id].empty){
+					currentCaps+=armorInventory[slotTrue][id].value;
+					removeArmor(item.split(' ')[1]);
+					sellCheck=true;
+				}
+			}
 		}
 	    }
 	    if(prefix.toLowerCase() === "buy" && !sellCheck){
