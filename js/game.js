@@ -426,11 +426,11 @@ function calculateDamage(incoming,resistance){
 	for(var i in resistance){
 		this.received+=(this.damage/this.damageType.length);
 		if(this.damageType.includes(i)){
-			this.received-=this.damage*(constrain(this.resistance[i],0,0.8)*1.5);
+			this.received-=this.damage*(constrain(this.resistance[i],0,0.4));
 		}
 	}
 	if(this.resistance.all>0){
-		this.receieved-=this.damage*(constrain(this.resistance.all,0,0.8)*1.5);
+		this.receieved-=this.damage*(constrain(this.resistance.all,0,0.4));
 	}
 	return this.received
 }
