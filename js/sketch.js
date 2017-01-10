@@ -395,6 +395,7 @@ function saveEvent(){
 			saveGame();
 		}else if(saveList.value()==="Load"){
 			loadGame();
+			loadGame();
 		}else if(saveList.value()==="Delete Data"){
 			removeGameData();
 		}
