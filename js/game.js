@@ -1867,7 +1867,7 @@ function checkItem() {
 				for(var i = 0;i<this.armorFound.length;i++){
 					if(this.armorFound.length==1){
 						armorString+=this.armorFound[i].name;
-					}else if(i<this.armorFound.length-1){
+					}else if(i == this.armorFound.length-1){
 						armorString+=this.armorFound[i].name;
 					}else{
 						armorString+=this.armorFound[i].name+" and ";
