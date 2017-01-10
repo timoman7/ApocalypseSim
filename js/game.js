@@ -1920,7 +1920,7 @@ function checkItem() {
 				}else if(irish==2){
 					irishMod=0.5;
 				}
-				this.capsFound+=(rngA(30)+1)*(1+(irishMod));
+				this.capsFound+=Math.floor((rngA(30)+1)*(1+(irishMod)));
 				this.foundCaps=true;
 			}
 		}
@@ -1966,6 +1966,7 @@ function checkItem() {
 			}
 			if(this.foundCaps){
 				var newElement2=document.createElement('p');
+				currentCaps+=this.capsFound;
 				newElement2.class="speakable";
 				newElement2.innerHTML=">You found "+this.capsFound+" Shekels.";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
