@@ -90,14 +90,14 @@ var rngA = function(n) {
 };
 //Creating armor
 var createDefense=function(){
-	def={};
+	var def={};
 	if(arguments.length>1){
 		for(var i=0;i<arguments.length;i++){
 			def[arguments[i][0]]=arguments[i][1];
 		}
 	}else{
 		for(var i=0;i<arguments[0].length;i++){
-			if(!def[arguments[0][i][0]]==arguments[0][i][0]){
+			if(def[arguments[0][i][0]]!==arguments[0][i][0]){
 				def[arguments[0][i][0]]=arguments[0][i][1];
 			}else{
 				def[arguments[0][i][0]]+=arguments[0][i][1];
