@@ -1077,6 +1077,21 @@ window.onkeydown = function(e) {
     if (e.keyCode == 8 && e.target == document.body) {
         e.preventDefault();
     }
+    if (e.keyCode == 17 && e.target == document.body) {
+        e.preventDefault();
+    }
+    if (e.keyCode == 18 && e.target == document.body) {
+        e.preventDefault();
+    }
+    if (e.keyCode == 93 && e.target == document.body) {
+        e.preventDefault();
+    }
+    if (e.keyCode == 91 && e.target == document.body) {
+        e.preventDefault();
+    }
+    if (e.keyCode == 16 && e.keyCode == 17 && e.keyCode == 74 && e.target == document.body) {
+        e.preventDefault();
+    }
 };
 var done = 0;
 {
