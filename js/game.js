@@ -2524,71 +2524,85 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                         }
                     }
                     if(prefix.toLowerCase() == "attack" && turn !== -1){
-                        if(item.toLowerCase() == ""){
-                            var tempRNG=rngA(100);
-                            if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
-				var newElement3=document.createElement('p');
-			    	newElement3.class="speakable";
-				if(Class == "Soldier"){
-					var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-	    				newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(newDamage*1.5)+" damage.";
+			if(item.toLowerCase() == ""){
+				if(ammo[equippedWeapon.ammoType]>0){
+					var tempRNG=rngA(100);
+					if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						if(Class == "Soldier"){
+							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(newDamage*1.5)+" damage.";
+						}else{
+							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
+						}
+						if(equippedWeapon.damage===undefined){
+							if(Class==="Soldier"){
+								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+								encounteredEnemy[1]-=Math.round(newDamage*1.5);
+							}else{
+								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+								encounteredEnemy[1]-=newDamage;
+							}
+						}else{
+							if(Class==="Soldier"){
+								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+								encounteredEnemy[1]-=Math.round(newDamage*1.5);
+							}else{
+								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+								encounteredEnemy[1]-=newDamage;
+							}
+						}
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						turn*=-1;
+					}else{
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						turn*=-1;
+					}
 				}else{
-					var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-					newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">You ran out of "+equippedWeapon.ammoType+" ammo.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 				}
-				    if(equippedWeapon.damage===undefined){
-					if(Class==="Soldier"){
-						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-						encounteredEnemy[1]-=Math.round(newDamage*1.5);
-					}else{
-						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-						encounteredEnemy[1]-=newDamage;
-					}
-				    }else{
-					if(Class==="Soldier"){
-				    		var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-						encounteredEnemy[1]-=Math.round(newDamage*1.5);
-					}else{
-						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-						encounteredEnemy[1]-=newDamage;
-					}
-				    }
-	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-                                turn*=-1;
-                            }else{
-				var newElement3=document.createElement('p');
-			    	newElement3.class="speakable";
-	    			newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
-	    			$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-                                turn*=-1;
-                            }
-                        }
+			}
                     }
 			
                     if(prefix.toLowerCase() == "burst" && turn !== -1){
 			    if(equippedWeapon.type.toLowerCase() == "smg"){
                         	if(item.toLowerCase() == "2" || item.toLowerCase() == "3" || item.toLowerCase() == "4" || item.toLowerCase() == "5" || item.toLowerCase() == "6"){
 					for(var smgLoop=0;smgLoop<parseInt(item.toLowerCase());smgLoop++){
-					    var tempRNG=rngA(100);
-					    if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
-						var newElement3=document.createElement('p');
-						newElement3.class="speakable";
-						if(Class == "Soldier"){
-							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(Math.round(newDamage*1.5))+" damage.";
-							encounteredEnemy[1]-=Math.round(newDamage*1.5);
+						if(ammo[equippedWeapon.ammoType]>0){
+							var tempRNG=rngA(100);
+							if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
+								var newElement3=document.createElement('p');
+								newElement3.class="speakable";
+								if(Class == "Soldier"){
+									var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+									newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(Math.round(newDamage*1.5))+" damage.";
+									encounteredEnemy[1]-=Math.round(newDamage*1.5);
+								}else{
+									var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+									newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
+									encounteredEnemy[1]-=newDamage;
+								}
+								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							}else{
+								var newElement3=document.createElement('p');
+								newElement3.class="speakable";
+								newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
+								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							}
 						}else{
-							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
-							encounteredEnemy[1]-=newDamage;
+							var newElement3=document.createElement('p');
+							newElement3.class="speakable";
+							newElement3.innerHTML=">You ran out of "+equippedWeapon.ammoType+" ammo.";
+							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						}
-						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-					    }else{
-						var newElement3=document.createElement('p');
-						newElement3.class="speakable";
-						newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
-						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-					    }
 					}
                                 	turn*=-1;
                         	}
@@ -2872,6 +2886,18 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
+		}
+		if(prefix.toLowerCase() == "ammo") {
+			var cmd=item.split(" ")[0];
+			if(cmd == "check"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				for(var i in ammo){
+					newElement3.innerHTML+=">"+i+" ammo: "+ammo[i]+".";
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			
 		}
 		if(prefix.toLowerCase() == "armor" && enterBattle == 0) {
 			var cmd=item.split(" ")[0];
