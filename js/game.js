@@ -762,6 +762,7 @@ var foodStuff={
 };
 
 function craft(parentObj,recipe){
+	var recipe = recipe.toLowerCase();
 	var pObj = {};
 	switch(parentObj){
 		case "ammo":
