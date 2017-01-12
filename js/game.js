@@ -771,6 +771,18 @@ function craft(parentObj,recipe){
 			pObj=foodStuff;
 			break;
 	}
+	for(var i in pObj[recipe].material){
+		if(parentObj == "food"){
+			if(pObj[recipe].material[i].amount<foodStuff[mat].amount){
+				return false;
+			}
+		}
+		if(parentObj == "ammo"){
+			if(pObj[recipe].material[i].amount<materialInventory[mat].amount){
+				return false;
+			}
+		}
+	}
 	for(var mat in pObj[recipe].material){
 		if(parentObj == "food"){
 			foodStuff[mat].amount-=pObj[recipe].material[mat].amount;
@@ -3197,7 +3209,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		if(prefix.toLowerCase() == "craft") {
 			var ctg=item.split(" ")[0];
 			if(ctg == "food" || ctg == "ammo"){
-				var itemToCraft;
+				var itemToCraft="";
 				if(item.split(" ").length>0){
 					if(item.split(" ").length>2){
 						for(var i=1;i<item.split(" ").length-1;i++){
