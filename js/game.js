@@ -3177,9 +3177,9 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						case "ammo":
 							cat = ammo;
 							break;
-					}
+					}A
 					if(cat[itemToCraft]){
-						var craftedItem = craft(cat,itemToCraft);
+						var craftedItem = craft(ctg,itemToCraft);
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
 						newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
