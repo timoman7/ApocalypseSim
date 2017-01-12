@@ -451,7 +451,7 @@ function calculateDamage(incoming,resistance){
 * Other materials: gunpowder, nails, screws
 * *plastic comes in casing form
 **/
-materialInventory={
+var materialInventory={
 	//Plate section
 	aluminum_plate:{
 		amount:0,
