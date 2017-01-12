@@ -3179,11 +3179,18 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 							break;
 					}
 					if(cat[itemToCraft]){
-						var craftedItem = craft(ctg,itemToCraft);
-						var newElement3=document.createElement('p');
-						newElement3.class="speakable";
-						newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
-						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						if(cat[itemToCraft].craftable){
+							var craftedItem = craft(ctg,itemToCraft);
+							var newElement3=document.createElement('p');
+							newElement3.class="speakable";
+							newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
+							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						}else{
+							var newElement3=document.createElement('p');
+							newElement3.class="speakable";
+							newElement3.innerHTML+=">Item is not craftable.";
+							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+						}
 					}else{
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
