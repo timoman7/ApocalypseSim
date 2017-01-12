@@ -2321,11 +2321,11 @@ function checkItem() {
 				for(var i in this.matFound){
 					if(this.matFound[i]>0){
 						if(matCount == 1){
-							matString+=this.matFound[i]+" "+materialInventory[this.matFound[i]].name;
+							matString+=this.matFound[i]+" "+materialInventory[i].name;
 						}else if(matC == matCount-1){
-							matString+=this.matFound[i]+" "+materialInventory[this.matFound[i]].name;
+							matString+=this.matFound[i]+" "+materialInventory[i].name;
 						}else{
-							matString+=+this.matFound[i]+" "+materialInventory[this.matFound[i]].name+" and ";
+							matString+=+this.matFound[i]+" "+materialInventory[i].name+" and ";
 						}
 						matC++;
 					}
