@@ -739,8 +739,8 @@ var foodStuff={
 		buyPrice:30,
 		craftable:false,
 	},
-	cabbageTomatoStew:{
-		dictName:"cabbageTomatoStew",
+	cabbage_tomato_stew:{
+		dictName:"cabbage_tomato_stew",
 		hungerRestored:24,
 		amount:0,
 		name:"Cabbage Tomato stew",
