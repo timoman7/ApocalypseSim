@@ -3234,12 +3234,12 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 							if(craftedItem){
 								var newElement3=document.createElement('p');
 								newElement3.class="speakable";
-								newElement3.innerHTML+=">Not enough materials.";
+								newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
 								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 							}else{
 								var newElement3=document.createElement('p');
 								newElement3.class="speakable";
-								newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
+								newElement3.innerHTML+=">Not enough materials.";
 								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 							}
 						}else{
