@@ -3095,4 +3095,4 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
         });
     });
 }
-}
+}();
