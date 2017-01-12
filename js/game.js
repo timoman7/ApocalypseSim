@@ -2173,6 +2173,8 @@ function checkItem() {
 		this.foundArmor=false;
 		this.ammoFound=clone(ammoTypes);
 		this.foundAmmo=false;
+		this.foundMat=false
+		this.matFound=[];
 		for(var i = 0; i < rngA(4+irish); i++){
 			if(rngA(100)<30+(irish*5)){
 				if(!overEncumberedItem){
@@ -2200,6 +2202,16 @@ function checkItem() {
 				ammo[newAmmo].amount+=j;
 				this.ammoFound[newAmmo]=j;
 				this.foundAmmo=true;
+				this.foundSomething=true;
+			}
+		}
+		for(var i = 0; i < rngA(4+irish); i++){
+			if(rngA(100)<30+(irish*5)){
+				var newMat = randomPName(materialInventory);
+				var j=rngA(3)+1;
+				materialInventory[newMat].amount+=j;
+				this.matFound[newMat]=j;
+				this.foundMat=true;
 				this.foundSomething=true;
 			}
 		}
@@ -2281,6 +2293,32 @@ function checkItem() {
 					}
 				}
 				newElement2.innerHTML=">You found "+ammoString+".";
+				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			if(this.foundMat){
+				var newElement2=document.createElement('p');
+				newElement2.class="speakable";
+				var matString="";
+				var matCount=0;
+				var matC=0;
+				for(var i in this.matFound){
+					if(this.matFound[i]>0){
+						matCount++;
+					}
+				}
+				for(var i in this.matFound){
+					if(this.matFound[i]>0){
+						if(matCount == 1){
+							matString+=this.matFound[i]+" "+materialInventory[this.matFound[i]].name;
+						}else if(matC == matCount-1){
+							matString+=this.matFound[i]+" "+materialInventory[this.matFound[i]].name;
+						}else{
+							matString+=+this.matFound[i]+" "+materialInventory[this.matFound[i]].name+" and ";
+						}
+						matC++;
+					}
+				}
+				newElement2.innerHTML=">You found "+matString+".";
 				$(newElement2).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 			if(this.foundCaps){
