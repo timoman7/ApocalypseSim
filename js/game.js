@@ -2902,7 +2902,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "inspect"){
 				var slot;
-				if(item.split(" ")[1].includes("e"){
+				if(item.split(" ")[1].includes("e")){
 					switch(item.split(" ")[1].split("e")[0]){
 						case "a":
 							slot="helmet";
