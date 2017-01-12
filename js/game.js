@@ -2441,6 +2441,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.Class=Class;
 		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
+		gameData.materialInventory=materialInventory;
 		gameData.maxHunger=maxHunger;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -2480,6 +2481,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.Class=Class;
 		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
+		gameData.materialInventory=materialInventory;
 		gameData.maxHunger=maxHunger;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -2533,6 +2535,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		Class=loadData.Class;
 		equippedArmor=loadData.equippedArmor;
 		armorInventory=loadData.armorInventory;
+		materialInventory=loadData.materialInventory;
 		maxHunger=loadData.maxHunger;
         }else{
             alert("No save data available.");
