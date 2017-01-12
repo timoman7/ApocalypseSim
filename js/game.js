@@ -773,22 +773,22 @@ function craft(parentObj,recipe){
 	}
 	for(var i in pObj[recipe].material){
 		if(parentObj == "food"){
-			if(pObj[recipe].material[i].amount<foodStuff[i].amount){
+			if(pObj[recipe].material.amount>foodStuff[i].amount){
 				return false;
 			}
 		}
 		if(parentObj == "ammo"){
-			if(pObj[recipe].material[i].amount<materialInventory[i].amount){
+			if(pObj[recipe].material.amount>materialInventory[i].amount){
 				return false;
 			}
 		}
 	}
 	for(var mat in pObj[recipe].material){
 		if(parentObj == "food"){
-			foodStuff[mat].amount-=pObj[recipe].material[mat].amount;
+			foodStuff[mat].amount-=pObj[recipe].material[mat];
 		}
 		if(parentObj == "ammo"){
-			materialInventory[mat].amount-=pObj[recipe].material[mat].amount;
+			materialInventory[mat].amount-=pObj[recipe].material[mat];
 		}
 	}
 	pObj[recipe].amount+=pObj[recipe].craftOutput;
