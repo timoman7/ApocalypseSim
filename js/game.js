@@ -2893,7 +2893,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
 				for(var i in ammo){
-					newElement3.innerHTML+=">"+i+" ammo: "+ammo[i]+".";
+					newElement3.innerHTML+=">"+i+" ammo: "+ammo[i]+".<br>";
 				}
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
