@@ -773,12 +773,12 @@ function craft(parentObj,recipe){
 	}
 	for(var i in pObj[recipe].material){
 		if(parentObj == "food"){
-			if(pObj[recipe].material[i].amount<foodStuff[mat].amount){
+			if(pObj[recipe].material[i].amount<foodStuff[i].amount){
 				return false;
 			}
 		}
 		if(parentObj == "ammo"){
-			if(pObj[recipe].material[i].amount<materialInventory[mat].amount){
+			if(pObj[recipe].material[i].amount<materialInventory[i].amount){
 				return false;
 			}
 		}
@@ -3231,10 +3231,17 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					if(cat[itemToCraft]){
 						if(cat[itemToCraft].craftable){
 							var craftedItem = craft(ctg,itemToCraft);
-							var newElement3=document.createElement('p');
-							newElement3.class="speakable";
-							newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
-							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							if(craftedItem){
+								var newElement3=document.createElement('p');
+								newElement3.class="speakable";
+								newElement3.innerHTML+=">Not enough materials.";
+								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							}else{
+								var newElement3=document.createElement('p');
+								newElement3.class="speakable";
+								newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
+								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							}
 						}else{
 							var newElement3=document.createElement('p');
 							newElement3.class="speakable";
