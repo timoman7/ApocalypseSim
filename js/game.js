@@ -1,5 +1,6 @@
 //Add attachment system to weapons
 //Allow attachments and modifications to be made in cdf
+//Scavenge for crafting materials eg. metal plate, plastic, rubber, ceramic, cloth, glass, wood, nails, screws
 //cdf will function as a farm and a "home"
 /**
 *	Define non-native functions
@@ -441,6 +442,138 @@ function calculateDamage(incoming,resistance){
 /**
 *	Identify what armor user is wearing
 **/
+
+
+/**
+* Metal types: aluminum, steel, brass, copper
+* Metal states: plate, casing, rod, wire
+* Common materials: paper, rubber, *plastic, string, cloth
+* Other materials: gunpowder, nails, screws
+* *plastic comes in casing form
+**/
+materialInventory={
+	//Plate section
+	aluminum_plate:{
+		amount:0,
+		name:"Aluminum plate",
+	},
+	steel_plate:{
+		amount:0,
+		name:"Steel plate",
+	},
+	brass_plate:{
+		amount:0,
+		name:"Brass plate",
+	},
+	copper_plate:{
+		amount:0,
+		name:"Copper plate",
+	},
+	//Casing section
+	aluminum_casing:{
+		amount:0,
+		name:"Aluminum casing",
+	},
+	steel_casing:{
+		amount:0,
+		name:"Steel casing",
+	},
+	brass_casing:{
+		amount:0,
+		name:"Brass casing",
+	},
+	copper_casing:{
+		amount:0,
+		name:"Copper casing",
+	},
+	plastic_casing:{
+		amount:0,
+		name:"Plastic casing",
+	},
+	//Rod section
+	aluminum_rod:{
+		amount:0,
+		name:"Aluminum rod",
+	},
+	steel_rod:{
+		amount:0,
+		name:"Steel rod",
+	},
+	brass_rod:{
+		amount:0,
+		name:"Brass rod",
+	},
+	copper_rod:{
+		amount:0,
+		name:"Copper rod",
+	},
+	//Wire section
+	aluminum_wire:{
+		amount:0,
+		name:"Aluminum wire",
+	},
+	steel_wire:{
+		amount:0,
+		name:"Steel wire",
+	},
+	brass_wire:{
+		amount:0,
+		name:"Brass wire",
+	},
+	copper_wire:{
+		amount:0,
+		name:"Copper wire",
+	},
+	//Common materials
+	paper:{
+		amount:0,
+		name:"Paper",
+	},
+	rubber:{
+		amount:0,
+		name:"Rubber",
+	},
+	plastic:{
+		amount:0,
+		name:"Plastic",
+	},
+	string:{
+		amount:0,
+		name:"String",
+	},
+	cloth:{
+		amount:0,
+		name:"Cloth",
+	},
+	ceramic:{
+		amount:0,
+		name:"Ceramic",
+	},
+	wood:{
+		amount:0,
+		name:"Wood",
+	},
+	glass:{
+		amount:0,
+		name:"Glass",
+	},
+	//Other materials
+	gunpowder:{
+		amount:0,
+		name:"Gunpowder",
+	},
+	nails:{
+		amount:0,
+		name:"Nails",
+	},
+	screws:{
+		amount:0,
+		name:"Screws",
+	},
+};
+/**
+* Scavenge for crafting materials eg. metal plate, plastic, rubber, ceramic, cloth, glass, wood, nails, screws
+**/
 //cdf = cross-dimensional farm
 //Add plants: harvested, timeToGrow in ticks, chance to drop more than 1 seed
 //1 tick = moving 1 tile
@@ -459,10 +592,40 @@ var ammoTypes={
 	shotgun:0,
 };
 var ammo={
-	pistol:0,
-	nuke:0,
-	smg:0,
-	shotgun:0,
+	pistol:{
+		amount:0,
+		material:{
+			gunpowder:5,
+			brass_casing:5,
+		},
+		craftOutput:5,
+	},
+	nuke:{
+		amount:0,
+		material:{
+			gunpowder:20,
+			steel_plate:4,
+		},
+		craftOutput:1,
+	},
+	smg:{
+		amount:0,
+		material:{
+			gunpowder:4,
+			brass_casing:8,
+		},
+		craftOutput:8,
+	},
+	shotgun:{
+		amount:0,
+		material:{
+			gunpowder:6,
+			plastic_casing:4,
+			aluminum_plate:4,
+			nails:8,
+		},
+		craftOutput:4,
+	},
 };
 var foodStuff={
 	potato:{
@@ -485,9 +648,9 @@ var foodStuff={
 			three:10,
 		},
 		timeToGrow:5,
-		
 		sellPrice:10,
 		buyPrice:20,
+		craftable:false,
 	},
 	tomato:{
 		dictName:"tomato",
@@ -511,6 +674,7 @@ var foodStuff={
 		timeToGrow:3,
 		sellPrice:5,
 		buyPrice:10,
+		craftable:false,
 	},
 	corn:{
 		dictName:"corn",
@@ -534,6 +698,7 @@ var foodStuff={
 		timeToGrow:3,
 		sellPrice:8,
 		buyPrice:15,
+		craftable:false,
 	},
 	cabbage:{
 		dictName:"cabbage",
@@ -557,6 +722,7 @@ var foodStuff={
 		timeToGrow:6,
 		sellPrice:13,
 		buyPrice:20,
+		craftable:false,
 	},
 	genericFrozenMeal:{
 		dictName:"genericFrozenMeal",
@@ -571,8 +737,51 @@ var foodStuff={
 		},
 		sellPrice:20,
 		buyPrice:30,
+		craftable:false,
+	},
+	cabbageTomatoStew:{
+		dictName:"cabbageTomatoStew",
+		hungerRestored:24,
+		amount:0,
+		name:"Cabbage Tomato stew",
+		plantable:false,
+		chanceToFind:{
+			one:0,
+			two:0,
+			three:0,
+		},
+		sellPrice:15,
+		buyPrice:30,
+		craftable:true,
+		material:{
+			cabbage:3,
+			tomato:3,
+		},
+		craftOutput:1,
 	},
 };
+
+function craft(parentObj,recipe){
+	var pObj = {};
+	switch(parentObj){
+		case "ammo":
+			pObj=ammo;
+			break;
+		case "food":
+			pObj=foodStuff;
+			break;
+	}
+	for(var mat in pObj[recipe].material){
+		if(parentObj == "food"){
+			foodStuff[mat].amount-=pObj[recipe].material[mat].amount;
+		}
+		if(parentObj == "ammo"){
+			materialInventory[mat].amount-=pObj[recipe].material[mat].amount;
+		}
+	}
+	pObj[recipe].amount+=pObj[recipe].craftOutput;
+	return {amount:pObj[recipe].craftOutput,name:pObj[recipe].name};
+}
 var tick=function(n){
 	if(hunger>0){
 		hunger-=n;
@@ -604,19 +813,6 @@ var tick=function(n){
 //Perk to add, explosive exploitation
 //Luck o' the Irish, find 7% more caps, tier 2: 20% more likely to find potato
 var perkTree={
-	charisma:{
-		silverTounge:{
-			tier1:{
-				description:"Silver Tounge: Tier 1",
-				title:"Buy and sell prices are better.",
-				name:"Silver Tounge",
-				id:"slickTalker",
-				has:false,
-				levelReq: 4,
-				req:3,
-			},
-		},
-	},
 	strength:{
 		banePerk:{
 			tier1:{
@@ -628,42 +824,64 @@ var perkTree={
 				levelReq: 4,
 				req:3,
 			},
+			tier2:{
+				description:"Strongman: Tier 2",
+				title:"Melee attacks deal 40% more damage.",
+				name:"Strongman",
+				id:"strongMan",
+				has:false,
+				levelReq: 7,
+				req:5,
+			},
 		},
 		
 	},
-	agility:{
-		triggerFinger:{
+	perception:{
+		fourEyes:{
 			tier1:{
-				description:"Trigger Finger: Tier 1",
-				title:"Fire twice instead of once when attacking.",
-				name:"Trigger Finger",
-				id:"trigF",
+				description:"Four-Eyes: Tier 1",
+				title:"Able to search an area twice.",
+				name:"Four-Eyes",
+				id:"fourI",
 				has:false,
 				levelReq: 4,
 				req:3,
 			},
-		},
-		
-	},
-	luck:{
-		luckIrish:{
-			tier1:{
-				description:"Luck o' The Irish: Tier 1",
-				title:"Find 20% more caps, and find items more often.",
-				name:"Luck o' The Irish",
-				id:"lIrish",
-				has:false,
-				levelReq: 6,
-				req:5,
-			},
 			tier2:{
-				description:"Luck o' The Irish: Tier 2",
-				title:"Find 50% more caps, and find items more often.",
-				name:"Luck o' The Irish",
-				id:"lIrish",
+				description:"Four-Eyes: Tier 2",
+				title:"Able to search an area thrice.",
+				name:"Four-Eyes",
+				id:"fourI",
 				has:false,
-				levelReq: 10,
+				levelReq: 5,
+				req:4,
+			},
+			tier3:{
+				description:"Four-Eyes: Tier 3",
+				title:"Able to search an area 4 times.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 7,
 				req:6,
+			},
+			tier4:{
+				description:"Four-Eyes: Tier 4",
+				title:"Able to search an area 5 times.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 9,
+				req:8,
+			},
+			tier5:{
+				description:"Four-Eyes: Tier 5",
+				title:"Able to search an area 6 times.",
+				name:"Four-Eyes",
+				id:"fourI",
+				has:false,
+				levelReq: 11,
+				req:10,
 			},
 		},
 		
@@ -719,55 +937,18 @@ var perkTree={
 			},
 		},
 	},
-	perception:{
-		fourEyes:{
+	charisma:{
+		silverTounge:{
 			tier1:{
-				description:"Four-Eyes: Tier 1",
-				title:"Able to search an area twice.",
-				name:"Four-Eyes",
-				id:"fourI",
+				description:"Silver Tounge: Tier 1",
+				title:"Buy and sell prices are better.",
+				name:"Silver Tounge",
+				id:"slickTalker",
 				has:false,
 				levelReq: 4,
 				req:3,
 			},
-			tier2:{
-				description:"Four-Eyes: Tier 2",
-				title:"Able to search an area thrice.",
-				name:"Four-Eyes",
-				id:"fourI",
-				has:false,
-				levelReq: 5,
-				req:4,
-			},
-			tier3:{
-				description:"Four-Eyes: Tier 3",
-				title:"Able to search an area 4 times.",
-				name:"Four-Eyes",
-				id:"fourI",
-				has:false,
-				levelReq: 7,
-				req:6,
-			},
-			tier4:{
-				description:"Four-Eyes: Tier 4",
-				title:"Able to search an area 5 times.",
-				name:"Four-Eyes",
-				id:"fourI",
-				has:false,
-				levelReq: 9,
-				req:8,
-			},
-			tier5:{
-				description:"Four-Eyes: Tier 5",
-				title:"Able to search an area 6 times.",
-				name:"Four-Eyes",
-				id:"fourI",
-				has:false,
-				levelReq: 11,
-				req:10,
-			},
 		},
-		
 	},
 	intelligence:{
 		allA:{
@@ -782,16 +963,55 @@ var perkTree={
 			},
 		},
 		
-	}
+	},
+	agility:{
+		triggerFinger:{
+			tier1:{
+				description:"Trigger Finger: Tier 1",
+				title:"Fire twice instead of once when attacking.",
+				name:"Trigger Finger",
+				id:"trigF",
+				has:false,
+				levelReq: 4,
+				req:3,
+			},
+		},
+		
+	},
+	luck:{
+		luckIrish:{
+			tier1:{
+				description:"Luck o' The Irish: Tier 1",
+				title:"Find 20% more caps, and find items more often.",
+				name:"Luck o' The Irish",
+				id:"lIrish",
+				has:false,
+				levelReq: 6,
+				req:5,
+			},
+			tier2:{
+				description:"Luck o' The Irish: Tier 2",
+				title:"Find 50% more caps, and find items more often.",
+				name:"Luck o' The Irish",
+				id:"lIrish",
+				has:false,
+				levelReq: 10,
+				req:6,
+			},
+		},
+		
+	},
 };
 var checkPerk=function(statName,perkName,tierNum){
 	var ret = perkTree[statName][perkName]["tier"+tierNum];
 	return ret;
 };
+var strongM=0;
 setInterval(function(){
 	irish=0;
 	fourI=0;
 	tPara=0;
+	strongM=0;
 	for(var i in perkTree["luck"]["luckIrish"]){
 		if(checkPerk("luck","luckIrish",i.split("tier")[1]).has){
 			irish++;
@@ -805,6 +1025,11 @@ setInterval(function(){
 	for(var i in perkTree["endurance"]["timParadox"]){
 		if(checkPerk("endurance","timParadox",i.split("tier")[1]).has){
 			tPara++;
+		}
+	}
+	for(var i in perkTree["strength"]["banePerk"]){
+		if(checkPerk("strength","banePerk",i.split("tier")[1]).has){
+			strongM++;
 		}
 	}
 	var totalItems=0;
@@ -1972,7 +2197,7 @@ function checkItem() {
 			if(rngA(100)<35+(irish*5)){
 				var newAmmo = randomPName(ammoTypes);
 				var j=rngA(20)+1;
-				ammo[newAmmo]+=j;
+				ammo[newAmmo].amount+=j;
 				this.ammoFound[newAmmo]=j;
 				this.foundAmmo=true;
 				this.foundSomething=true;
@@ -2525,35 +2750,61 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                     }
                     if(prefix.toLowerCase() == "attack" && turn !== -1){
 			if(item.toLowerCase() == ""){
-				if(ammo[equippedWeapon.ammoType]>0){
+				if(equippedWeapon.type !== "Melee"){
+					if(ammo[equippedWeapon.ammoType].amount>0){
+						var tempRNG=rngA(100);
+						if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
+							ammo[equippedWeapon.ammoType].amount--;
+							var newElement3=document.createElement('p');
+							newElement3.class="speakable";
+							if(Class == "Soldier"){
+								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+								newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(newDamage*1.5)+" damage.";
+							}else{
+								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+								newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
+							}
+							if(equippedWeapon.damage===undefined){
+								if(Class==="Soldier"){
+									var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+									encounteredEnemy[1]-=Math.round(newDamage*1.5);
+								}else{
+									var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+									encounteredEnemy[1]-=newDamage;
+								}
+							}else{
+								if(Class==="Soldier"){
+									var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+									encounteredEnemy[1]-=Math.round(newDamage*1.5);
+								}else{
+									var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+									encounteredEnemy[1]-=newDamage;
+								}
+							}
+							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							turn*=-1;
+						}else{
+							var newElement3=document.createElement('p');
+							newElement3.class="speakable";
+							newElement3.innerHTML=">You missed the "+encounteredEnemy[0]+".";
+							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+							turn*=-1;
+						}
+
+					}else{
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You ran out of "+equippedWeapon.ammoType+" ammo.";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					}
+				}else{
 					var tempRNG=rngA(100);
 					if(tempRNG<=encounteredEnemy[3]+BaseL.valueAsNumber){
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
-						if(Class == "Soldier"){
-							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+(newDamage*1.5)+" damage.";
-						}else{
-							var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-							newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+newDamage+" damage.";
-						}
-						if(equippedWeapon.damage===undefined){
-							if(Class==="Soldier"){
-								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-								encounteredEnemy[1]-=Math.round(newDamage*1.5);
-							}else{
-								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-								encounteredEnemy[1]-=newDamage;
-							}
-						}else{
-							if(Class==="Soldier"){
-								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-								encounteredEnemy[1]-=Math.round(newDamage*1.5);
-							}else{
-								var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
-								encounteredEnemy[1]-=newDamage;
-							}
-						}
+						var newDamage=calculateDamage(equippedWeapon,calcRes(encounteredEnemy.defense));
+						newElement3.innerHTML=">You hit the "+encounteredEnemy[0]+" for "+Math.round(newDamage*(1+(strongM/5)))+" damage.";
+						encounteredEnemy[1]-=Math.round(newDamage*(1+(strongM/5)));
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						turn*=-1;
 					}else{
@@ -2563,11 +2814,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						turn*=-1;
 					}
-				}else{
-					var newElement3=document.createElement('p');
-					newElement3.class="speakable";
-					newElement3.innerHTML=">You ran out of "+equippedWeapon.ammoType+" ammo.";
-					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 				}
 			}
                     }
@@ -2576,7 +2822,8 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			    if(equippedWeapon.type.toLowerCase() == "smg"){
                         	if(item.toLowerCase() == "2" || item.toLowerCase() == "3" || item.toLowerCase() == "4" || item.toLowerCase() == "5" || item.toLowerCase() == "6"){
 					for(var smgLoop=0;smgLoop<parseInt(item.toLowerCase());smgLoop++){
-						if(ammo[equippedWeapon.ammoType]>0){
+						if(ammo[equippedWeapon.ammoType].amount>0){
+							ammo[equippedWeapon.ammoType].amount--;
 							var tempRNG=rngA(100);
 							if(tempRNG<=(encounteredEnemy[3]+BaseL.valueAsNumber)-(parseInt(item.toLowerCase())*2)){
 								var newElement3=document.createElement('p');
@@ -2887,14 +3134,74 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
+		    //AMMOCHECK
 		if(prefix.toLowerCase() == "ammo") {
 			var cmd=item.split(" ")[0];
 			if(cmd == "check"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
+				newElement3.innerHTML+=">----------------<br>";
 				for(var i in ammo){
-					newElement3.innerHTML+=">"+i+" ammo: "+ammo[i]+".<br>";
+					newElement3.innerHTML+=">"+i+" ammo:<br>>\t\tAmount: "+ammo[i].amount+".<br>>\t\tMaterials:<br>";
+					for(var j in ammo[i].material){
+						var matName=materialInventory[j].name;
+						newElement3.innerHTML+=">\t\t\t\t"+matName+": "+ammo[i].material[j]+".<br>";
+					}
+					newElement3.innerHTML+=">----------------<br>";
 				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			
+		}
+		if(prefix.toLowerCase() == "craft") {
+			var ctg=item.split(" ")[0];
+			if(ctg == "food" || ctg == "ammo"){
+				var itemToCraft;
+				if(item.split(" ").length>0){
+					if(item.split(" ").length>2){
+						for(var i=1;i<item.split(" ").length-1;i++){
+							itemToCraft += item.split(" ")[i]+"_";
+						}
+						itemToCraft += item.split(" ")[item.split(" ").length-1];
+					}else{
+						itemToCraft = item.split(" ")[1];
+					}
+					var cat = {};
+					switch(ctg){
+						case "food":
+							cat = foodStuff;
+							break;
+						case "ammo":
+							cat = ammo;
+							break;
+					}
+					if(cat[itemToCraft]){
+						var craftedItem = craft(cat,itemToCraft);
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					}else{
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML+=">Invalid item";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					}
+				}else{
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML+=">Specify an item to craft.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				}
+			}else if(ctg == "help"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML+=">Valid catagories:<br>>\t\tfood<br>>\t\tammo";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else{
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML+=">Invalid catagory";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 			
