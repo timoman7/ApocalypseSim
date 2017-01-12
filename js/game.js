@@ -4,7 +4,6 @@
 /**
 *	Define non-native functions
 **/
-(function(){
 var seeded = false;
 var lcg = function() {
   // Set to values from http://en.wikipedia.org/wiki/Numerical_Recipes
@@ -3095,4 +3094,3 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
         });
     });
 }
-})();
