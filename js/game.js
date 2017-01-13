@@ -456,78 +456,195 @@ var materialInventory={
 	aluminum_plate:{
 		amount:0,
 		name:"Aluminum plate",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			aluminum:2,
+		},
 	},
 	steel_plate:{
 		amount:0,
 		name:"Steel plate",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			steel:2,
+		},
 	},
 	brass_plate:{
 		amount:0,
 		name:"Brass plate",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			brass:2,
+		},
 	},
 	copper_plate:{
 		amount:0,
 		name:"Copper plate",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			copper:2,
+		},
 	},
 	//Casing section
 	aluminum_casing:{
 		amount:0,
 		name:"Aluminum casing",
+		craftable:true,
+		craftOutput:2,
+		material:{
+			aluminum_plate:1,
+		},
 	},
 	steel_casing:{
 		amount:0,
 		name:"Steel casing",
+		craftable:true,
+		craftOutput:2,
+		material:{
+			steel_plate:1,
+		},
 	},
 	brass_casing:{
 		amount:0,
 		name:"Brass casing",
+		craftable:true,
+		craftOutput:2,
+		material:{
+			brass_plate:1,
+		},
 	},
 	copper_casing:{
 		amount:0,
 		name:"Copper casing",
+		craftable:true,
+		craftOutput:2,
+		material:{
+			copper_plate:1,
+		},
 	},
 	plastic_casing:{
 		amount:0,
 		name:"Plastic casing",
+		craftable:true,
+		craftOutput:2,
+		material:{
+			plastic:1,
+		},
 	},
 	//Rod section
 	aluminum_rod:{
 		amount:0,
 		name:"Aluminum rod",
+		craftable:true,
+		craftOutput:1,
+		material:{
+			aluminum:2,
+		},
 	},
 	steel_rod:{
 		amount:0,
 		name:"Steel rod",
+		craftable:true,
+		craftOutput:1,
+		material:{
+			steel:2,
+		},
 	},
 	brass_rod:{
 		amount:0,
 		name:"Brass rod",
+		craftable:true,
+		craftOutput:1,
+		material:{
+			brass:2,
+		},
 	},
 	copper_rod:{
 		amount:0,
 		name:"Copper rod",
+		craftable:true,
+		craftOutput:1,
+		material:{
+			copper:2,
+		},
 	},
 	//Wire section
 	aluminum_wire:{
 		amount:0,
 		name:"Aluminum wire",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			aluminum:1,
+		},
 	},
 	steel_wire:{
 		amount:0,
 		name:"Steel wire",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			steel:1,
+		},
 	},
 	brass_wire:{
 		amount:0,
 		name:"Brass wire",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			brass:1,
+		},
 	},
 	copper_wire:{
 		amount:0,
 		name:"Copper wire",
+		craftable:true,
+		craftOutput:3,
+		material:{
+			copper:1,
+		},
+	},
+	//Metal
+	aluminum:{
+		amount:0,
+		name:"Aluminum",
+	},
+	steel:{
+		amount:0,
+		name:"Steel",
+	},
+	brass:{
+		amount:0,
+		name:"Brass",
+	},
+	copper:{
+		amount:0,
+		name:"Copper",
 	},
 	//Common materials
 	paper:{
 		amount:0,
 		name:"Paper",
+		craftable:true,
+		craftOutput:8,
+		material:{
+			wood:1,
+		},
+	},
+	stick:{
+		amount:),
+		name:"Stick",
+		
+		craftable:true,
+		craftOutput:2,
+		material:{
+			wood:1,
+		},
 	},
 	rubber:{
 		amount:0,
