@@ -865,6 +865,7 @@ var foodStuff={
 	},
 	cabbage_tomato_stew:{
 		dictName:"cabbage_tomato_stew",
+		abbr:"cts",
 		hungerRestored:24,
 		amount:0,
 		name:"Cabbage Tomato stew",
@@ -3213,18 +3214,30 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
-		if(prefix.toLowerCase() == "food" && enterBattle == 0) {
+		if(prefix.toLowerCase() == "food") {
 			var cmd=item.split(" ")[0];
 			if(cmd == "inventory"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
+				newElement3.innerHTML+=">----------------<br>";
 				for(var i in foodStuff){
-					if(foodStuff[i].amount>0){
-						newElement3.innerHTML+=">"+foodStuff[i].name+"<br>>\t\tAmount: "+foodStuff[i].amount+"<br>>\t\tHunger restored: "+foodStuff[i].hungerRestored+"<br>>-------<br>";
+					if(foodStuff[i].craftable || foodStuff[i].amount>0){
+						newElement3.innerHTML+=">"+foodStuff[i].name+"<br>>\t\tAmount: "+foodStuff[i].amount+"<br>>\t\tHunger restored: "+foodStuff[i].hungerRestored;
+						if(foodStuff[i].abbr){
+							newElement3.innerHTML+="<br>>\t\tAbbreviation:"+foodStuff[i].abbr+"<br>";
+						}
+						if(foodStuff[i].craftable){
+							newElement3.innerHTML+="<br>>\t\tIngredients:<br>";
+							for(var j in foodStuff[i].material){
+								var matName=foodStuff[j].name;
+								newElement3.innerHTML+=">\t\t\t\t"+matName+": "+foodStuff[i].material[j]+".<br>";
+							}
+						}else{
+							newElement3.innerHTML+="<br>";	
+						}
+						newElement3.innerHTML+=">----------------<br>";
 					}
 				}
-				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
-				
 			}
 		}
 		if(prefix.toLowerCase() == "shop" && enterBattle == 0 && canTrade){
@@ -3380,6 +3393,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						itemToCraft = item.split(" ")[1];
 					}
 					var cat = {};
+					
 					switch(ctg){
 						case "food":
 							cat = foodStuff;
@@ -3390,6 +3404,13 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						case "material":
 							cat = materialInventory;
 							break;
+					}
+					for(var i in cat){
+						if(cat[i].abbr){
+							if(cat[i].abbr == itemToCraft){
+								itemToCraft=i;
+							}
+						}
 					}
 					if(cat[itemToCraft]){
 						if(cat[itemToCraft].craftable){
