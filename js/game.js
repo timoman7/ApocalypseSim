@@ -3224,7 +3224,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 					if(foodStuff[i].craftable || foodStuff[i].amount>0){
 						newElement3.innerHTML+=">"+foodStuff[i].name+"<br>>\t\tAmount: "+foodStuff[i].amount+"<br>>\t\tHunger restored: "+foodStuff[i].hungerRestored;
 						if(foodStuff[i].abbr){
-							newElement3.innerHTML+="<br>>\t\tAbbreviation:"+foodStuff[i].abbr+"<br>";
+							newElement3.innerHTML+="<br>>\t\tAbbreviation: "+foodStuff[i].abbr;
 						}
 						if(foodStuff[i].craftable){
 							newElement3.innerHTML+="<br>>\t\tIngredients:<br>";
