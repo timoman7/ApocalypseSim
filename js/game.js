@@ -637,9 +637,8 @@ var materialInventory={
 		},
 	},
 	stick:{
-		amount:),
+		amount:0,
 		name:"Stick",
-		
 		craftable:true,
 		craftOutput:2,
 		material:{
