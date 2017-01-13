@@ -887,6 +887,9 @@ function craft(parentObj,recipe){
 		case "food":
 			pObj=foodStuff;
 			break;
+		case "material":
+			pObj=materialInventory;
+			break;
 	}
 	for(var i in pObj[recipe].material){
 		if(parentObj == "food"){
@@ -899,12 +902,20 @@ function craft(parentObj,recipe){
 				return false;
 			}
 		}
+		if(parentObj == "material"){
+			if(pObj[recipe].material.amount>materialInventory[i].amount){
+				return false;
+			}
+		}
 	}
 	for(var mat in pObj[recipe].material){
 		if(parentObj == "food"){
 			foodStuff[mat].amount-=pObj[recipe].material[mat];
 		}
 		if(parentObj == "ammo"){
+			materialInventory[mat].amount-=pObj[recipe].material[mat];
+		}
+		if(parentObj == "material"){
 			materialInventory[mat].amount-=pObj[recipe].material[mat];
 		}
 	}
@@ -3323,9 +3334,34 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			}
 			
 		}
+		if(prefix.toLowerCase() == "material") {
+			var cmd=item.split(" ")[0];
+			if(cmd == "inventory"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML+=">----------------<br>";
+				for(var i in materialInventory){
+					if(materialInventory[i].craftable || materialInventory[i].amount>0){
+						newElement3.innerHTML+=">"+materialInventory[i].name+":<br>>\t\tAmount: "+materialInventory[i].amount+".";
+						if(materialInventory[i].craftable){
+							newElement3.innerHTML+="<br>>\t\tMaterials:<br>";
+							for(var j in materialInventory[i].material){
+								var matName=materialInventory[j].name;
+								newElement3.innerHTML+=">\t\t\t\t"+matName+": "+materialInventory[i].material[j]+".<br>";
+							}
+						}else{
+							newElement3.innerHTML+="<br>";	
+						}
+						newElement3.innerHTML+=">----------------<br>";
+					}
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			
+		}
 		if(prefix.toLowerCase() == "craft") {
 			var ctg=item.split(" ")[0];
-			if(ctg == "food" || ctg == "ammo"){
+			if(ctg == "food" || ctg == "ammo" || ctg == "material"){
 				var itemToCraft="";
 				if(item.split(" ").length>0){
 					if(item.split(" ").length>2){
@@ -3344,28 +3380,35 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						case "ammo":
 							cat = ammo;
 							break;
+						case "material":
+							cat = materialInventory;
+							break;
 					}
 					if(cat[itemToCraft]){
 						if(cat[itemToCraft].craftable){
 							var craftedItem = craft(ctg,itemToCraft);
 							if(craftedItem){
+								console.log("Crafted",ctg,itemToCraft,cat[itemToCraft]);
 								var newElement3=document.createElement('p');
 								newElement3.class="speakable";
 								newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
 								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 							}else{
+								console.log("Not enough materials",ctg,itemToCraft,cat[itemToCraft]);
 								var newElement3=document.createElement('p');
 								newElement3.class="speakable";
 								newElement3.innerHTML+=">Not enough materials.";
 								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 							}
 						}else{
+							console.log("Not craftable",ctg,itemToCraft,cat[itemToCraft]);
 							var newElement3=document.createElement('p');
 							newElement3.class="speakable";
 							newElement3.innerHTML+=">Item is not craftable.";
 							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						}
 					}else{
+						console.log("Invalid",ctg,itemToCraft,cat[itemToCraft]);
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
 						newElement3.innerHTML+=">Invalid item";
@@ -3380,7 +3423,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			}else if(ctg == "help"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
-				newElement3.innerHTML+=">Valid catagories:<br>>\t\tfood<br>>\t\tammo";
+				newElement3.innerHTML+=">Valid catagories:<br>>\t\tfood<br>>\t\tammo<br>>\t\tmaterial";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else{
 				var newElement3=document.createElement('p');
