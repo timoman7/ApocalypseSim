@@ -710,6 +710,8 @@ var ammoTypes={
 };
 var ammo={
 	pistol:{
+		name:"Pistol",
+		craftable:true,
 		amount:0,
 		material:{
 			gunpowder:5,
@@ -718,6 +720,8 @@ var ammo={
 		craftOutput:5,
 	},
 	nuke:{
+		name:"Nuke",
+		craftable:true,
 		amount:0,
 		material:{
 			gunpowder:20,
@@ -726,6 +730,8 @@ var ammo={
 		craftOutput:1,
 	},
 	smg:{
+		name:"Smg",
+		craftable:true,
 		amount:0,
 		material:{
 			gunpowder:4,
@@ -734,6 +740,8 @@ var ammo={
 		craftOutput:8,
 	},
 	shotgun:{
+		name:"Shotgun",
+		craftable:true,
 		amount:0,
 		material:{
 			gunpowder:6,
