@@ -3238,6 +3238,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						newElement3.innerHTML+=">----------------<br>";
 					}
 				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
 		if(prefix.toLowerCase() == "shop" && enterBattle == 0 && canTrade){
