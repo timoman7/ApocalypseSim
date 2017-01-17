@@ -3641,9 +3641,35 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			}
 			
 		}
+		if(prefix.toLowerCase() == "attachment") {
+			var cmd=item.split(" ")[0];
+			if(cmd == "inventory"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML+=">----------------<br>";
+				for(var i in attachmentInventory){
+					if(attachmentInventory[i].craftable || attachmentInventory[i].amount>0){
+						newElement3.innerHTML+=">"+attachmentInventory[i].name+":<br>>\t\tSlot: "+attachmentInventory[i].slot+"<br>>\t\tAmount: "+attachmentInventory[i].amount+".";
+						if(attachmentInventory[i].craftable){
+							newElement3.innerHTML+="<br>>\t\tMaterials:<br>";
+							for(var j in attachmentInventory[i].material){
+								var matName=attachmentInventory[j].name;
+								newElement3.innerHTML+=">\t\t\t\t"+matName+": "+attachmentInventory[i].material[j]+".<br>";
+							}
+						}else{
+							newElement3.innerHTML+="<br>";	
+						}
+						newElement3.innerHTML+=">----------------<br>";
+					}
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}
+			
+		}
+		
 		if(prefix.toLowerCase() == "craft") {
 			var ctg=item.split(" ")[0];
-			if(ctg == "food" || ctg == "ammo" || ctg == "material"){
+			if(ctg == "food" || ctg == "ammo" || ctg == "material" || ctg == "attachment"){
 				var itemToCraft="";
 				if(item.split(" ").length>0){
 					if(item.split(" ").length>2){
