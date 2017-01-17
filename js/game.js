@@ -889,7 +889,7 @@ var foodStuff={
 * Object to create attachments: topRail, grip, barrel, gunStock
 **/
 var attachmentInventory={
-	redDot:{
+	red_dot_sight:{
 		slot:"topRail",
 		name:"Red Dot sight",
 		type:"any",
@@ -903,7 +903,7 @@ var attachmentInventory={
 		},
 		craftOutput:1,
 	},
-	rubberGrip:{
+	rubber_grip:{
 		slot:"grip",
 		name:"Rubber grip",
 		type:"any",
@@ -929,7 +929,7 @@ var attachmentInventory={
 		},
 		craftOutput:1,
 	},
-	extendStock:{
+	extended_stock:{
 		slot:"gunStock",
 		name:"Extended Stock",
 		type:"any",
