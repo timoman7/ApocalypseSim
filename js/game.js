@@ -3653,7 +3653,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						if(attachmentInventory[i].craftable){
 							newElement3.innerHTML+="<br>>\t\tMaterials:<br>";
 							for(var j in attachmentInventory[i].material){
-								var matName=attachmentInventory[j].name;
+								var matName=materialInventory[j].name;
 								newElement3.innerHTML+=">\t\t\t\t"+matName+": "+attachmentInventory[i].material[j]+".<br>";
 							}
 						}else{
