@@ -885,7 +885,65 @@ var foodStuff={
 		craftOutput:1,
 	},
 };
-
+/**
+* Object to create attachments: topRail, grip, barrel, gunStock
+**/
+var attachmentInventory={
+	redDot:{
+		slot:"topRail",
+		name:"Red Dot sight",
+		type:"any",
+		amount:0,
+		craftable:true,
+		material:{
+			glass:2,
+			steel_plate:1,
+			steel_casing:1,
+			screws:4,
+		},
+		craftOutput:1,
+	},
+	rubberGrip:{
+		slot:"grip",
+		name:"Rubber grip",
+		type:"any",
+		amount:0,
+		craftable:true,
+		material:{
+			rubber:3,
+			aluminum_plate:2,
+			screws:4,
+		},
+		craftOutput:1,
+	},
+	silencer:{
+		slot:"barrel",
+		name:"Silencer",
+		type:"any",
+		amount:0,
+		craftable:true,
+		material:{
+			steel_casing:2,
+			cloth:4,
+			screws:4,
+		},
+		craftOutput:1,
+	},
+	extendStock:{
+		slot:"gunStock",
+		name:"Extended Stock",
+		type:"any",
+		amount:0,
+		craftable:true,
+		material:{
+			rubber:2,
+			steel_rod:2,
+			brass_plate:2,
+			screws:4,
+		},
+		craftOutput:1,
+	},
+};
 function craft(parentObj,recipe){
 	var pObj = {};
 	switch(parentObj){
@@ -897,6 +955,9 @@ function craft(parentObj,recipe){
 			break;
 		case "material":
 			pObj=materialInventory;
+			break;
+		case "attachment":
+			pObj=attachmentInventory;
 			break;
 	}
 	for(var i in pObj[recipe].material){
@@ -915,6 +976,11 @@ function craft(parentObj,recipe){
 				return false;
 			}
 		}
+		if(parentObj == "attachment"){
+			if(pObj[recipe].material.amount>materialInventory[i].amount){
+				return false;
+			}
+		}
 	}
 	for(var mat in pObj[recipe].material){
 		if(parentObj == "food"){
@@ -924,6 +990,9 @@ function craft(parentObj,recipe){
 			materialInventory[mat].amount-=pObj[recipe].material[mat];
 		}
 		if(parentObj == "material"){
+			materialInventory[mat].amount-=pObj[recipe].material[mat];
+		}
+		if(parentObj == "attachment"){
 			materialInventory[mat].amount-=pObj[recipe].material[mat];
 		}
 	}
@@ -1559,6 +1628,40 @@ var titaniumKey = false; {
     var fistBase = {
         type: "Melee",
         defName: "Fist",
+	attachments:{
+		topRail:{
+			slotName:"top rail",
+			canAdd:false,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		grip:{
+			slotName:"grip",
+			canAdd:false,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		barrel:{
+			slotName:"barrel",
+			canAdd:false,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		gunStock:{
+			slotName:"stock",
+			canAdd:false,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+	},
         value: 5,
         damage: 10,
 	damageType:["mel"],
@@ -1569,6 +1672,40 @@ var titaniumKey = false; {
     var pistolBase = {
         type: "Pistol",
         defName: "9MM Pistol",
+	attachments:{
+		topRail:{
+			slotName:"top rail",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		grip:{
+			slotName:"grip",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		barrel:{
+			slotName:"barrel",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		gunStock:{
+			slotName:"stock",
+			canAdd:false,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+	},
         value: 15,
         damage: 30,
 	damageType:["bllt"],
@@ -1579,6 +1716,40 @@ var titaniumKey = false; {
     var shotgunBase = {
         type: "Shotgun",
         defName: "Shotgun",
+	attachments:{
+		topRail:{
+			slotName:"top rail",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		grip:{
+			slotName:"grip",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		barrel:{
+			slotName:"barrel",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		gunStock:{
+			slotName:"stock",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+	},
         value: 35,
         damage: 25,
 	damageType:["bllt"],
@@ -1589,6 +1760,40 @@ var titaniumKey = false; {
     var smgBase = {
         type: "SMG",
         defName: "SMG",
+	attachments:{
+		topRail:{
+			slotName:"top rail",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		grip:{
+			slotName:"grip",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		barrel:{
+			slotName:"barrel",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		gunStock:{
+			slotName:"stock",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+	},
         value: 20,
         damage: 10,
 	damageType:["bllt"],
@@ -1599,6 +1804,40 @@ var titaniumKey = false; {
     var nukeBase = {
         type: "Nuke",
         defName: "Nuke Launcher",
+	attachments:{
+		topRail:{
+			slotName:"top rail",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		grip:{
+			slotName:"grip",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		barrel:{
+			slotName:"barrel",
+			canAdd:true,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+		gunStock:{
+			slotName:"stock",
+			canAdd:false,
+			att:{
+				tier:"stock",
+				
+			},
+		},
+	},
         value: 70,
         damage: 100,
 	damageType:["exp"],
@@ -1633,10 +1872,29 @@ var titaniumKey = false; {
         this.baseWeap = baseWeap;
         this.name = name || this.baseWeap.defName;
         this.effect = effect === "Normal" ? "Normal" : effect;
+	
         this.value = this.baseWeap.value;
         this.damage = this.baseWeap.damage;
 	this.damageType = this.baseWeap.damageType;
         this.type = this.baseWeap.type;
+	this.attachments=this.baseWeap.attachments;
+	for(var i in this.attachments){
+		if(this.attachments[i].canAdd){
+			if(this.attachments[i].att.tier=="stock"){
+				this.attachments[i].att={
+					tier:"stock",
+					name:this.name+" "+this.attachments[i].slotName,
+					empty:false,
+				};
+			}
+		}else{
+			this.attachments[i].att={
+				tier:"none",
+				name:"none",
+				empty:true,
+			};
+		}
+	}
         this.magCap = this.baseWeap.magCap;
         this.ammoType = this.baseWeap.ammoType;
         if (this.effect !== "Normal") {
@@ -2628,6 +2886,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
 		gameData.materialInventory=materialInventory;
+		gameData.attachmentInventory=attachmentInventory;
 		gameData.maxHunger=maxHunger;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -2668,6 +2927,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		gameData.equippedArmor=equippedArmor;
 		gameData.armorInventory=armorInventory;
 		gameData.materialInventory=materialInventory;
+		gameData.attachmentInventory=attachmentInventory;
 		gameData.maxHunger=maxHunger;
 		firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
 			gamedata: gameData
@@ -2722,6 +2982,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		equippedArmor=loadData.equippedArmor;
 		armorInventory=loadData.armorInventory;
 		materialInventory=loadData.materialInventory;
+		attachmentInventory=loadData.attachmentInventory;
 		maxHunger=loadData.maxHunger;
         }else{
             alert("No save data available.");
@@ -3404,6 +3665,9 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 							break;
 						case "material":
 							cat = materialInventory;
+							break;
+						case "attachment":
+							cat = attachmentInventory;
 							break;
 					}
 					for(var i in cat){
