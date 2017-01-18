@@ -5,6 +5,7 @@
 /**
 *	Define non-native functions
 **/
+console.log(firebase.auth().currentUser);
 var seeded = false;
 var lcg = function() {
   // Set to values from http://en.wikipedia.org/wiki/Numerical_Recipes
