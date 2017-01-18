@@ -2513,7 +2513,9 @@ setInterval(function(){
 			if(CurrentHealth<0&&!isDead){
 				var lastwords=prompt("YOU DIED!\nAny final words?","");
 				var thisUser=firebase.auth().currentUser.uid;
-				firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
+				firebase.database().ref('deathMessages/'+thisUser+'/'+playerY+'/'+playerX).set({
+					deathText:lastwords.toString()
+				});
 				closePage();
 			}
 			turn*=-1;
@@ -2521,7 +2523,9 @@ setInterval(function(){
 			if(CurrentHealth<0&&!isDead){
 				var lastwords=prompt("YOU DIED!\nAny final words?","");
 				var thisUser=firebase.auth().currentUser.uid;
-				firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
+				firebase.database().ref('deathMessages/'+thisUser+'/'+playerY+'/'+playerX).set({
+					deathText:lastwords.toString()
+				});
 				closePage();
 			}	
 		}
@@ -2529,7 +2533,9 @@ setInterval(function(){
 		if(CurrentHealth<0&&!isDead){
 			var lastwords=prompt("YOU DIED!\nAny final words?","");
 			var thisUser=firebase.auth().currentUser.uid;
-			firebase.database().ref('deathMessages/'+playerY+'/'+playerX+'/'+thisUser).set({deathText:lastwords.toString()});
+				firebase.database().ref('deathMessages/'+thisUser+'/'+playerY+'/'+playerX).set({
+					deathText:lastwords.toString()
+				});
 			closePage();
 		}
 	}
@@ -3046,38 +3052,36 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 if (prefix.toLowerCase() == "look") {
                     if (item.toLowerCase() == "around") {
                         checkItem();
-			    if(globalXY[playerY]!==undefined){
-				    if(globalXY[playerY][playerX]!==undefined){
-					for(var i in globalXY[playerY][playerX]){
-						var deathRNG=rngA(Object.keys(globalXY[playerY][playerX]).length);
-						if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
-							if(globalXY[playerY][playerX][i].deathText!==undefined){
-								var checkDeadPlayer=function(){
-									if(getPlayername(i)!=="undefined" && getPlayername(i)!=="null" && getPlayername(i)!==undefined && getPlayername(i)!==null){
-										return true;
-									}else{
-										return false;
-									}
-								};
-								setInterval(function(){
-									getPlayername(i);
-								},10,checkDeadPlayer());
-								if(checkDeadPlayer()){
-									var newElement4=document.createElement('p');
-									newElement4.class="speakable";
-									newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
-									$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
-								}
+			/*
+			for(var i in globalXY){
+				var deathRNG=rngA(Object.keys(globalXY[i]).length);
+				if(deathRNG===rngA(Object.keys(globalXY[playerY][playerX]).length)){
+					if(globalXY[playerY][playerX][i].deathText!==undefined){
+						var checkDeadPlayer=function(){
+							if(getPlayername(i)!=="undefined" && getPlayername(i)!=="null" && getPlayername(i)!==undefined && getPlayername(i)!==null){
+								return true;
 							}else{
-								var newElement4=document.createElement('p');
-								newElement4.class="speakable";
-								newElement4.innerHTML=">No signs of other players.";
-								$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
+								return false;
 							}
+						};
+						setInterval(function(){
+							getPlayername(i);
+						},10,checkDeadPlayer());
+						if(checkDeadPlayer()){
+							var newElement4=document.createElement('p');
+							newElement4.class="speakable";
+							newElement4.innerHTML=">"+getPlayername(i)+": "+globalXY[playerY][playerX][i].deathText+".";
+							$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 						}
+					}else{
+						var newElement4=document.createElement('p');
+						newElement4.class="speakable";
+						newElement4.innerHTML=">No signs of other players.";
+						$(newElement4).insertAfter("#place_holder").hide().fadeIn(1000);
 					}
-				    }
-			    }
+				}
+			}
+			*/
                     }
                 }
                 if (prefix.toLowerCase() == "take") {
@@ -3088,9 +3092,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                     if (item.toLowerCase() == "") {
                         $("#message_take").clone(true).removeAttr("id").attr('class', 'speakable').insertAfter("#place_holder").hide().fadeIn(1000);
                     }
-                    //for(var j=0;j<weapList.length;j++){
-                    
-                    //}
                 }
                 if (prefix.toLowerCase() == "inventory") {
                     dispInv();
