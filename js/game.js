@@ -1356,7 +1356,7 @@ var signout=function(){
 			if (user) {
 				// User is signed in.
 			}else{
-				//closePage();
+				closePage();
 			}
 		});
 	}, function(error) {
