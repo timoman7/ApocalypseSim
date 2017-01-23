@@ -892,6 +892,7 @@ var foodStuff={
 var attachmentInventory={
 	red_dot_sight:{
 		slot:"topRail",
+		dictName:"red_dot_sight",
 		name:"Red Dot sight",
 		type:"any",
 		amount:0,
@@ -906,6 +907,7 @@ var attachmentInventory={
 	},
 	rubber_grip:{
 		slot:"grip",
+		dictName:"rubber_grip",
 		name:"Rubber grip",
 		type:"any",
 		amount:0,
@@ -919,6 +921,7 @@ var attachmentInventory={
 	},
 	silencer:{
 		slot:"barrel",
+		dictName:"silencer",
 		name:"Silencer",
 		type:"any",
 		amount:0,
@@ -932,6 +935,7 @@ var attachmentInventory={
 	},
 	extended_stock:{
 		slot:"gunStock",
+		dictName:"extended_stock",
 		name:"Extended Stock",
 		type:"any",
 		amount:0,
@@ -945,6 +949,46 @@ var attachmentInventory={
 		craftOutput:1,
 	},
 };
+
+
+function addAttach(att){
+	attachmentInventory[att].amount++;
+}
+function remAttach(att){
+	attachmentInventory[att].amount--;
+}
+function deequipAttach(weapNum,slot){
+	if(playerInventory[weapNum].attachments[slot].canAdd && playerInventory[weapNum].attachments[slot].att.tier !== "stock"){
+		var attName = playerInventory[weapNum].attachments[slot].att.name;
+		attachmentInventory[playerInventory[weapNum].attachments[slot].att.dictName].amount++;
+		playerInventory[weapNum].attachments[slot].att={
+			tier:"stock",
+			name:playerInventory[weapNum].name+" "+playerInventory[weapNum].attachments[slot].slotName,
+			empty:false,
+		}
+		return {name:attName,success:true,msg:"Removed "+attName+" from "+playerInventory[weapNum].name+"."}
+	}else{
+		return {name:false,success:false,msg:"Attachment slot of "+playerInventory[weapNum].name+" is either stock, or unmodifiable."}
+	}
+}
+function equipAttach(weapNum,attName){
+	if(playerInventory[weapNum].attachments[attachmentInventory[attName].slot].canAdd && attachmentInventory[attName].amount>0){
+		var newSlot=attachmentInventory[attName].slot;
+		playerInventory[weapNum].attachments[newSlot].att=attachmentInventory[attName];
+		attachmentInventory[attName].amount--;
+		return {name:attName,success:true,msg:"Equipped "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+"."}
+	}else{
+		if(attachmentInventory[attName].amount < 1){
+			return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+", because you don't have any."}
+		}else if(!playerInventory[weapNum].attachments[attachmentInventory[attName].slot].canAdd){
+			return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+", because the "+playerInventory[weapNum].attachments[attName].slotName+" is not modifiable."}
+		}else{
+			return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+" for unknown reasons."}
+		}
+	}
+}
+
+
 function craft(parentObj,recipe){
 	var pObj = {};
 	switch(parentObj){
@@ -3696,6 +3740,43 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 		if(prefix.toLowerCase() == "attachment") {
 			var cmd=item.split(" ")[0];
 			if(cmd == "inventory"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML+=">----------------<br>";
+				for(var i in attachmentInventory){
+					if(attachmentInventory[i].craftable || attachmentInventory[i].amount>0){
+						newElement3.innerHTML+=">"+attachmentInventory[i].name+":<br>>\t\tSlot: "+attachmentInventory[i].slot+"<br>>\t\tAmount: "+attachmentInventory[i].amount+".";
+						if(attachmentInventory[i].craftable){
+							newElement3.innerHTML+="<br>>\t\tMaterials:<br>";
+							for(var j in attachmentInventory[i].material){
+								var matName=materialInventory[j].name;
+								newElement3.innerHTML+=">\t\t\t\t"+matName+": "+attachmentInventory[i].material[j]+".<br>";
+							}
+						}else{
+							newElement3.innerHTML+="<br>";	
+						}
+						newElement3.innerHTML+=">----------------<br>";
+					}
+				}
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "equip"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				var itemToCraft="";
+				if(item.split(" ").length>0){
+					if(item.split(" ").length>2){
+						for(var i=1;i<item.split(" ").length-1;i++){
+							itemToCraft += item.split(" ")[i]+"_";
+						}
+						itemToCraft += item.split(" ")[item.split(" ").length-1];
+					}else{
+						itemToCraft = item.split(" ")[1];
+					}
+				}
+				console.log(itemToCraft);
+				newElement3.innerHTML+=">----------------<br>";
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "remove"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
 				newElement3.innerHTML+=">----------------<br>";
