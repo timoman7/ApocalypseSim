@@ -1362,73 +1362,23 @@ var signout=function(){
 		customPrompt(newDiv);
 	});
 };
-console.log(firebase.auth().currentUser);
-firebase.auth().getRedirectResult().then(function(result){
-	console.log(result);
-});
-if(firebase.auth().currentUser){
-	currentUser = firebase.auth().currentUser;
-	var userDiv = document.createElement('div');
-	userDiv.id="userInformation";
-	userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-radius: 15px; border-color: black; background-color: rgb(200,200,200); color: black; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
-	var userIcon = document.createElement('img');
-	var userInfo1 = document.createElement('p');
-	var userInfo2 = document.createElement('p');
-	var signOutButton = document.createElement('button');
-	signOutButton.id="signOutBtn";
-	signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 65px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: black;";
-	signOutButton.innerHTML="Sign out";
-	userInfo1.class="userInfo";
-	userInfo2.class="userInfo";
-	userIcon.class="userIcon";
-	userInfo1.innerHTML="Name: "+currentUser.displayName;
-	userInfo2.innerHTML="Email: "+currentUser.email;
-	userInfo1.style="position: absolute; left: 10px; top: 150px; font-size: 12px; color: black;";
-	userInfo2.style="position: absolute; left: 10px; top: 165px; font-size: 12px; color: black;";
-	userIcon.src=currentUser.photoURL;
-	userIcon.style="position: inherit; right: 7px; top: 5px; width: 120px; height: 120px; border-radius: 60px;";
-	userDiv.appendChild(signOutButton);
-	userDiv.appendChild(userInfo1);
-	userDiv.appendChild(userInfo2);
-	userDiv.appendChild(userIcon);
-	document.body.appendChild(userDiv);
-	var userButton = document.createElement('button');
-	var userImg = document.createElement('img')
-	userImg.src = currentUser.photoURL;
-	userImg.style = "border-style: none; position: absolute; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;";
-	userButton.appendChild(userImg);
-	userButton.id = "userButton";
-	userButton.style = "border-style: none; position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
-	document.body.appendChild(userButton);
-	setOnClick();
-}else{
-firebase.auth().getRedirectResult().then(function(result) {
-  var user = result.user;
-  var credential = result.credential;
-	if(user===null){
-		var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
-		var provider;
-		if(providerChoice.toLowerCase()==="google"){
-			provider = new firebase.auth.GoogleAuthProvider();
-		}else if(providerChoice.toLowerCase()==="github"){
-			provider = new firebase.auth.GithubAuthProvider();
-		}else if(providerChoice.toLowerCase()==="email"){
-			provider = new firebase.auth.EmailAuthProvider();
-		}else if(providerChoice.toLowerCase()==="twitter"){
-			provider = new firebase.auth.TwitterAuthProvider();
-		}else if(providerChoice.toLowerCase()==="facebook"){
-			provider = new firebase.auth.FacebookAuthProvider();
-		}
-		firebase.auth().signInWithRedirect(provider);
-	}else{
+var userDiv;
+var userIcon;
+var userInfo1;
+var userInfo2;
+var signOutButton;
+var userButton;
+var userImg;
+firebase.auth().onAuthStateChanged(function(user) {
+	if(user){
 		currentUser = firebase.auth().currentUser;
-		var userDiv = document.createElement('div');
+		userDiv = document.createElement('div');
 		userDiv.id="userInformation";
 		userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-radius: 15px; border-color: black; background-color: rgb(200,200,200); color: black; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
-		var userIcon = document.createElement('img');
-		var userInfo1 = document.createElement('p');
-		var userInfo2 = document.createElement('p');
-		var signOutButton = document.createElement('button');
+		userIcon = document.createElement('img');
+		userInfo1 = document.createElement('p');
+		userInfo2 = document.createElement('p');
+		signOutButton = document.createElement('button');
 		signOutButton.id="signOutBtn";
 		signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 65px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: black;";
 		signOutButton.innerHTML="Sign out";
@@ -1446,8 +1396,8 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userDiv.appendChild(userInfo2);
 		userDiv.appendChild(userIcon);
 		document.body.appendChild(userDiv);
-		var userButton = document.createElement('button');
-		var userImg = document.createElement('img')
+		userButton = document.createElement('button');
+		userImg = document.createElement('img')
 		userImg.src = currentUser.photoURL;
 		userImg.style = "border-style: none; position: absolute; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;";
 		userButton.appendChild(userImg);
@@ -1455,19 +1405,74 @@ firebase.auth().getRedirectResult().then(function(result) {
 		userButton.style = "border-style: none; position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
 		document.body.appendChild(userButton);
 		setOnClick();
+	}else{
+		firebase.auth().getRedirectResult().then(function(result) {
+		var user = result.user;
+		var credential = result.credential;
+		if(user===null){
+			var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
+			var provider;
+			if(providerChoice.toLowerCase()==="google"){
+				provider = new firebase.auth.GoogleAuthProvider();
+			}else if(providerChoice.toLowerCase()==="github"){
+				provider = new firebase.auth.GithubAuthProvider();
+			}else if(providerChoice.toLowerCase()==="email"){
+				provider = new firebase.auth.EmailAuthProvider();
+			}else if(providerChoice.toLowerCase()==="twitter"){
+				provider = new firebase.auth.TwitterAuthProvider();
+			}else if(providerChoice.toLowerCase()==="facebook"){
+				provider = new firebase.auth.FacebookAuthProvider();
+			}
+			firebase.auth().signInWithRedirect(provider);
+		}else{
+			currentUser = firebase.auth().currentUser;
+			userDiv = document.createElement('div');
+			userDiv.id="userInformation";
+			userDiv.style="position: absolute; width: 300px; height: 200px; border-style: ridge; border-radius: 15px; border-color: black; background-color: rgb(200,200,200); color: black; right: 60px; bottom: 100px; z-index:10000; visibility: hidden;";
+			userIcon = document.createElement('img');
+			userInfo1 = document.createElement('p');
+			userInfo2 = document.createElement('p');
+			signOutButton = document.createElement('button');
+			signOutButton.id="signOutBtn";
+			signOutButton.style = "position: inherit; right: 10px; bottom: 10px; width: 65px; height: 30px; border-radius: 4px; border-style: ridge; border-color: black; color: black;";
+			signOutButton.innerHTML="Sign out";
+			userInfo1.class="userInfo";
+			userInfo2.class="userInfo";
+			userIcon.class="userIcon";
+			userInfo1.innerHTML="Name: "+currentUser.displayName;
+			userInfo2.innerHTML="Email: "+currentUser.email;
+			userInfo1.style="position: absolute; left: 10px; top: 150px; font-size: 12px; color: black;";
+			userInfo2.style="position: absolute; left: 10px; top: 165px; font-size: 12px; color: black;";
+			userIcon.src=currentUser.photoURL;
+			userIcon.style="position: inherit; right: 7px; top: 5px; width: 120px; height: 120px; border-radius: 60px;";
+			userDiv.appendChild(signOutButton);
+			userDiv.appendChild(userInfo1);
+			userDiv.appendChild(userInfo2);
+			userDiv.appendChild(userIcon);
+			document.body.appendChild(userDiv);
+			userButton = document.createElement('button');
+			userImg = document.createElement('img')
+			userImg.src = currentUser.photoURL;
+			userImg.style = "border-style: none; position: absolute; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; border-radius: 20px;";
+			userButton.appendChild(userImg);
+			userButton.id = "userButton";
+			userButton.style = "border-style: none; position: absolute; z-index: 9999; right: 60px; bottom: 60px; width: 40px; height: 40px; border-radius: 20px;";
+			document.body.appendChild(userButton);
+			setOnClick();
+		}
+		}, function(error) {
+			// The provider's account email, can be used in case of
+			// auth/account-exists-with-different-credential to fetch the providers
+			// linked to the email:
+			var email = error.email;
+			// The provider's credential:
+			var credential = error.credential;
+			// In case of auth/account-exists-with-different-credential error,
+			// you can fetch the providers using this:
+
+		});
 	}
-}, function(error) {
-  // The provider's account email, can be used in case of
-  // auth/account-exists-with-different-credential to fetch the providers
-  // linked to the email:
-  var email = error.email;
-  // The provider's credential:
-  var credential = error.credential;
-  // In case of auth/account-exists-with-different-credential error,
-  // you can fetch the providers using this:
-	
 });
-}
 var loadedData;
 var getData=function(dataToGet){
 	if(firebase.auth().currentUser!==undefined && firebase.auth().currentUser!==null){
