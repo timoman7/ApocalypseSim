@@ -1414,7 +1414,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 		var user = result.user;
 		var credential = result.credential;
 		if(user===null){
-			var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook","");
+			var providerChoice=prompt("What is your form of login?\nGoogle\nGithub\nEmail\nTwitter\nFacebook\nIf you are signing out, click cancel.","");
 			var provider;
 			if(providerChoice.toLowerCase()==="google"){
 				provider = new firebase.auth.GoogleAuthProvider();
