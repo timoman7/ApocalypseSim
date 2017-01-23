@@ -12,7 +12,7 @@ var $parent = document.createElement("div")
 // Required for CORS
 $gif.crossOrigin = "anonymous"
 
-$gif.src = "images/favicon.gif"
+$gif.src = "images/favicon2.gif"
 
 $favicon.rel = "icon"
 
