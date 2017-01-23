@@ -3762,39 +3762,30 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			}else if(cmd == "equip"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
-				var itemToCraft="";
+				var attachmentToAdd="";
+				var weaponNumber=item.split(" ")[1];
 				if(item.split(" ").length>0){
 					if(item.split(" ").length>2){
-						for(var i=1;i<item.split(" ").length-1;i++){
-							itemToCraft += item.split(" ")[i]+"_";
+						for(var i=2;i<item.split(" ").length-1;i++){
+							attachmentToAdd += item.split(" ")[i]+"_";
 						}
-						itemToCraft += item.split(" ")[item.split(" ").length-1];
+						attachmentToAdd += item.split(" ")[item.split(" ").length-1];
 					}else{
-						itemToCraft = item.split(" ")[1];
+						attachmentToAdd = item.split(" ")[1];
 					}
 				}
-				console.log(itemToCraft);
-				newElement3.innerHTML+=">----------------<br>";
+				var attResponse=equipAttach(parseInt(weaponNumber),attachmentToAdd);
+				console.log(attResponse);
+				newElement3.innerHTML+=">"+attResponse.msg;
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "remove"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
-				newElement3.innerHTML+=">----------------<br>";
-				for(var i in attachmentInventory){
-					if(attachmentInventory[i].craftable || attachmentInventory[i].amount>0){
-						newElement3.innerHTML+=">"+attachmentInventory[i].name+":<br>>\t\tSlot: "+attachmentInventory[i].slot+"<br>>\t\tAmount: "+attachmentInventory[i].amount+".";
-						if(attachmentInventory[i].craftable){
-							newElement3.innerHTML+="<br>>\t\tMaterials:<br>";
-							for(var j in attachmentInventory[i].material){
-								var matName=materialInventory[j].name;
-								newElement3.innerHTML+=">\t\t\t\t"+matName+": "+attachmentInventory[i].material[j]+".<br>";
-							}
-						}else{
-							newElement3.innerHTML+="<br>";	
-						}
-						newElement3.innerHTML+=">----------------<br>";
-					}
-				}
+				var slotRemove=item.split(" ")[2];
+				var weaponNumber=item.split(" ")[1];
+				var attResponse=deequipAttach(parseInt(weaponNumber),slotRemove);
+				console.log(attResponse);
+				newElement3.innerHTML+=">"+attResponse.msg;
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 			
