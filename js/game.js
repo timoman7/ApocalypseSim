@@ -1362,6 +1362,10 @@ var signout=function(){
 		customPrompt(newDiv);
 	});
 };
+console.log(firebase.auth().currentUser);
+firebase.auth().getRedirectResult().then(function(result){
+	console.log(result);
+});
 if(firebase.auth().currentUser){
 	currentUser = firebase.auth().currentUser;
 	var userDiv = document.createElement('div');
