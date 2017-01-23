@@ -1294,9 +1294,13 @@ var closePrompt = function(){
 	document.body.style.pointerEvents="auto";
 	document.getElementById('overlay').parentNode.removeChild(document.getElementById('overlay'));
 };
+var changeUserInfo = function(){
+	changeVis(document.getElementById('userInformation'));
+};
 var setOnClick=function(){
-	document.getElementById('signOutBtn').setAttribute('onClick',"signout();");
-	document.getElementById('userButton').setAttribute('onClick',"changeVis(document.getElementById('userInformation'));");
+	
+	document.getElementById('signOutBtn').addEventListener('click',signout);
+	document.getElementById('userButton').addEventListener('click',changeUserInfo);
 };
 var customPrompt = function(prom,okFunc,exitFunc){
 	exitFunc=exitFunc || "";
