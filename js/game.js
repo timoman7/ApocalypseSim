@@ -2871,6 +2871,12 @@ function updateInventory() {
     for (var i = 0; i < playerInventory.capacity; i++) {
 	    if(!playerInventory[i].empty){
         	itemBefore = "ID: "+i+" || Name: "+playerInventory[i].name + " || Damage: " + playerInventory[i].damage + " || Value: " + playerInventory[i].value + " Shekels"+"<br>";
+		for(var j in playerInventory[i].attachments){
+			if(playerInventory[i].attachments[j].canAdd){
+				itemBefore +=">\t\tSlot: "+playerInventory[i].attachments[j].slotName+"<br>";
+				itemBefore +=">\t\t\tName: "+playerInventory[i].attachments[j].att.name+"<br>";
+			}
+		}
         	itemAfter = itemAfter + itemBefore;
 	    }
         inventory.innerHTML = itemAfter;
