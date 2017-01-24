@@ -5,7 +5,7 @@
 /**
 *	Define non-native functions
 **/
-function addText(textToAdd){
+function addText(){
 	var newElement3=document.createElement('p');
 	newElement3.class="speakable";
 	newElement3.innerHTML="";
@@ -14,6 +14,29 @@ function addText(textToAdd){
 	}
 	$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 }
+function addMessage(id){
+	if(!document.getElementById(id)){
+		var newElement3=document.createElement('p');
+		newElement3.innerHTML="";
+		for(var i = 1; i < arguments.length; i++){
+			newElement3.innerHTML+=">"+arguments[i]+"<br>";
+		}
+		newElement3.class='speakable';
+		newElement3.id=id;
+		document.getElementById('message_room99').parentElement.appendChild(newElement3);
+	}
+}
+/**
+*	ADD EVENT MESSAGES HERE VVVVVVVVVVV
+*	addMessage("id","message to add");
+*	Another argument after id is the second line
+**/
+
+
+
+/**
+*	ADD EVENT MESSAGES HERE ^^^^^^^^^^
+**/
 var $parent = document.createElement("div")
     $gif = document.createElement("img")
    ,$favicon = document.createElement("link")
