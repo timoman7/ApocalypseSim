@@ -2980,24 +2980,19 @@ function updateInventory() {
     }
 };
 function jonAndAndrewArePicky(direction,boi){
-			var mhm=false;
-			var movement=["left","right","up","down","e","w","n","s","north","south","east","west"];
-			var pref=boi;
-			if(movement.includes(pref)){
-				if(direction=="left"){
-					mhm=true;
-				}else if(direction == "right"){
-					mhm=true;
-				}else if(direction == "up"){
-					mhm=true;
-				}else if(direction == "down"){
-					mhm=true;
-				}else if(direction == "any"){
-					mhm=true;
-				}
-			}
-			return mhm
-		}
+	var movement={
+		left:["left","w","west"],
+		right:["right","e","east"],
+		up:["up","n","north"],
+		down:["down","s","south"],
+	};
+	var pref=boi;
+	if(movement[direction].includes(pref)){
+		return true;
+	}else{
+		return false;
+	}
+}
 var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 
     setInterval(updateText(), 10);
