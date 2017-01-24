@@ -56,11 +56,11 @@ for(var ccc=0; ccc<charList.length-1; ccc++){
     keysDown["."+charList[ccc]]=false;
     keyDown["."+charList[ccc]]=false;
 }
+function mousePressed(){
+	document.getElementById("command_line").focus();
+}
 var qcList;
 var saveList;
-function prntTxt(){
-	println("Test");
-}
 function typing(){
     if($("#assignPoints").prop("hidden")===true){
     	if(keyCode!==20&&keyCode!==38&&keyCode!==40&&keyCode!==37&&keyCode!==39&&!keysDown[".enterKey"]&&!keysDown[shiftKey]&&!keysDown[backKey]&&keysDown["."+key.toString().toLowerCase()]&&keyDown["."+key.toString().toLowerCase()]!==true){
