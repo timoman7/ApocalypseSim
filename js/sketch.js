@@ -720,13 +720,25 @@ function draw(){
 	               			currentCaps+=foodStuff[checkFood(item).foodName].sellPrice;
 	               			foodStuff[checkFood(item).foodName].amount--;
 		               		sellCheck=true;
-					
-		           	}
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">You purchased 1 "+foodStuff[checkFood(item).foodName].name+" for "+foodStuff[checkFood(item).foodName].buyPrice+" Shekels.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+		           	}else{
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">You cannot afford 1 "+foodStuff[checkFood(item).foodName].name+".";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				}
 			}
 		}else{
 			if(item.split(' ')[0]=='weapon'){
 				for(var i=1;i<playerInventory.capacity;i++){
 					if(playerInventory[parseInt(item.split(' ')[1])].value){
+						var newElement3=document.createElement('p');
+						newElement3.class="speakable";
+						newElement3.innerHTML=">You sold the "+playerInventory[parseInt(item.split(' ')[1])].name+" for "+playerInventory[parseInt(item.split(' ')[1])].value+" Shekels.";
+						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						currentCaps+=playerInventory[i].value;
 						remWeapon(parseInt(item.split(' ')[1]));
 						sellCheck=true;
@@ -751,6 +763,10 @@ function draw(){
 						break;
 				}
 				if(!armorInventory[slotTrue][id].empty){
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">You sold the "+armorInventory[slotTrue][id].name+" for "+armorInventory[slotTrue][id].value+" Shekels.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					currentCaps+=armorInventory[slotTrue][id].value;
 					removeArmor(item.split(' ')[1]);
 					sellCheck=true;
