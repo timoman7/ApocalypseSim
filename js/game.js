@@ -3786,33 +3786,58 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 				newElement3.innerHTML=">"+shopArmor[id].name+"<br>>Defenses:..<br>"+dispDef+">Attributes:..<br>"+dispAttr+">Material:..<br>"+dispMat+">Value: "+dispArmor.value+" Shekels";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd=="inventory"){
-				var newElement3=document.createElement('p');
-				newElement3.class="speakable";
-				newElement3.innerHTML=">Helmets......<br>";
-				for(var i=0;i<shopArmor.length;i++){
-					if(shopArmor[i].slot=="helmet"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+				var ctg = item.toLowerCase().split(" ")[1];
+				if(ctg == "armor"){
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">Helmets......<br>";
+					for(var i=0;i<shopArmor.length;i++){
+						if(shopArmor[i].slot=="helmet"){
+							newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+						}
 					}
-				}
-				newElement3.innerHTML+=">Chestpiece......<br>";
-				for(var i=0;i<shopArmor.length;i++){
-					if(shopArmor[i].slot=="chest"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+					newElement3.innerHTML+=">Chestpiece......<br>";
+					for(var i=0;i<shopArmor.length;i++){
+						if(shopArmor[i].slot=="chest"){
+							newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+						}
 					}
-				}
-				newElement3.innerHTML+=">Pants......<br>";
-				for(var i=0;i<shopArmor.length;i++){
-					if(shopArmor[i].slot=="pants"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+					newElement3.innerHTML+=">Pants......<br>";
+					for(var i=0;i<shopArmor.length;i++){
+						if(shopArmor[i].slot=="pants"){
+							newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+						}
 					}
-				}
-				newElement3.innerHTML+=">Boots......<br>";
-				for(var i=0;i<shopArmor.length;i++){
-					if(shopArmor[i].slot=="boots"){
-						newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+					newElement3.innerHTML+=">Boots......<br>";
+					for(var i=0;i<shopArmor.length;i++){
+						if(shopArmor[i].slot=="boots"){
+							newElement3.innerHTML+=">"+i+": "+shopArmor[i].name+" || Value: "+shopArmor[i].value+".<br>";
+						}
 					}
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				}else if(ctg == "weapons"){
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML="";
+					for (var i = 0; i < shopInventory.length; i++) {
+						newElement3.innerHTML+=">"+i+":<br>>\tName: "+shopInventory[i].name + "<br>>\tDamage: " + shopInventory[i].damage + "<br>>\tPrice: " + shopInventory[i].value + " Shekels"+"<br>";
+					}
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				}else if(ctg == "food"){
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">----------------<br>";
+					for(var i in foodStuff){
+						if(foodStuff[i].craftable || foodStuff[i].amount>0){
+							newElement3.innerHTML+=">"+foodStuff[i].name+"<br>>\t\tPrice: "+foodStuff[i].buyPrice;
+							if(foodStuff[i].abbr){
+								newElement3.innerHTML+="<br>>\t\tAbbreviation: "+foodStuff[i].abbr;
+							}
+							newElement3.innerHTML+=">----------------<br>";
+						}
+					}
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 				}
-				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 		}
 		    //AMMOCHECK
