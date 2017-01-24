@@ -3293,7 +3293,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                     dispInv();
                 }
                 if(enterBattle==0){
-                    if (prefix.toLowerCase() == "go") {
+                    if (prefix.toLowerCase() == "go" || prefix.toLowerCase() == "move" || prefix.toLowerCase() == "left" || prefix.toLowerCase() == "right") {
                         if (playerY !== 0) {
                             if (item.toLowerCase() == "north" || item.toLowerCase() == "up") {
                                 playerY -= 1;
