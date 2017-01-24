@@ -761,12 +761,21 @@ function draw(){
 	    if(prefix.toLowerCase() === "buy" && !sellCheck){
 		if(checkFood(item).found){
 			for(var i=0;i<foodStuff.length;i++){
-			//Sell Food
+				//Buy Food
 				if(currentCaps>=foodStuff[checkFood(item).foodName].buyPrice){
 	               			currentCaps-=foodStuff[checkFood(item).foodName].buyPrice;
 	               			foodStuff[checkFood(item).foodName].amount++;
 		               		sellCheck=true;
-		           	}
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">You purchased 1 "+foodStuff[checkFood(item).foodName].name+" for "+foodStuff[checkFood(item).foodName].buyPrice+" Shekels.";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+		           	}else{
+					var newElement3=document.createElement('p');
+					newElement3.class="speakable";
+					newElement3.innerHTML=">You cannot afford 1 "+foodStuff[checkFood(item).foodName].name+".";
+					$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+				}
 			}
 		}else{
 			if(item.split(' ')[0]=='weapon'){
