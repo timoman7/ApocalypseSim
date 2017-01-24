@@ -987,33 +987,65 @@ function remAttach(att){
 	attachmentInventory[att].amount--;
 }
 function deequipAttach(weapNum,slot){
-	if(playerInventory[weapNum].attachments[slot].canAdd && playerInventory[weapNum].attachments[slot].att.tier !== "stock"){
-		var attName = playerInventory[weapNum].attachments[slot].att.name;
-		attachmentInventory[playerInventory[weapNum].attachments[slot].att.dictName].amount++;
-		playerInventory[weapNum].attachments[slot].att={
-			tier:"stock",
-			name:playerInventory[weapNum].name+" "+playerInventory[weapNum].attachments[slot].slotName,
-			empty:false,
+	var validSlot=false;
+	var newSlot="";
+	switch(slot.toLowerCase()){
+		case "toprail" || "top" || "top rail":
+			validSlot=true;
+			newSlot="topRail";
+			break;
+		case "grip":
+			validSlot=true;
+			newSlot="grip";
+			break;
+		case "gunstock" || "gun stock" || "stock":
+			validSlot=true;
+			newSlot="gunStock";
+			break;
+		case "barrel":
+			validSlot=true;
+			newSlot="barrel";
+			break;
+	}
+	if(validSlot){
+		if(playerInventory[weapNum].attachments[newSlot].canAdd && playerInventory[weapNum].attachments[newSlot].att.tier !== "stock"){
+			var attName = playerInventory[weapNum].attachments[newSlot].att.name;
+			attachmentInventory[playerInventory[weapNum].attachments[newSlot].att.dictName].amount++;
+			playerInventory[weapNum].attachments[newSlot].att={
+				tier:"stock",
+				name:playerInventory[weapNum].name+" "+playerInventory[weapNum].attachments[newSlot].slotName,
+				empty:false,
+			}
+			return {name:attName,success:true,msg:"Removed "+attName+" from "+playerInventory[weapNum].name+"."}
+		}else{
+			return {name:false,success:false,msg:"Attachment slot of "+playerInventory[weapNum].name+" is either stock, or unmodifiable."}
 		}
-		return {name:attName,success:true,msg:"Removed "+attName+" from "+playerInventory[weapNum].name+"."}
 	}else{
-		return {name:false,success:false,msg:"Attachment slot of "+playerInventory[weapNum].name+" is either stock, or unmodifiable."}
+		return {name:false,success:false,msg:"Invalid slot."}
 	}
 }
 function equipAttach(weapNum,attName){
-	if(playerInventory[weapNum].attachments[attachmentInventory[attName].slot].canAdd && attachmentInventory[attName].amount>0){
-		var newSlot=attachmentInventory[attName].slot;
-		playerInventory[weapNum].attachments[newSlot].att=attachmentInventory[attName];
-		attachmentInventory[attName].amount--;
-		return {name:attName,success:true,msg:"Equipped "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+"."}
-	}else{
-		if(attachmentInventory[attName].amount < 1){
-			return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+", because you don't have any."}
-		}else if(!playerInventory[weapNum].attachments[attachmentInventory[attName].slot].canAdd){
-			return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+", because the "+playerInventory[weapNum].attachments[attName].slotName+" is not modifiable."}
+	if(attachmentInventory[attName]){
+		if(!playerInventory[weapNum].empty){
+			if(playerInventory[weapNum].attachments[attachmentInventory[attName].slot].canAdd && attachmentInventory[attName].amount>0){
+				var newSlot=attachmentInventory[attName].slot;
+				playerInventory[weapNum].attachments[newSlot].att=attachmentInventory[attName];
+				attachmentInventory[attName].amount--;
+				return {name:attName,success:true,msg:"Equipped "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+"."}
+			}else{
+				if(attachmentInventory[attName].amount < 1){
+					return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+", because you don't have any."}
+				}else if(!playerInventory[weapNum].attachments[attachmentInventory[attName].slot].canAdd){
+					return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+", because the "+playerInventory[weapNum].attachments[attName].slotName+" is not modifiable."}
+				}else{
+					return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+" for unknown reasons."}
+				}
+			}
 		}else{
-			return {name:attName,success:false,msg:"Could not equip "+attachmentInventory[attName].name+" to "+playerInventory[weapNum].name+" for unknown reasons."}
+			return {name:attName,success:false,msg:"You do not have a weapon with an id of "+weapNum+"."}
 		}
+	}else{
+		return {name:attName,success:false,msg:attName.replace("_"," ")+" is not a valid attachment."}
 	}
 }
 
@@ -3809,18 +3841,33 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						attachmentToAdd = item.split(" ")[1];
 					}
 				}
-				var attResponse=equipAttach(parseInt(weaponNumber),attachmentToAdd);
+				var attResponse=equipAttach(parseInt(weaponNumber),attachmentToAdd.toLowerCase());
 				console.log(attResponse);
 				newElement3.innerHTML+=">"+attResponse.msg;
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}else if(cmd == "remove"){
 				var newElement3=document.createElement('p');
 				newElement3.class="speakable";
-				var slotRemove=item.split(" ")[2];
+				var slotRemove="";
 				var weaponNumber=item.split(" ")[1];
+				if(item.split(" ").length>0){
+					if(item.split(" ").length>2){
+						for(var i=2;i<item.split(" ").length-1;i++){
+							slotRemove += item.split(" ")[i]+" ";
+						}
+						slotRemove += item.split(" ")[item.split(" ").length-1];
+					}else{
+						slotRemove = item.split(" ")[2];
+					}
+				}
 				var attResponse=deequipAttach(parseInt(weaponNumber),slotRemove);
 				console.log(attResponse);
 				newElement3.innerHTML+=">"+attResponse.msg;
+				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+			}else if(cmd == "help"){
+				var newElement3=document.createElement('p');
+				newElement3.class="speakable";
+				newElement3.innerHTML=">Valid commands: equip, remove<br>>\tequip [Weapon ID] [Attachment Name]<br>>\t\t[Weapon ID] - ID of weapon to put attachment on.<br>>\t\t[Attachment Name] - Name of the attachment.<br>>\tremove [Weapon ID] [Slot Name]<br>>\t\t[Weapon ID] - ID of weapon.<br>>\t\t[Slot Name] - Slot to remove attachment from.<br>>\t\t\tValid slots: topRail, gunStock, barrel, grip.";
 				$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 			}
 			
