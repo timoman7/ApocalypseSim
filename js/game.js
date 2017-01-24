@@ -5,6 +5,15 @@
 /**
 *	Define non-native functions
 **/
+function addText(textToAdd){
+	var newElement3=document.createElement('p');
+	newElement3.class="speakable";
+	newElement3.innerHTML="";
+	for(var i = 0; i < arguments.length; i++){
+		newElement3.innerHTML+=">"+arguments[i]+"<br>";
+	}
+	$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+}
 var $parent = document.createElement("div")
     $gif = document.createElement("img")
    ,$favicon = document.createElement("link")
