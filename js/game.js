@@ -3292,10 +3292,29 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 if (prefix.toLowerCase() == "inventory") {
                     dispInv();
                 }
+		function jonAndAndrewArePicky(direction){
+			var mhm=false;
+			var movement=[];
+			var pref=prefix.toLowerCase();
+			if(movement.includes(pref)){
+				if(direction=="left"){
+					mhm=true;
+				}else if(direction == "right"){
+					mhm=true;
+				}else if(direction == "up"){
+					mhm=true;
+				}else if(direction == "down"){
+					mhm=true;
+				}else if(direction == "any"){
+					mhm=true;
+				}
+			}
+			return mhm
+		}
                 if(enterBattle==0){
-                    if (prefix.toLowerCase() == "go" || prefix.toLowerCase() == "move" || prefix.toLowerCase() == "left" || prefix.toLowerCase() == "right") {
+                    if (prefix.toLowerCase() == "go" || jonAndAndrewArePicky("any")) {
                         if (playerY !== 0) {
-                            if (item.toLowerCase() == "north" || item.toLowerCase() == "up") {
+                            if (item.toLowerCase() == "north" || item.toLowerCase() == "up" || (jonAndAndrewArePicky("up") && item.toLowerCase() == "")) {
                                 playerY -= 1;
                                 room();
 				tick(5);
@@ -3304,7 +3323,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                 }
                             }
                         }else{
-                            if (item.toLowerCase() == "north" || item.toLowerCase() == "up") {
+                            if (item.toLowerCase() == "north" || item.toLowerCase() == "up" || (jonAndAndrewArePicky("up") && item.toLowerCase() == "")) {
 				createNewArea();
                                 playerY = 9;
                                 room();
@@ -3315,7 +3334,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             }
 			}
                         if (playerY !== 9) {
-                            if (item.toLowerCase() == "south" || item.toLowerCase() == "down") {
+                            if (item.toLowerCase() == "south" || item.toLowerCase() == "down" || (jonAndAndrewArePicky("down") && item.toLowerCase() == "")) {
                                 playerY += 1;
                                 room();
 				tick(5);
@@ -3324,7 +3343,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                 }
                             }
                         }else{
-                            if (item.toLowerCase() == "south" || item.toLowerCase() == "down") {
+                            if (item.toLowerCase() == "south" || item.toLowerCase() == "down" || (jonAndAndrewArePicky("down") && item.toLowerCase() == "")) {
 				createNewArea();
                                 playerY = 0;
                                 room();
@@ -3335,7 +3354,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             }
 			}
                         if (playerX !== 9) {
-                            if (item.toLowerCase() == "east" || item.toLowerCase() == "right") {
+                            if (item.toLowerCase() == "east" || item.toLowerCase() == "right" || (jonAndAndrewArePicky("right") && item.toLowerCase() == "")) {
                                 playerX += 1;
                                 room();
 				tick(5);
@@ -3344,7 +3363,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                 }
                             }
                         }else{
-                            if (item.toLowerCase() == "east" || item.toLowerCase() == "right") {
+                            if (item.toLowerCase() == "east" || item.toLowerCase() == "right" || (jonAndAndrewArePicky("right") && item.toLowerCase() == "")) {
 				createNewArea();
                                 playerX = 0;
                                 room();
@@ -3355,7 +3374,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                             }
 			}
                         if (playerX !== 0) {
-                            if (item.toLowerCase() == "west" || item.toLowerCase() == "left") {
+                            if (item.toLowerCase() == "west" || item.toLowerCase() == "left" || (jonAndAndrewArePicky("left") && item.toLowerCase() == "")) {
                                 playerX -= 1;
                                 room();
 				tick(5);
@@ -3364,7 +3383,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                                 }
                             }
                         }else{
-                            if (item.toLowerCase() == "west" || item.toLowerCase() == "left") {
+                            if (item.toLowerCase() == "west" || item.toLowerCase() == "left" || (jonAndAndrewArePicky("left") && item.toLowerCase() == "")) {
 				createNewArea();
                                 playerX = 9;
                                 room();
