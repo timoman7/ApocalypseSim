@@ -198,6 +198,7 @@ function setMaxCrops(n){
 //Level gui variables
 var levelGui;
 var levelUpBtn;
+var closeLevelBtn;
 function setup(){
 	img1 = loadImage('./images/brQeTf76.png');
 	background(0,0,0);
@@ -235,6 +236,12 @@ function setup(){
 	farmMode.option("Plant");
 	farmMode.option("Harvest");
 	upgradeCdfButton=createButton();
+	closeLevelBtn=createButton();
+	closeLevelBtn.id("closeLevelBtn");
+	closeLevelBtn.html("X");
+	closeLevelBtn.mouseClicked(closeLevelGui);
+	closeLevelBtn.position(10,10);
+	closeLevelBtn.hide();
 	upgradeCdfButton.id("upgradeCdf");
 	upgradeCdfButton.html("Upgrade farm for "+((cdf.tier+1)*10)+" Shekels.");
 	upgradeCdfButton.mouseClicked(upgradeFarm);
@@ -620,10 +627,14 @@ function updateLevel(){
 	}
 };
 function openLevelGui(){
+	closeLevelBtn.show();
 	levelGuiO=true;
+	farmGuiOpen=false;
 }
 function closeLevelGui(){
+	closeLevelBtn.hide();
 	levelGuiO=false;
+	farmGuiOpen=false;
 }
 //Weapon recreating
 function addWeapon(weapon){
