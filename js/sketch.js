@@ -975,6 +975,11 @@ for(var pyy=0;pyy<10;pyy++){
 	if(hunger>maxHunger){
 		hunger=maxHunger;
 	}
+	for(var i in foodStuff){
+		if(foodStuff[i].amount<0){
+			foodStuff[i].amount=0;
+		}
+	}
 	fill(0,255,127);
 	text("Heatlh: "+CurrentHealth+" of "+MaxedHealth,420,100);
 	text("Hunger: "+hunger+" of "+maxHunger,420,115);
