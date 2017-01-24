@@ -2986,7 +2986,8 @@ function jonAndAndrewArePicky(direction,boi){
 		up:["up","n","north"],
 		down:["down","s","south"],
 	};
-	var pref=boi;
+	var direction=direction||"left";
+	var pref=boi||"n";
 	if(movement[direction].includes(pref)){
 		return true;
 	}else{
