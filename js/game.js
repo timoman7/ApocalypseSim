@@ -978,7 +978,9 @@ var attachmentInventory={
 		craftOutput:1,
 	},
 };
-
+/**
+*  Give attachments attributes such as increased accuracy
+**/
 
 function addAttach(att){
 	attachmentInventory[att].amount++;
