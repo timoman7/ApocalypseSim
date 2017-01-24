@@ -1085,6 +1085,8 @@ function equipAttach(weapNum,attName){
 
 
 function craft(parentObj,recipe){
+	var parentObj = parentObj.toLowerCase();
+	var recipe = recipe.toLowerCase();
 	var pObj = {};
 	switch(parentObj){
 		case "ammo":
@@ -3571,7 +3573,7 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 			var foundFood=false;
 			var foodName="";
 			for(var foods in foodStuff){
-				if(itemName.toLowerCase()==foodStuff[foods].name.toLowerCase()){
+				if(itemName.toLowerCase()==foodStuff[foods].name.toLowerCase() || itemName.toLowerCase()==foodStuff[foods].abbr.toLowerCase()){
 					foundFood=true;
 					foodName=foods;
 				}else if(!foundFood){
@@ -3940,19 +3942,23 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 						itemToCraft = item.split(" ")[1];
 					}
 					var cat = {};
-					
+					var craftCat={};
 					switch(ctg){
 						case "food":
 							cat = foodStuff;
+							craftCat=foodStuff;
 							break;
 						case "ammo":
 							cat = ammo;
+							craftCat=materialInventory;
 							break;
 						case "material":
 							cat = materialInventory;
+							craftCat=materialInventory;
 							break;
 						case "attachment":
 							cat = attachmentInventory;
+							craftCat=materialInventory;
 							break;
 					}
 					for(var i in cat){
@@ -3962,34 +3968,51 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
 							}
 						}
 					}
-					if(cat[itemToCraft]){
-						if(cat[itemToCraft].craftable){
-							var craftedItem = craft(ctg,itemToCraft);
-							if(craftedItem){
-								console.log("Crafted",ctg,itemToCraft,cat[itemToCraft]);
-								var newElement3=document.createElement('p');
-								newElement3.class="speakable";
-								newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
-								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+					var andrewBrokeMyCrafting=false;
+					for(var i in cat){
+						if(cat[i].craftable){
+							for(var j in cat[i].materials){
+								if(craftCat[j].amount<cat[i].materials[j]){
+									andrewBrokeMyCrafting=true;
+								}
+							}
+						}
+					}
+					if(!andrewBrokeMyCrafting){
+						if(cat[itemToCraft]){
+							if(cat[itemToCraft].craftable){
+								var craftedItem = craft(ctg,itemToCraft);
+								if(craftedItem){
+									console.log("Crafted",ctg,itemToCraft,cat[itemToCraft]);
+									var newElement3=document.createElement('p');
+									newElement3.class="speakable";
+									newElement3.innerHTML+=">Crafted "+craftedItem.amount+" "+craftedItem.name+".";
+									$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+								}else{
+									console.log("Not enough materials",ctg,itemToCraft,cat[itemToCraft]);
+									var newElement3=document.createElement('p');
+									newElement3.class="speakable";
+									newElement3.innerHTML+=">Not enough materials.";
+									$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
+								}
 							}else{
-								console.log("Not enough materials",ctg,itemToCraft,cat[itemToCraft]);
+								console.log("Not craftable",ctg,itemToCraft,cat[itemToCraft]);
 								var newElement3=document.createElement('p');
 								newElement3.class="speakable";
-								newElement3.innerHTML+=">Not enough materials.";
+								newElement3.innerHTML+=">Item is not craftable.";
 								$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 							}
 						}else{
-							console.log("Not craftable",ctg,itemToCraft,cat[itemToCraft]);
+							console.log("Invalid",ctg,itemToCraft,cat[itemToCraft]);
 							var newElement3=document.createElement('p');
 							newElement3.class="speakable";
-							newElement3.innerHTML+=">Item is not craftable.";
+							newElement3.innerHTML+=">Invalid item";
 							$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 						}
 					}else{
-						console.log("Invalid",ctg,itemToCraft,cat[itemToCraft]);
 						var newElement3=document.createElement('p');
 						newElement3.class="speakable";
-						newElement3.innerHTML+=">Invalid item";
+						newElement3.innerHTML+=">Not enough materials.";
 						$(newElement3).insertAfter("#place_holder").hide().fadeIn(1000);
 					}
 				}else{
