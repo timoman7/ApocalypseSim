@@ -3313,25 +3313,6 @@ var sayMyName = document.getElementById('dispName'); { //Inputs and Commands
                 if (prefix.toLowerCase() == "inventory") {
                     dispInv();
                 }
-		function jonAndAndrewArePicky(direction){
-			var mhm=false;
-			var movement=[];
-			var pref=prefix.toLowerCase();
-			if(movement.includes(pref)){
-				if(direction=="left"){
-					mhm=true;
-				}else if(direction == "right"){
-					mhm=true;
-				}else if(direction == "up"){
-					mhm=true;
-				}else if(direction == "down"){
-					mhm=true;
-				}else if(direction == "any"){
-					mhm=true;
-				}
-			}
-			return mhm
-		}
                 if(enterBattle==0){
                     if (prefix.toLowerCase() == "go" || jonAndAndrewArePicky("any",prefix.toLowerCase())) {
                         if (playerY !== 0) {
