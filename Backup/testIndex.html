@@ -40,30 +40,26 @@ function draw(){
 		for(var i=0;i<fileToGet.rows[0].arr.length;i++){
 			tasks[fileToGet.rows[0].arr[i]]=[];
 		}
+		/*
 		tasks["Image Name"]=[];
 		tasks["PID"]=[];
 		tasks["Session Name"]=[];
 		tasks["Session#"]=[];
 		tasks["Mem Usage"]=[];
+		*/
 		for(var i = 1;i<fileToGet.getRowCount();i++){
 			var row=fileToGet.getRow(i).arr;
-			var ImageName=row[0];
-			var PID = row[1];
-			var SessionName=row[2];
-			var SessionNum=row[3];
-			var MemUsage=row[4];
-			tasks["Image Name"].push(ImageName);
-			tasks["PID"].push(PID);
-			tasks["Session Name"].push(SessionName);
-			tasks["Session#"].push(SessionNum);
-			tasks["Mem Usage"].push(MemUsage);
+			for(var j = 0;j<row.length;j++){
+				var ImageName=row[j];
+				tasks[fileToGet.getRow(0).arr[j]].push(ImageName);
+			}
 		}
-		newCanvas.size(window.windowWidth,20+(tasks["Image Name"].length*20));
 		background(255);
 		var cc=0;
 		for(var h in tasks){
 			cc++;
 		}
+		newCanvas.size(10+(cc*288),20+(tasks["Image Name"].length*20));
 		var counter=0;
 		for(var h in tasks){
 			fill(0);
