@@ -2985,6 +2985,7 @@ function jonAndAndrewArePicky(direction,boi){
 		right:["right","e","east"],
 		up:["up","n","north"],
 		down:["down","s","south"],
+		any:["down","s","south","up","n","north","right","e","east","left","w","west"],
 	};
 	var direction=direction||"left";
 	var pref=boi||"n";
