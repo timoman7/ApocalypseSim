@@ -949,6 +949,7 @@ var foodStuff={
 };
 /**
 * Object to create attachments: topRail, grip, barrel, gunStock
+* ATTACHMENTAREA
 **/
 var attachmentInventory={
 	red_dot_sight:{
@@ -957,6 +958,10 @@ var attachmentInventory={
 		name:"Red Dot sight",
 		type:"any",
 		amount:0,
+		effect:{
+			accuracy:0,
+			damage:0,
+		},
 		craftable:true,
 		material:{
 			glass:2,
@@ -972,6 +977,10 @@ var attachmentInventory={
 		name:"Rubber grip",
 		type:"any",
 		amount:0,
+		effect:{
+			accuracy:0,
+			damage:0,
+		},
 		craftable:true,
 		material:{
 			rubber:3,
@@ -986,6 +995,10 @@ var attachmentInventory={
 		name:"Silencer",
 		type:"any",
 		amount:0,
+		effect:{
+			accuracy:0,
+			damage:0,
+		},
 		craftable:true,
 		material:{
 			steel_casing:2,
@@ -1000,6 +1013,10 @@ var attachmentInventory={
 		name:"Extended Stock",
 		type:"any",
 		amount:0,
+		effect:{
+			accuracy:0,
+			damage:0,
+		},
 		craftable:true,
 		material:{
 			rubber:2,
