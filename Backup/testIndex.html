@@ -16,7 +16,7 @@ function preload(){
 	fileToGet=loadTable("yes.txt","CSV");
 }
 function setup(){
-	createCanvas(window.windowWindow,window.windowHeight);
+	createCanvas(window.windowWidth,window.windowHeight);
 	background(255);
 	for(var i=0;i<fileToGet.rows[0].arr.length;i++){
 		tasks[fileToGet.rows[0].arr[i]]=[];
