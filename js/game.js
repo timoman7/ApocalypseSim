@@ -5,6 +5,7 @@
 /**
 *	Define non-native functions
 **/
+var result;
 function addText(){
 	var newElement3=document.createElement('p');
 	newElement3.class="speakable";
@@ -1587,6 +1588,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 			}
 			firebase.auth().signInWithRedirect(provider);
 		}else{
+			result = result;
 			currentUser = firebase.auth().currentUser;
 			userDiv = document.createElement('div');
 			userDiv.id="userInformation";
