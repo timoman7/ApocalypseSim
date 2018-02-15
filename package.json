@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/timoman7/ApocalypseSim#readme",
   "devDependencies": {
-    "jest": "^22.1.4"
+    "jest": "^22.3.0"
   }
 }
