@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<MESSAGES>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>Shack</NAME>
+    <CONTENT>
+      >You see a rusty shack.
+    </CONTENT>
+  </MESSAGE>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>Room2</NAME>
+    <CONTENT>
+      >You entered room 2.
+    </CONTENT>
+  </MESSAGE>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>Room3</NAME>
+    <CONTENT>
+      >You entered room 3.
+    </CONTENT>
+  </MESSAGE>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>Room4</NAME>
+    <CONTENT>
+      >You entered room 4.
+    </CONTENT>
+  </MESSAGE>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>Cornfield</NAME>
+    <CONTENT>
+      >You encounter what seems to be an abandoned cornfield.
+    </CONTENT>
+  </MESSAGE>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>Merchant</NAME>
+    <CONTENT>
+      >You see a merchant.
+    </CONTENT>
+  </MESSAGE>
+  <MESSAGE TYPE='ROOM'>
+    <NAME>OriginalVault</NAME>
+    <CONTENT>
+      >It's the vault you were kicked out from.
+      [You notice a MASSIVE TITANIUM LOCK on the front of the shelter]
+    </CONTENT>
+  </MESSAGE>
+
+</MESSAGES>
